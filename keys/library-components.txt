@@ -1,0 +1,254 @@
+# 🧩 Mobile · Library b8maDlvYFFs2vagJxwxc4A — полная опись компонентов (сеты и одиночные), снято 2026-10-07 read-only.
+# Формат: имя | полный ключ | число вариантов | страница. Приватные «. /» на экран не импортируются (только через публичных родителей).
+# Для сопоставления по имени: убрать ❌, пробелы вокруг «/», регистр, хвостовые числа. Обновлять: scripts/pipeline/00b-library-inventory.js
+status-bar / ios | 79c6f5207c4819f4eea0c630063e6ba83475c847 | 12 | ↳ System Elem
+Android / Statusbar (new device) | 35accda93832a0a64315e7f9eff99023df32d218 | 12 | ↳ System Elem
+right | 2a57026e28ac043d9ad6138b669a4ffbb6c784bb | 8 | ↳ System Elem
+Android / Elements / Quick Settings | 21c0e1efb281b74b9c072df4e498a6fc42204713 | 13 | ↳ System Elem
+Android / Elements / Cellular bar | 0c96025f340c902170ebfa3dbb092f6e5070ac39 | 5 | ↳ System Elem
+Android / Elements / Wifi | b2ff67af62a0cdbe90a2951ec1a07553f1889df7 | 5 | ↳ System Elem
+Android / Elements / Battery | 7f1d75ca7891b0d07c6302be4cd41aad7305e742 | 7 | ↳ System Elem
+home-indicator / ios | e471214d2dffa82acf8217b0a1e935e62b5207b3 | 4 | ↳ System Elem
+navigation-bar / android | 604bdb58ff62b696fc8a3c4f47347ba7ee046488 | 8 | ↳ System Elem
+keyboard / iOS | 4ad1547b496b91204d0e91ff154d20f23656a692 | 8 | ↳ System Elem
+keyboard / android | fcf8b0f0eec4e74492ff940486fd67780f1ed7b4 | 2 | ↳ System Elem
+action-sheet / iOS | ce882661481b605dd21ab1bbda2f6b5e7ce122e1 | 2 | ↳ System Elem
+action-sheet / iOS / master | baa580e62db5d9d12a400c04d66c96f0e66963a8 | 6 | ↳ System Elem
+alerts / iOS | a645cd4d832d6aba517eecbc1973055287cde499 | 2 | ↳ System Elem
+alerts / iOS / master | 5fca49815766e9e15ec94dcf4399cb5235616aef | 10 | ↳ System Elem
+alerts / actions / iOS / master | 6e86ee453bd2f0c6781717eae4b8af3c56bcfc73 | 4 | ↳ System Elem
+toggle | 416a58a92fd3a5bbe107eab75f6f53aa1da564b6 | 16 | ↳ System Elem
+Top Navigation | 7b401b3874c7c4b471594a3e4e24520ce472b0f5 | 34 | ↳ Top Navigat
+. / top navigation / tabs | 4aeda66b0172bed061a95f412559677ce59139ca | 12 | ↳ Top Navigat
+. / top navigation / header | fa1b3932c57da63f5bf099034b47367526ed646b | 4 | ↳ Top Navigat
+. / top navigation / buttons | 6caaf02ab1872370e7faca3b0e7eb281e5eec5e1 | 2 | ↳ Top Navigat
+Fade | f494f9f93b67cd9462ff9cfe4f0939c93aeecbfd | 16 | ↳ Top Navigat
+navbar | d7db911301d47c94c4534eb841acf95c3cd87569 | 6 | ↳ Top Navigat
+underlay gradient | 215eff67eb98f2a5a3e7f5ea2fb9bba8886fe1c8 | 4 | ↳ Top Navigat
+Tabbar | d20586bac5ca08a97154b26f9b767420034b166d | 33 | ↳ Tabbar
+underlay gradient | 615aa49fe04ca311de21dbed8906255d838e7762 | 4 | ↳ Tabbar
+. / tabbar / master | f75462572ef5e59391eca8b50ab7b54294509121 | 8 | ↳ Tabbar
+. / tabbar / default tab | eff460b0fa77780ff1fc2e71846e382926a060c8 | 10 | ↳ Tabbar
+. / tabbar / main | 54cf52231ee9e8745ac2e76f3a37658ba897ddc7 | 2 | ↳ Tabbar
+. / tabbar / yaps icon | a3caed121f7e0bcb0d97562be8f765435e3eba41 | 10 | ↳ Tabbar
+. / tabbar / profile | 8bea32d26f392ff1a4834e1664cfb12046a7b081 | 2 | ↳ Tabbar
+. / tabbar / notification | 2823c721152d443c0de7a912b5284282d595462b | 3 | ↳ Tabbar
+button | 2781fb17aa9a7986b89626d2e769efad4c8ade7c | 360 | ↳ Buttons
+input | 37574dacc703c98f1203a64c5da9f7f7413eaa50 | 8 | ↳ Input
+navbar | c90308b61da1ab53bb2c55f2717667466d41e3fd | 6 | ↳ Navbar
+topnavbar | e7da855989877c9ba2ece6c93975940b63c55160 | 2 | ↳ Navbar
+. / navbar / searchbar | a74e185f7054ffa74c7679766ef8d6a598c96b94 | 6 | ↳ Navbar
+header | 409e75f2a9132b187f7f319c51f086509406d9df | 6 | ↳ Headers
+header / static-old | 77b566d20c18c850b2d7a89f544cbbf63f423c45 | 8 | ↳ Headers
+. / header / right | 6316fcc00f779e57c85c29608c4054d9ce6a6219 | 3 | ↳ Headers
+text-label | 3f786cb0e0017150a477cb5408f4154ca0d726d8 | 10 | ↳ Text Label
+text-label / title | ef1de233be4fe705ad134b8fbc0c6896394dea9b | 6 | ↳ Text Label
+text-label / description | a4e53cd22ef4b6cba6a7865ed8caa52b0dfeed9f | 8 | ↳ Text Label
+text-label / caption | 2d413511e82a9d751d9204d8b2686f2208d12114 | 4 | ↳ Text Label
+text-label / note | 996538262250dda3917d4c9eef367cfcc73506b5 | 6 | ↳ Text Label
+card / music / artist block | 52566f4b8fb8a3494ebc3bbdaf12685a2f5d45e4 | 3 | ↳ Cards
+card / music / open playlist | 5858c3ae5364174c71c80d74dc313505fb835da5 | 5 | ↳ Cards
+card / music / new release | de158d541a4c4a791fe8f1e3998457cc32fb5712 | 3 | ↳ Cards
+card / music / my vibe station | 8b6d9794caa4a403dec095ebd1fd5dee74bfc208 | 7 | ↳ Cards
+top statistic card | 3bfb88edc600be04aeeb6f6832ac6bb7c8e622fd | 4 | ↳ Cards
+card / music / my vibe station old | e58e5403ebd0e4cfa682a3b292e807b1958ae635 | 5 | ↳ Cards
+card / inline wizard | 1e0c7898438a0240d7a9604f2e27fd6994988e29 | 1 | ↳ Cards
+card / poster / default | 28f153dd72f25c59976542084c60544ee32a2f89 | 21 | ↳ Cards
+card / poster / monetization | f4b1a911b6ec7f1e45cc93c418529fc9cef63d5f | 6 | ↳ Cards
+card / poster / top-10 | 7a3182a4afdadcb7e3a4d3929f261b8c99d0890d | 30 | ↳ Cards
+card / poster / originals | 56cdd039066ec73acfd2c5aaefffcfea0e3a1e54 | 12 | ↳ Cards
+card / watching / movie | 549830c116ebe08c1d83f182472125b22cd345a8 | 18 | ↳ Cards
+card / watching / serial | d4ecc6c72efaadd9cb46d2254d16def8de2cc00f | 24 | ↳ Cards
+card / watching / tv-channel | 26e8f5b1f6d3e1f9b3261ba2053e4c0ec3d4cec6 | 9 | ↳ Cards
+card / watching / history | 42afc99902cc8ebe57fa5637fe40bd27fad4166d | 12 | ↳ Cards
+card / catchup | 554d9ed4e0be7efe11b5406279e2e166b067fb65 | 12 | ↳ Cards
+card / collection / default | e6c446263e83841b702a429fac2c58c9cf8ad643 | 8 | ↳ Cards
+card / trailer / default | 5a8d9f300218af41bd868ccbc9ae77b8a407176d | 6 | ↳ Cards
+card / action / default | 6aea40f2df5f740c1d644c86d2094468fd8986b7 | 6 | ↳ Cards
+. / card / poster | d21461312f8325f5d1b0a84508d079252c008214 | 6 | ↳ Cards
+. / card / watching | 8e576ae7d6a69e9ac61fa7878e0156d7fa859eec | 8 | ↳ Cards
+. / card / history | cd4d1e3a67ceea74d63f1043f6c47e935e9dfbbc | 6 | ↳ Cards
+. / card / trailer | 08201241c64e60ea28b545578375f498e62dc4c1 | 6 | ↳ Cards
+. / card / originals | d13b38c6e451bab57b6e4571439ec1b63890202d | 3 | ↳ Cards
+. / card / collections | cd79106ad3a2e97cceb9b6b07e9d990a88498ad8 | 3 | ↳ Cards
+. / card / image-movies | 070965fcbaaff254381d8f033b601e074270ec28 | 8 | ↳ Cards
+. / card / action | d608a3190d37ecee2ab714e66162546f7375a3a9 | 1 | ↳ Cards
+card / overlay | 42d2707f3338b1cf4ee4e244ce1d2900aa3bca14 | 6 | ↳ Cards
+badges | 4437f300ef0711c5e35269db0d3ca6ba44e81419 | 3 | ↳ Cards
+card / nameplates | 98112adcefbbe4f63e448fd89918cfcc3f0004ff | 2 | ↳ Cards
+card / labels | e634dd0043cebec029825b33f2118070185054a2 | 8 | ↳ Cards
+badge | 0154be209e714d0a58b537e0ae6e9006e0bed82b | 16 | ↳ Cards
+card / top-10 numbers | 730ac6f7a6deb32cea8332ecf4b67d63eb144c43 | 30 | ↳ Cards
+card / fade | 5d8bdc9ea32d8869bf33579bd0e44927aa2d561b | 1 | ↳ Cards
+card / text | 9e8f50b8964b41a0877a7204ea024949e8fa4c3b | 4 | ↳ Cards
+card / progress-bar | ef57e387a5486df114d881fc38ad8de8c9e1781f | 2 | ↳ Cards
+card / progress-bar / bar | 361e42ac9538bc5037c9bade3281cec68288c85c | 1 | ↳ Cards
+channel | da03a3ef454b2c200d0dce4e29bfc2d42e56b761 | 2 | ↳ Cards
+card / music / album | f8fd6a797ba55c5c2dd19a421ba584431a4be693 | 8 | ↳ Cards
+card / music / playlist | d3a1c90658d230f2f69a05895e13262f5a112f4f | 6 | ↳ Cards
+card / music / artist | 5daad87e309c6a92690c3f4c241ee81a96a877f3 | 6 | ↳ Cards
+. / card / album | 10c68d16feab398dcf34e27568d3d3cc4c1827d4 | 8 | ↳ Cards
+. / card / playlist | edeeef82f1581c6c3777c2b4e2aaac212c1bacba | 6 | ↳ Cards
+. / card / artist | b4958a2e8461b6820dc9f2c0090d5ccc56147954 | 6 | ↳ Cards
+. / card / image-music | 0f4636c61e80167197ec28312f920909f4ffff44 | 4 | ↳ Cards
+card / text | e83046f1cfd42067701dbd34dec0a0c4e3b15f5e | 2 | ↳ Cards
+shader | ffd697f8ea7503d3e0fbd2b5f6a206564e786257 | 2 | ↳ Cards
+artist block | 2a3c87f06fff64ad5cd61f70a529bfaea4793d97 | 2 | ↳ Cards
+list-item/modal-header/movies | 2bb8174ba6ecd9a5a68c2304de2e69c05c7ee85e | 2 | ↳ List Item
+list-item/downloads/movies | cb8bd43deb0f82c0dfdcea13e282d23b4ac49d17 | 4 | ↳ List Item
+list-item/regular/movies | 2e61f70e2baf06182d03a520fa8ed50e5868b75d | 2 | ↳ List Item
+list-item/suggest/movies | cb79abfc6cfa071e29ed50b7053c665091c7b7fe | 2 | ↳ List Item
+list-item/tv-channel/movies | 5ee94071c2ed3ed8a2c3793e09316df8c8bbf00e | 2 | ↳ List Item
+loading-status | ca0f0adf3d79f2e3e1018dfb3c3cc9dbab4df6e3 | 8 | ↳ List Item
+cover / downloads | f731a8b82021e2fe76fe9882cb109f5dff8f90fa | 2 | ↳ List Item
+cover / tv programm | f1089cad59ece670343d35005623f48686d829e1 | 2 | ↳ List Item
+list-item / button | cc14fa113a0a6edadcd7d865c13a75791acf2048 | 4 | ↳ List Item
+list-item / overlay | 77f54f8a6078afae49160cf5d0617202106a48a3 | 3 | ↳ List Item
+list-item / overlay vertical | 2f066e37c4351dc89d924928a38bf9522821af4f | 1 | ↳ List Item
+list-item / fade | 425f79dd5c1bc39cbb3ba6d73b8f4e90d6d5635f | 1 | ↳ List Item
+list-item / music | 58eb11b2326ff6786036be80219828e68c2f1e73 | 8 | ↳ List Item
+loading-status | 86f789ea1b98c4b9b1c69450da3054d8e44e7b56 | 2 | ↳ List Item
+cell | 2b4f4b0039edc356e34f2edf9d769634ca69fa95 | 2 | ↳ Cells
+cell / master | 2fe06e4e9df5ab04cd53ddb719f8e2650836ad67 | 2 | ↳ Cells
+cell / action | b80f60a40684cd558f9b99a3b55ff63c95604834 | 16 | ↳ Cells
+chips-row | 552e8650d0026a2e71e4e59a022bc4f020df7595 | 2 | ↳ Chips
+chips | 3ee666c709ef3cbd1f7d527bc952e226205d8a4b | 18 | ↳ Chips
+seasons | 9b526ca8a47c0c4952055df7c2443a0573cc9758 | 2 | ↳ Chips
+.segmented-controls / season | ee16c2136d8ff81614d1bf657bf28967b4a6ae09 | 2 | ↳ Chips
+toast | d582cd436a4597e008037bcb5cddaf6bff0b83df | 12 | ↳ Toasts
+Bottom Sheet | d196f493bb0bd833add6a2431ccdd7a55ed6e1d5 | 6 | ↳ Bottom Shee
+modal-sheet / header | 933411c8151af902bad8c2f323a3b0002b521210 | 6 | ↳ Bottom Shee
+/ controls / close | ac2d7d33d6a7fbd3f66748f67624f130a71d4ff5 | 1 | ↳ Bottom Shee
+modal-sheet / placeholder | acef1351d882e5034ea6ba0835926c97f3d2a7f2 | 1 | ↳ Bottom Shee
+spinner | bbe582b4372c5acdc57e69aed0927a271bcd06d5 | 8 | ↳ Spinner
+. / spinner | 29f7de9ebe272ead0631f8dfae3e7c492e55cc9b | 1 | ↳ Spinner
+divider | 755af8e8f56e59bd7bf56758e3a5734962331a9b | 6 | ↳ Divider
+pager | 5ad158ccf6572b12e546e9661aa25f4e8ab36377 | 45 | ↳ Pager
+hint | f4cf27aff873678679717533e32c36672180029b | 6 | ↳ Hint
+hint / primary / text | 80360607f87c487de6a730a2110c0b83a42a56ae | 1 | ↳ Hint
+hint / primary / action | 3af6500cce447321d9ec3062839a1d70dbeb388f | 1 | ↳ Hint
+hint / corner | 6b46276b11bea2a0227840cd789e63e2db169af8 | 1 | ↳ Hint
+avatars | 84b7cfbdf9fe0ba3ad5ff358da6f22ae4b9098f5 | 32 | ↳ Avatars
+avatars / aura | 89221aa31217811d0293ffc3a108b9fc4204efc5 | 1 | ↳ Avatars
+avatars / progress | ef5ba360d437a5c6a3257648513327bc5764ff60 | 2 | ↳ Avatars
+avatars / no-ava | 6cb2cf43c5d3643cdfbc610aa496c215c25398af | 1 | ↳ Avatars
+carousel / Movies | 4d1844b63ed905a432c3bb5c545593393d5ff6fe | 14 | ↳ Carousels
+carousel / Music / xsmall cards | aaaefc96c044e1303a622a52b96b69cd83c12d12 | 8 | ↳ Carousels
+carousel / Music / small cards | d7a3396c38aade83ee3dfec71e715c5dc4f446d9 | 8 | ↳ Carousels
+carousel / Music / medium cards | ad174d02e9060ce3955edb8525849a351f39b2bd | 8 | ↳ Carousels
+carousel / Music / large cards | 652eb5fb080ad52861d85e716ecc96ba0b4a770c | 8 | ↳ Carousels
+carousel / Music / opened playlist | 90150d2345f30fbaffd7c606875095fc4226f024 | 8 | ↳ Carousels
+carousel / Music / my vibe stations | 30ebf30c7d0dfd5960b2f12717e4fd98e81ac0a2 | 2 | ↳ Carousels
+carousel / Music / new releases | 5ce1a4624bd027ede30338eb4e3c2ec7e4e7312a | 2 | ↳ Carousels
+my vibe module | e83b55787c00487ddfe3e5a0627df3319495e0c1 | 2 | ↳ My Vibe
+my vibe button | 71b7c60a4b26d011b0ccf9adbc0da4dd645921b5 | 8 | ↳ My Vibe
+my vibe carousel | 6e70701ac54de7cadf71897e1a3581e3674ff0d4 | 1 | ↳ My Vibe
+station chips | 13dc4cc80b7b399d928393573d416d08c3780582 | 8 | ↳ My Vibe
+generator | 39cebd58e8e28bb876c8572437d7efdab3c7c722 | 6 | ↳ My Vibe
+wizard entry point | 37f0f5daf6e8cd91c9a127692f919097d9586de9 | 1 | ↳ My Vibe
+. / artist-carousel | b71e17f134c737b59b20d31b95f15eeb8e636ce4 | 1 | ↳ My Vibe
+header | 4d0a8cb4cd30d60e33531a567f7f2cd4e2f1959c | 3 | ↳ Artist / Al
+. / cover | 41a271fc254acbf22321152aa1a07cc10d4669e0 | 2 | ↳ Artist / Al
+. / header title | 3a2faf1a72100e2e2fe3a512a323f0a8a1f2527b | 2 | ↳ Artist / Al
+. / download button | 3dff2ddb07ae33a8f9959ca968a9d0c6102f16be | 3 | ↳ Artist / Al
+mini-player | 8b7580657bc95f6cbbea955998678e0526bf73fb | 4 | ↳ Mini Player
+timeline | acf80f06d7e2b8679f967c71d556fac1b323f527 | 4 | ↳ Mini Player
+player | 9c35f7563b4c2bd4784733234f1ffee2cf70c750 | 6 | ↳ Video Playe
+player / video | 6b0e087ffd69e311c9eca4c8812de660be4d548c | 2 | ↳ Video Playe
+player / overlay | 040c301e922905cc35144c2a7b39cbb7ee547ab2 | 6 | ↳ Video Playe
+player / lock | 5ea1e1ebd7b6c9aed8a6ba09af1b4242d703987b | 3 | ↳ Video Playe
+player / restriction label | 6527144d6276ddc6a71973f35eadbfd62d0df2af | 1 | ↳ Video Playe
+player / text label | 8b4d5ed8a89b39faa8c4abf8a9c300a1de285e87 | 4 | ↳ Video Playe
+player / control-bar / controls | b50fafeebcb0df1c516a5208d1d95bc1c6eb21d3 | 18 | ↳ Video Playe
+player / control-bar / custom-icons | 1693aad99e1a20fd8fc2cb6c9be1f16f1fe1712a | 2 | ↳ Video Playe
+player / top-bar / controls | e7d7e47f46a04989c2d207e645c1c1fccd08416a | 2 | ↳ Video Playe
+player / top-bar / meta | a1f2f60ccc566fcb4da445d69b528694bb0074f4 | 1 | ↳ Video Playe
+player / playback / controls | 7963e2b04df42442a4107b06d159f85e6489b323 | 1 | ↳ Video Playe
+player / playback / types | b1548ca84645a40a63cd9c3dd43e92d48c8cc209 | 9 | ↳ Video Playe
+player / progress-bar | 57d2393637da131bec4f6b22e5f1ea6d7fa60bb1 | 2 | ↳ Video Playe
+player / widgets / watch-next | f2e2f718115b487817b49676572d821a9eec26ba | 1 | ↳ Video Playe
+pip / ios | 725c1c5685c81d6a78946737b9aebd37fb4e28c7 | 6 | ↳ Video Playe
+pip / android | d49d527464f66161f4bafcf6f568f84d4eac3d1d | 6 | ↳ Video Playe
+player / modal-sheet / header | 88cda05642b26af1f44b7b549ba93f62900d81b4 | 4 | ↳ Video Playe
+player / modal-sheet / section-header | 1bd3076b7cb4d64d77ba4bc5ac9377aaeb17af81 | 1 | ↳ Video Playe
+player / modal-sheet / cell | afb4585c5eab3c49cc28aa533c92b614755f65d1 | 2 | ↳ Video Playe
+player / modal-sheet / cell / text | 74718efd3bb2aef29bf47d058fd2f8cfeec52b52 | 1 | ↳ Video Playe
+player / modal-sheet / cell / right | f7be870e9b46adecceb49258f02a0f85ebc21da3 | 7 | ↳ Video Playe
+player / tv-channels / list / cell | ade9f885051ce2beae94299b5e495e833258392b | 6 | ↳ Video Playe
+.player / tv-channels / corner | f60cf24e0632225a80dbaaa6d696866c3d85ea41 | 1 | ↳ Video Playe
+player / tv-channels / list-item | b8426ba015548edf99bb51aba21846a6d1488a7f | 6 | ↳ Video Playe
+import/banners | ec171a30b7287ca27de1e7bc694e7b55e924cd77 | 4 | ↳ Banner
+import/icons | 7b590fc96b44eab40bece5d2943c080fe5935c00 | 8 | ↳ Banner
+Promo Block | 1b90a4bb24065bc2bc532acffa5ae35fac8d6aa4 | 12 | ↳ Promoblock
+./promo-block/logo | 7825c5d389b3886c19fd2bda681f34ee0096ed85 | 6 | ↳ Promoblock
+./promo-block/partner | 24bd497f425fce27b3e6b54096133124b0223f54 | 4 | ↳ Promoblock
+./promo-block/button | 2508aba92159d22673fa720854576a36d4ae0e73 | 6 | ↳ Promoblock
+foot-note | 8c62202d9043ca99592eccfaa4f3eb030780d77f | 10 | ↳ Promoblock
+Video card | 9726f36c541244a5521261e7152f6c7883666f77 | 4 | ↳ Video Cards
+Logo | 062caeedc54ad064c5314b311a29fbfbce7485cd | 8 | ↳ Video Cards
+Badges & meta | 15661be5350f22cf425c424cca993191b6ba0ab0 | 2 | ↳ Video Cards
+Buttons | 79839a925a06a70a2f24f2b2070b1908cb40e43a | 6 | ↳ Video Cards
+title | 8f6df4d262fe28e200ea5cb8e6a3da752044c37a | 12 | ↳ Title Card
+title / logo | a9c49d7a22b42612a68796319f82973aecfcdb20 | 6 | ↳ Title Card
+title / buttons-stack | 4da90ff10476c933c9cb55b9a7a8ee8ce99d9dac | 18 | ↳ Title Card
+trailer controls | ebafe98c5ac1097e0f4b107d7ad91f09ba0f5b5a | 2 | ↳ Title Card
+. / title / download button | 9878c93964d67c48c075e33f1155bc0399b71bc3 | 7 | ↳ Title Card
+. / title / actions | a07568a7d5aa7b55668f02c9bf66e6b382db2066 | 2 | ↳ Title Card
+. / buttons / rate | e171a058a87469f273b3da76e916797a98a19be0 | 2 | ↳ Title Card
+. / buttons / add | 76c93f95e717f7b3d099169a7d4bb9612f57b910 | 2 | ↳ Title Card
+. / buttons / share | 8e7dad6b7ebf6bd104dc049f8fff0bfa6cddc59e | 1 | ↳ Title Card
+. / buttons / more | 87b2e31e90b9384e722d636a3b529077fed454b5 | 1 | ↳ Title Card
+. / title / meta | 45eb368d13dfd7916183b01c42656697e6066f01 | 8 | ↳ Title Card
+title / mine rating | 8906c86092864972ac637a6c507127e9df0446e1 | 3 | ↳ Title Card
+. / rating | 1f43e2bea62af148608fc83bdcfa68bb33c19bef | 4 | ↳ Title Card
+. / title / quality icons | 979ab2ca271bb922f5f4372b688d4a4ae9cf38b0 | 4 | ↳ Title Card
+disclaimer | e4f6ef4837c81fd09f3b4e1b1dcda2123b7797ce | 2 | ↳ Title Card
+title / description | 1b15d45e232bde77c73fa6ba5027b0622539c9f7 | 2 | ↳ Title Card
+title / note | 32676d3be04e5257eb35d21279776ea209806404 | 2 | ↳ Title Card
+title / additional / video meta | 5796f1e35ce8f2cf43b1f82170c6714cb0e3bc0b | 4 | ↳ Title Card
+title / additional / rate / rating | ca0b1303754dfab8660cd944f071d42c7c459515 | 3 | ↳ Title Card
+title / additional / rate / control | d9701d5147ab3586542b1404ba1ee28d50d262c3 | 10 | ↳ Title Card
+title card new | 5222e06e201f211bbd6382cf5d9086139e3d2736 | 8 | ↳ Title Card
+title / header | b3ac2d8ae674fef3a7d022c73a570324eac6acef | 2 | ↳ Title Card
+title / cover | 265bc417af807588cab59d70a8f2639d6cafda9f | 1 | ↳ Title Card
+title / info | 180bda7a59909532014e14029579336d5660b094 | 2 | ↳ Title Card
+video card | 89e7b5ab80d021f9707ce9e506c79a9248a2653b | 2 | ↳ Title Card
+main buttons | fd6bfa144d840ae632d77c82b5de36b9bfeefb8c | 1 | ↳ Title Card
+title / logo | 4dd16e38cd81ab13828053af85e251a9d67f7bce | 4 | ↳ Title Card
+main buttons / buttons-stack | 86839b6b472171a803d96bfb29ad3da06f238167 | 22 | ↳ Title Card
+main buttons / download button | 9917f3bd03e3bac3634bdc5699305cf79e27e3a0 | 7 | ↳ Title Card
+title / sound | c72a333671c6c65a3647225e2ff5b8a987aa1122 | 4 | ↳ Title Card
+title / actions | 3866315b2363677dc152de610428352bb001e583 | 2 | ↳ Title Card
+title / meta | 51767af55257f555ab0acc5c1823786d8e366287 | 2 | ↳ Title Card
+Rate | 33dc2c0b4f9ac4ad036ef27c077301666886c860 | 6 | ↳ Title Card
+title / label & argument | 233439e1f4e479bf704f5996cb62fdc3baa67fba | 6 | ↳ Title Card
+Description | c9fe51cccc94842b4d8af44e19849cf6bbb37533 | 6 | ↳ Title Card
+title / additional / video meta | 84fa28c7436439bc328835c79b82e28e282b13b7 | 4 | ↳ Title Card
+Promocode Widget | dcf73e6313108fa202788fd7e93fa67e74ddb6d5 | 6 | ↳ My Yango
+Promocode Partner Logo | 19359b44a6b9929ab12727093fc697233a644548 | 10 | ↳ My Yango
+My Yango Subscription Widget | 5e410880d68c34a0b9ae6bb52e2d33053423e1d1 | 30 | ↳ My Yango
+My Yango Subscription Logos | 2af767e99ef65d1b206331d5a6522d8b404ceb2a | 2 | ↳ My Yango
+Smart home Widget | ad4e17d12c74552215adc661978e1535908ab5e3 | 4 | ↳ My Yango
+Smart Home Image | 631c1b821fe26d01b2040768ff441677598349c8 | 2 | ↳ My Yango
+Family Widget | 9fae06ee1eff0d50967cca955943550dbdeb1ceb | 8 | ↳ My Yango
+Paywall tariff cards | 933c56d627c7015f6ba416853454142b01e16f2f | 32 | ↳ Paywall 🚧
+.Paywall/Icon | af6ec09d2c52e8564a99d6723291eb82ac878fc6 | 9 | ↳ Paywall 🚧
+Paywall/Text tag | bb27fbd8c2eafcb41d77d8acd2521dbbac6ad95b | 1 | ↳ Paywall 🚧
+Widgets/Paywall | 05ea9de9e7258bd0db64525ee0c49d4e0fc02661 | 12 | ↳ Paywall 🚧
+.Paywall/Price display | 50fe65b0c580911c0ba7a447ec1e41b0d7cf378f | 4 | ↳ Paywall 🚧
+Segmented control | f31d3664f0009c7b36e3a32d4aeba4f25523c0e2 | 4 | ↳ Paywall 🚧
+Paywall Background Mobile | a5513b45d08dac710ca79e1d68efd7adfd11db5e | 1 | ↳ Paywall 🚧
+Paywall Background Tablet | e3d56e9c2525332ad2d60e362101484d79cd0845 | 1 | ↳ Paywall 🚧
+Paywall Illustration | 9bddf0da52dba2a57550ca51ac6e81f4a72764bd | 1 | ↳ Paywall 🚧
+Paywall Offers | dd4ca4f105c5f628a20c33ca14ed0a077d60891f | 1 | ↳ Paywall 🚧
+Loginwall Text | 91b72a92b9e7ec6222e8ec862b864ac7e06e94b4 | 1 | ↳ Loginwall YaPS
+Loginwall Background Mobile | 2bbf9a8c94bf70814ed24cf8ecb114859b4f764c | 1 | ↳ Loginwall YaPS
+Loginwall Background Tablet | fd8c9866e525876f15f1fc5f9dddae06bcaab803 | 1 | ↳ Loginwall YaPS
+error | 6ac1cb2eb90fe1d7b3a5fcc241be36da6a3f7c68 | 2 | ↳ Empty States
+Communication / Promo Bottom Sheet | 7db8ac7ac828b4fd169198ee400f0808a9eb811a | 2 | ↳ Communication
+Communication / Tablet Popup | 9a3361bd77411e74875b2d94429d3f3643695d2d | 4 | ↳ Communication
+Communication / Fullscreen | 8195d6fe8c0b0136905aa111a817bf8c18ba882a | 2 | ↳ Communication
+Communication / Tour Update | 98c8ae9352289c080956ccf39f19fc2e1695e56d | 6 | ↳ Communication
+Communication / Micro promoblock | 518bd022ac44edca73a0a6bb292cffdeecea5839 | 2 | ↳ Communication
+Communication / Promo Notification | 4cfabe2d1a0462dce0f8af5afe2d4ef76b8f7d8b | 4 | ↳ Promo Notifications
+Communication / Red Alert | 18b5f9f0a6fcc4645c623ef20f1168d5cad64235 | 6 | ↳ Red Alerts
