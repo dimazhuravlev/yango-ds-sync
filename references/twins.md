@@ -50,6 +50,7 @@
 | error `23ae2de0` | `error` `6ac1cb2e` | |
 | Communication / Fullscreen `e9b21036`, / Tour Update `317ecefc` | `8195d6fe`, `98c8ae93` | те же оси |
 | My Yango Subscription Widget, Family Widget старых версий | `My Yango Subscription Widget` `5e410880`, `Family Widget` `9fae06ee` | тот же вариант; если тексты варианта в Library другие — вернуть свои по порядку видимых текстов |
+| `cell / description` `7377c6db` отдельно, подписью под полем (не в ячейке) | `text-label / note` `99653826` (ошибка — `Type=alert`, красный) или `text-label / description` `a4e53cd2` | текст через свойство `Text`, ширина FILL, выравнивание текста вернуть (шрифт грузить после вставки: в ЯПС он YS Text) |
 | toast (+ text / action / helper), dialogue, informer, segmented-controls | `toast` `d582cd43` для фрейма «иконка + текст»; остальным двойника нет | |
 
 ## Кнопки → `button` `2781fb17`

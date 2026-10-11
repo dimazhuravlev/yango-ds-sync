@@ -47,6 +47,8 @@ function nearestFor(s) { const fam = s.fontName.family, size = s.fontSize, heavy
   if (BRAND !== 'YaPS' && /^Yango Text/.test(fam) && size >= 28) return pick('YT', 24, heavy ? 'S' : 'M'); // owner: Yango Text >= 28 → Title S 24
   if (size >= 28) return pick(H, nearest([56, 48, 40, 32, 28], size));
   return pick('YT', nearest([24, 18, 15, 13, 11], size), heavy ? 'S' : 'M'); }
+const REG = /^(Regular|Light|Book|Thin)$/i, TEXTFAM = /^(Yango Text|YS Text)/; // Regular нигде не используется (Library · Base / Typography)
+function scaleFor(z) { const v = nearest([24, 18, 15, 13, 11], z); return LKEYS.find(x => x.f === 'YT' && x.z === v && x.w === (v >= 18 ? 'S' : 'M')); } // 18/24 Semibold, 11/13/15 Medium
 function exactFor(fn, size) { const z = Math.round(size); if (Math.abs(size - z) > 0.02) return null; const f = fn.family, st = fn.style; const heavy = /Bold|Semi|Heavy|Black|Extra/i.test(st); let fam;
   if (/^Yango Group Headline AR/.test(f)) fam = 'HAr'; else if (/^Yango Group Headline/.test(f)) fam = /ExtraBold|Black|Heavy/.test(st) ? 'HEn' : 'HAr'; else if (/^YS Display|^Yango Headline$/.test(f)) fam = 'YaPS'; else if (/^(Yango Text|Yango Text Display|YS Text|Inter|Graphik)/.test(f)) fam = 'YT'; else return null;
   if (fam !== 'YT') fam = BRAND === 'YaPS' ? 'YaPS' : (fam === 'YaPS' ? 'HEn' : fam); // headline of the wrong brand → own brand, same size
@@ -65,16 +67,19 @@ for (const t of texts) { try {
   for (const sg of fsegs) { const s = await st(sg.id); if (!s || LT.has(s.key.slice(0, 8))) continue;
     if (isSystemStyle(s)) { inc(res, 'F skip system'); continue; }
     if (EXPERIMENTAL.test(s.fontName.family)) { inc(res, 'F skip experimental'); continue; }
-    if (!/^(top|master)$|:override$|^in-L:follows$/.test(c)) { inc(res, 'F skip ' + c.replace(/:.*/, '')); continue; }
-    const e = nearestFor(s); if (!e) { fails.push('notarget ' + t.id + ' ' + esc(s.name)); continue; }
+    const isReg = REG.test(s.fontName.style) && TEXTFAM.test(s.fontName.family); // Regular — и внутри чужих китов: переопределением
+    if (!(isReg && c === 'in-other') && !/^(top|master)$|:override$|^in-L:follows$/.test(c)) { inc(res, 'F skip ' + c.replace(/:.*/, '')); continue; }
+    const e = isReg ? scaleFor(s.fontSize) : nearestFor(s); if (!e) { fails.push('notarget ' + t.id + ' ' + esc(s.name)); continue; }
     const tg = await lstyle(e); inc(maps, esc(s.name).slice(0, 30) + ' (' + String(s.fontName && s.fontName.family).replace('Yango ', 'Y') + ' ' + s.fontSize + ') -> ' + esc(tg.name).slice(0, 26));
     if (!DRY) { try { await figma.loadFontAsync(tg.fontName); if (sg.whole) await t.setTextStyleIdAsync(tg.id); else await t.setRangeTextStyleIdAsync(sg.start, sg.end, tg.id); inc(res, 'F done'); } catch (err) { fails.push(t.id + ' ' + String(err.message || err).slice(0, 60)); } } else inc(res, 'F would');
   }
-  if (usegs.length) { if (/^in-other/.test(c)) { inc(res, 'U skip in-other'); } else for (const sg of usegs) {
+  if (usegs.length) { for (const sg of usegs) {
+    const isReg = !!sg.fn && sg.fn !== figma.mixed && REG.test(sg.fn.style) && TEXTFAM.test(sg.fn.family);
+    if (/^in-other/.test(c) && !isReg) { inc(res, 'U skip in-other'); continue; }
     if (!sg.fn || sg.fn === figma.mixed || /SF Pro|SF Compact|Roboto|New York/.test(sg.fn.family)) { inc(skipU, 'system'); continue; }
     const key = sg.fn.family.replace('Yango ', 'Y') + ' ' + sg.fn.style + ' ' + (Math.round(sg.z * 100) / 100);
     if (EXPERIMENTAL.test(sg.fn.family)) { inc(skipU, 'experimental ' + key); continue; }
-    const e = exactFor(sg.fn, sg.z); if (!e) { inc(skipU, key); continue; }
+    const e = isReg ? (Math.abs(sg.z - Math.round(sg.z)) > 0.02 ? null : scaleFor(sg.z)) : exactFor(sg.fn, sg.z); if (!e) { inc(skipU, key); continue; } // Regular 14 → 13 Medium: шкала 11/13/15/18/24, ничья → меньший
     const tg = await lstyle(e); inc(maps, 'U ' + key + ' -> ' + esc(tg.name).slice(0, 26));
     if (!DRY) { try { await figma.loadFontAsync(tg.fontName); if (sg.whole) await t.setTextStyleIdAsync(tg.id); else await t.setRangeTextStyleIdAsync(sg.s, sg.e, tg.id); inc(res, 'U done'); } catch (err) { fails.push('U ' + t.id + ' ' + String(err.message || err).slice(0, 60)); } } else inc(res, 'U would');
   } }
