@@ -16,7 +16,7 @@ const ORG = new Set("298d220f,48dc1588,0677f3d9,e343e77d,38278503,302d3a70,394b0
 
 // --- тело. Одна страница за вызов; тяжёлые идут 60–110 с. Собирать через build.py (подставит ключи Library).
 figma.skipInvisibleInstanceChildren = false;
-const LC = /*@LC*/;
+const LC = /*@LC*/; const GR = /*@GR*/; // Графика — тоже ДС: внутри её иконок цвет мастера = хвост, не переопределение
 const esc = s => String(s).replace(/[^\x20-\x7e]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
 const setOf = m => m.parent && m.parent.type === 'COMPONENT_SET' ? m.parent : m;
 const hx = c => [c.r, c.g, c.b].map(x => Math.round(x * 255).toString(16).padStart(2, '0')).join('');
@@ -31,9 +31,10 @@ const st = { own: 0, foreign: 0, libOverride: 0, libTail: 0, err: 0, unmatched: 
 for (const pg of figma.root.children.filter(p => PAGES.test(p.name))) { await pg.loadAsync();
   const roots = ONLY ? (await Promise.all(ONLY.map(id => figma.getNodeByIdAsync(id)))).filter(n => n && !SKIP_ROOT.has(n.id)) : pg.findAll(n => { if (n.type === 'COMPONENT' && !(n.parent && n.parent.type === 'COMPONENT_SET')) return true; if (n.type === 'COMPONENT_SET') return true; if (!isScreen(n) || !n.parent || !(/hStack|vStack/.test(n.parent.name) || /^(PAGE|SECTION)$/.test(n.parent.type))) return false; let a = n.parent; while (a && a.type !== 'PAGE') { if (a.type === 'INSTANCE' || a.type === 'COMPONENT') return false; a = a.parent; } return true; }).filter(n => { let a = n; while (a && a.type !== 'PAGE') { if (SKIP_ROOT.has(a.id)) return false; a = a.parent; } return true; });
   for (const R of roots) for (const n of [R, ...R.findAll(() => true)]) {
+    { let a = n.parent, inBool = false; while (a && a.id !== R.id) { if (a.type === 'BOOLEAN_OPERATION') { inBool = true; break; } a = a.parent; } if (inBool) continue; } // дети булевой операции не рисуют свою заливку (малые иконки Графики — union над 48-вариантом)
     if (n.type === 'SECTION' || (/^(SECTION|PAGE)$/.test(n.parent.type) && !/^(FRAME|COMPONENT|COMPONENT_SET|INSTANCE|GROUP)$/.test(n.type))) continue; // фон секции и подписи на холсте — не макет
     let top = null; let b = n.type === 'INSTANCE' ? n : n.parent; while (b && b.id !== R.parent.id) { if (b.type === 'INSTANCE') top = b; b = b.parent; }
-    let M = null, kind = 'own'; if (top) { try { M = top.mainComponent; } catch (e) {} if (!M) continue; const sk = (setOf(M).key || '').slice(0, 8); if (ORG.has(sk)) continue; kind = !M.remote ? 'local' : (LC.has(sk) ? 'lib' : 'foreign'); }
+    let M = null, kind = 'own'; if (top) { try { M = top.mainComponent; } catch (e) {} if (!M) continue; const sk = (setOf(M).key || '').slice(0, 8); if (ORG.has(sk)) continue; kind = !M.remote ? 'local' : (LC.has(sk) || GR.has((setOf(M).key || '').slice(0, 10)) ? 'lib' : 'foreign'); }
     if (kind === 'local') continue; // локальные мастера — корни этого же прохода
     for (const field of ['fills', 'strokes']) { const arr = n[field]; if (!Array.isArray(arr) || !arr.length) continue; let changed = false;
       const next = arr.map((p, i) => { if (p.type !== 'SOLID' || (p.boundVariables && p.boundVariables.color) || p.visible === false || (p.opacity ?? 1) < 0.01) return p; const k = keyOf(p); const vn = ((field === 'strokes' || FGT.has(n.type)) ? FG : BG)[k]; if (!vn) { st.unmatched[k] = (st.unmatched[k] || 0) + 1; return p; }
