@@ -74,6 +74,8 @@
 ## Тексты, шрифты, цвета
 
 - Тексты — только на 28 стилях Library (`text-and-color.md`). Без стиля — баг; чужой стиль — ближайший Library.
+- Начертания Regular и Bold исключены полностью (Library · Base / Typography): Yango Text / YS Text — только Medium
+  (11, 13, 15) и Semibold (18, 24, кнопки, заголовок навбара). Regular на экране — баг даже внутри чужого кита.
 - Шрифты другого бренда в макете быть не может: в ЯПС — только YS Text / Display (через стили Library и режимы
   бренда), в Yango Play и Allplay — Yango Text / Yango Group Headline. Исключения: логотипы, текст книги в читалке.
 - Экспериментальные шрифты (Yango Headline ML 2 Black, Yango Group Headline Var Heavy, YS Market VF) не трогать.
