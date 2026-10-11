@@ -6,8 +6,8 @@
 //              не видит — это инструмент Figma MCP `get_libraries` (gates.md, Ш2);
 //   fonts    — шрифты брендов, которые есть на страницах файла, доступны MCP (иначе тексты на них не трогаются);
 //   snapshot — есть ли уже слепок «до» этого скилла в файле, его дата и формат;
-//   lost     — признаки, что подписи уже слетели: на видимых местах внутри инстансов стоят заглушки мастера
-//              (Title, Description, Label…). Значит, обновления библиотек приняли раньше слепка.
+//   lost     — заглушки мастера на видимых местах внутри инстансов (Title, Description, Label…): слетевшие раньше или
+//              стоявшие в макете изначально. Не шлагбаум — повод для вопроса дизайнеру, заполнять ли (SKILL.md, 4b).
 // Чего API не видит: сохранена ли версия в истории Figma и приняты ли обновления до этой проверки. Это подтверждает
 // человек; ожидающие обновления покажет 00c (CHECK_UPDATES) — уже после слепка.
 // Ответ: gates — список шлагбаумов { id, ok, ask }. Человеку передать только непройденные, по шаблонам SKILL.md.
@@ -48,5 +48,5 @@ if (PAGE_ID) { const pg = figma.root.children.find(p => p.id === PAGE_ID); await
   lost = { placeholders: hits.length, texts, screens: Object.entries(byScreen).sort((a, b) => b[1] - a[1]).slice(0, 12), sample: hits.slice(0, 8).map(h => h[0] + ' ' + h[1]) }; }
 const missing = Object.keys(used).filter(f => !avail.has(f));
 gates.push({ id: 'fonts', ok: !missing.length, ask: missing.length ? 'upload-fonts' : '', used, missing, available: BRAND_FONTS.filter(f => avail.has(f)) });
-if (lost) gates.push({ id: 'lost', ok: lost.placeholders === 0, ask: lost.placeholders ? 'labels-maybe-lost' : '', ...lost });
+if (lost) gates.push({ id: 'lost', ok: true, ask: lost.placeholders ? 'placeholders-found' : '', ...lost }); // не шлагбаум: вопрос дизайнеру, заполнять ли (SKILL.md, 4b)
 return { page: PAGE_ID, gates, blocked: gates.filter(g => g.ok === false).map(g => g.id) };
