@@ -7,7 +7,7 @@
 // что-то сдвинулось — текст возвращается, место в fit (причина: moved / overflow); sample — по карточке каждого сета.
 // MODE 'scan'  — read-only: на экранах страницы группирует видимые заглушки по хешу обложки (верхний видимый IMAGE у
 //                ближайшего предка с картинкой) и подсказывает подписи, которые уже стоят под той же обложкой в файле.
-//                Заглушки за краем экрана помечены clipped.
+//                Заглушки, видимые меньше чем на MINVIS (обрезка экраном и контейнерами), помечены hidden и не пишутся.
 // MODE 'sheet' — временный фрейм-контакт-лист справа от страницы: обложки HASHES (6 символов) с подписью хеша. Снять
 //                один скриншот, прочитать названия глазами, затем MODE 'clean' удаляет фрейм.
 // MODE 'write' — MAP { hash6: { T: 'Название', D: 'Описание' } } для заглушек Title / Description и RULES
@@ -16,6 +16,7 @@
 // Неопознанную обложку не выдумывать — в отчёт пользователю со ссылкой. Годы и авторы «по памяти» — помечать в отчёте.
 const PAGE_ID = '0:1'; const MODE = 'scan';
 const SKIP = new Set([]);          // id секций/экранов, которые не трогать
+const MINVIS = 0.5;               // доля текста в пределах всех обрезающих предков; меньше — заглушку не видно, не трогать
 const PH = /^(Title|Description|Artist|Year|Autor|Author|Caption|Subtitle|Header Title|Название|Описание)$/;
 const HASHES = [];                 // для 'sheet'
 const MAP = {};                    // для 'write'
@@ -24,6 +25,7 @@ figma.skipInvisibleInstanceChildren = false;
 const esc = s => String(s).replace(/[^\x20-\x7e]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
 const p = figma.root.children.find(x => x.id === PAGE_ID); await p.loadAsync();
 const effVis = n => { let c = n; while (c && c.type !== 'PAGE') { if (c.visible === false || ('opacity' in c && c.opacity === 0)) return false; c = c.parent; } return true; };
+const visFrac = n => { const b = n.absoluteBoundingBox; if (!b || !b.width || !b.height) return 0; let x0 = b.x, y0 = b.y, x1 = b.x + b.width, y1 = b.y + b.height; for (let a = n.parent; a && a.type !== 'PAGE'; a = a.parent) { if (!('clipsContent' in a) || !a.clipsContent || !a.absoluteBoundingBox) continue; const c = a.absoluteBoundingBox; x0 = Math.max(x0, c.x); y0 = Math.max(y0, c.y); x1 = Math.min(x1, c.x + c.width); y1 = Math.min(y1, c.y + c.height); } return Math.max(0, x1 - x0) * Math.max(0, y1 - y0) / (b.width * b.height); };
 const walk = (n, fn) => { fn(n); if ('children' in n) for (const c of n.children) walk(c, fn); };
 const topImg = n => { if (!('fills' in n) || !Array.isArray(n.fills)) return ''; let h = ''; for (const f of n.fills) if (f.type === 'IMAGE' && f.visible !== false && f.imageHash) h = f.imageHash; return h; };
 const findImg = root => { let h = ''; walk(root, m => { if (h || !effVis(m)) return; const x = topImg(m); if (x) h = x; }); return h; };
@@ -36,7 +38,7 @@ const units = []; for (const top of p.children) { if (SKIP.has(top.id) || /^tmp 
 if (MODE === 'scan') { const by = {}, hint = {};
   for (const u of units) { const ub = u.absoluteBoundingBox; if (!ub) continue;
     walk(u, n => { if (n.type !== 'TEXT' || !effVis(n)) return; const ch = n.characters.trim(); if (!ch) return; const h = coverOf(n, u);
-      if (PH.test(ch)) { const b = n.absoluteBoundingBox; const clipped = b && (b.x >= ub.x + ub.width - 4 || b.x + b.width <= ub.x); const k = ch + (clipped ? ' (clipped)' : ''); const r = by[k] || (by[k] = {}); const kk = (h || '-'); r[kk] = r[kk] || { n: 0, ex: u.id + ' ' + n.id }; r[kk].n++; }
+      if (PH.test(ch)) { const b = n.absoluteBoundingBox; const clipped = visFrac(n) < MINVIS; const k = ch + (clipped ? ' (hidden)' : ''); const r = by[k] || (by[k] = {}); const kk = (h || '-'); r[kk] = r[kk] || { n: 0, ex: u.id + ' ' + n.id }; r[kk].n++; }
       else if (h && typeof n.fontSize === 'number' && n.fontSize <= 16) { const l = hint[h] || (hint[h] = []); const s = ch.slice(0, 30); if (l.length < 3 && !l.includes(s)) l.push(s); } }); }
   const out = {}; const need = new Set(); for (const [k, r] of Object.entries(by)) { out[esc(k)] = Object.entries(r).map(([h, v]) => h + ' x' + v.n + ' #' + v.ex.split(' ')[1]).slice(0, 40); for (const h of Object.keys(r)) need.add(h); }
   const hints = {}; for (const h of need) if (hint[h]) hints[h] = hint[h].map(esc);
@@ -58,7 +60,7 @@ if (MODE === 'clean') { let n = 0; for (const c of [...p.children]) if (/^tmp co
 if (MODE === 'write') { const targets = []; const hasMap = Object.keys(MAP).length > 0;
   for (const u of units) { const rules = RULES.filter(r => !r[0] || r[0].includes(u.id));
     walk(u, n => { if (n.type !== 'TEXT') return; const ch = n.characters.trim(); const ph = hasMap && (ch === 'Title' || ch === 'Description'); const cand = rules.filter(r => r[2] === ch);
-      if (!ph && !cand.length) return; if (!effVis(n)) return; // обложку ищем только для подходящих текстов: поиск дорогой
+      if (!ph && !cand.length) return; if (!effVis(n) || visFrac(n) < MINVIS) return; // обложку ищем только для подходящих текстов: поиск дорогой
       const h = (ph || cand.some(r => r[1] !== null)) ? coverOf(n, u) : '';
       const m = ph ? MAP[h] : null; if (m) { const v = m[ch[0]]; if (v) { targets.push([n.id, v, u.id]); return; } }
       const r = cand.find(r => r[1] === null || r[1] === (h || '-')); if (r) targets.push([n.id, r[3], u.id]); }); }
