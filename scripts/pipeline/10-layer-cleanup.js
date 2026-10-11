@@ -51,7 +51,8 @@ const isRow = n => /stack/i.test(n.name);
 const rad = c => typeof c.cornerRadius === 'number' ? c.cornerRadius : (typeof c.topLeftRadius === 'number' ? c.topLeftRadius : 0); // cornerRadius бывает figma.mixed
 const isSection = c => rad(c) >= 16 && (typeof c.paddingLeft === 'number' ? c.paddingLeft : 0) >= 40;
 const sizeOk = c => c.width >= 300 && c.width <= 1400 && c.height >= 600 && !isSection(c) && !/^arrow$/i.test(c.name);
-const isScreen = (c, rowDepth, parent) => sizeOk(c) && ((isRow(parent) && rowDepth >= 2 && (c.type === 'FRAME' || c.type === 'GROUP' || c.type === 'SECTION')) || (/^(PAGE|SECTION)$/.test(parent.type) && c.type === 'FRAME'));
+const holdsScreens = c => 'findOne' in c && !!c.findOne(d => d.type === 'FRAME' && sizeOk(d) && d.parent && isRow(d.parent)); // узкий фрейм страницы (918 и т.п.) — не экран, а каркас с рядами экранов
+const isScreen = (c, rowDepth, parent) => sizeOk(c) && ((isRow(parent) && rowDepth >= 2 && (c.type === 'FRAME' || c.type === 'GROUP' || c.type === 'SECTION')) || (/^(PAGE|SECTION)$/.test(parent.type) && c.type === 'FRAME' && !holdsScreens(c)));
 const box = n => { const b = n.absoluteBoundingBox; return b ? [b.x, b.y, b.width, b.height] : null; };
 const sameBox = (a, b) => a && b && a.every((v, i) => Math.abs(v - b[i]) < 0.6);
 const has = (W, k) => k in W; // у GROUP нет overflowDirection/minWidth/strokes — прямое чтение бросает
