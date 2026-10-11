@@ -2,7 +2,8 @@
 // Макет не меняет: пишет и сразу стирает один служебный ключ sharedPluginData (проверка прав на запись).
 // Проверяет то, что видно через API:
 //   write    — права на редактирование файла;
-//   library  — доступ к 🧩 Mobile · Library (импорт `button` по ключу);
+//   library  — доступ к 🧩 Mobile · Library (импорт `button` по ключу). Подключены ли к файлу все четыре ДС, Plugin API
+//              не видит — это инструмент Figma MCP `get_libraries` (gates.md, Ш2);
 //   fonts    — шрифты брендов, которые есть на страницах файла, доступны MCP (иначе тексты на них не трогаются);
 //   snapshot — есть ли уже слепок «до» этого скилла в файле, его дата и формат;
 //   lost     — признаки, что подписи уже слетели: на видимых местах внутри инстансов стоят заглушки мастера
@@ -25,7 +26,7 @@ let write = false; try { figma.root.setSharedPluginData(NS, 'preflight', '1'); w
 gates.push({ id: 'write', ok: write, ask: write ? '' : 'edit-access' });
 // library
 let lib = false; try { const s = await figma.importComponentSetByKeyAsync(LIB_KEY); lib = !!s; } catch (e) {}
-gates.push({ id: 'library', ok: lib, ask: lib ? '' : 'library-access' });
+gates.push({ id: 'library', ok: lib, ask: lib ? '' : 'libraries-add' }); // доступ к Library; что все четыре ДС подключены к файлу — get_libraries (gates.md, Ш2)
 // snapshot
 const keys = figma.root.getSharedPluginDataKeys(NS); const units = keys.filter(k => /^sb_.*_n$/.test(k) && !/^sb_page_/.test(k)).length;
 const pages = keys.filter(k => /^sb_page_/.test(k)).map(k => { let m = {}; try { m = JSON.parse(figma.root.getSharedPluginData(NS, k)); } catch (e) {} return { page: k.slice(8), date: m.date || '?', units: (m.units || []).length }; });

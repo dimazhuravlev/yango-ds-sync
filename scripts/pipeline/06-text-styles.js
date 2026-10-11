@@ -10,7 +10,7 @@
 // Сначала DRY = true: ответ maps/skipU (Loose → обычный межстрочный делает бейджи на 2 px ниже — норма).
 // ONLY: id экранов — тексты берутся только из них (быстро; страницу целиком гонять пачками по ~10 экранов, иначе обрыв).
 // Режимы бренда на ЯПС-экранах ставить ДО этого скрипта (recipes/set-brand-modes.js или 08), иначе YS Text станет Yango Text.
-const PAGE = 'Mobile'; const DRY = true; const ONLY = null; const BRAND = 'Yango'; // ONLY: [id фрейма, …]; BRAND: 'Yango' | 'YaPS'
+const PAGE = 'Mobile'; const DRY = true; const ONLY = null; const BRAND = 'Yango'; // ONLY: [id фрейма, …]; BRAND: 'Yango' (Yango Play и Allplay) | 'YaPS'
 figma.skipInvisibleInstanceChildren = false;
 const esc = s => String(s).replace(/[^\x20-\x7e]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
 const LC = /*@LC*/;

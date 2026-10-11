@@ -12,6 +12,19 @@
 | 🦄 Органайзер | `LwCkvPL0UrSDoCQRcgy8Kf` | оформление страниц (`design-system`, `header`, `paragraph`) | `keys/organizer-sets.txt` (8 симв.) |
 | 🌈 Стили | `lsTLftjJkiuftLZkNqlO7k` | переменные `Theme`, `Product`, `Typography` | коллекции ниже |
 
+Все четыре должны быть подключены к файлу проекта (Assets → Libraries). Проверка — инструмент Figma MCP
+`get_libraries(fileKey)` → `libraries_added_to_file`, сверять по ключу библиотеки (имена бывают с двойным пробелом):
+
+| Библиотека | libraryKey |
+|---|---|
+| 🧩 Mobile · Library | `lk-ab0cd7b4aabf2292acf7dc3188010de6447676a29519e733b6a6ebb271eda9a12f1d85ea010b83194de402cc62e9c89100a15868158ba64ca5a49d9fb86f0d88` |
+| 🦄 Графика | `lk-11320e1b627eba66016522d89ebdc33011a83d58ed90f3b159e3a7dd8b759128f14a60ec054e3c529ccb58fb3e7fff190a3d3b5e27ff3c2ed90db708bb1e5dd2` |
+| 🦄 Органайзер | `lk-9ddd496975679f85fa2d360b608868120e617d5e1e372c43d244db58d1bcf8c3b9a7777ccb54463caa532166bffdf19c9c070aee2fdb847f91ba1c938c06f688` |
+| 🌈 Стили | `lk-0cf41ce58ba72b7f6fbfeb2656692dfc73178389181ca91925114d13195da7d6961ea3fadbc8a7c456ec208e1bb0a05f64ca5ab3a1dcf76edd1f5aefa68e60f0` |
+
+Подключённые легаси-библиотеки (🦄❌ Платформа / Мобайл, ❌ Mobile · Library ЯПС, 🌈 Платформа / SuperApp Mob…)
+не мешают: на них держатся старые компоненты до замены. Отключать их — решение пользователя, не скилла.
+
 Двойник ищется в таком порядке: Library → Графика (иконки, картинки, логотипы) → Органайзер (оформление).
 Логотипы PlusUI допустимы. `keys/component-names.txt` — имена компонентов ДС для поиска отвязанных копий.
 

@@ -26,13 +26,25 @@ Library чужой стиль меняется переопределением 
 
 ## Бренд и режимы
 
-- Бренд определяется по экрану: тексты на YS Text / YS Display, варианты `App=YaPS` — ЯПС; Yango Text / Yango Group
-  Headline — Yango Play. В одном файле бывают экраны разных брендов — обрабатывать по экранам.
+- Бренд определяется по каждому экрану, в одном файле бывают разные:
+
+  | Бренд | Как узнать | `Product` | `Typography` | `BRAND` в 06 | Варианты компонентов |
+  |---|---|---|---|---|---|
+  | ЯПС | YS Text / YS Display, `App=YaPS`, `product=YaPS` | `YaPS` | `YS Text` | `'YaPS'` | `YaPS` |
+  | Yango Play | Yango Text / Yango Group Headline, `App=Yango Play` | `Yango Play` | `Yango` | `'Yango'` | `Yango Play` / `Yango` |
+  | Allplay | явный режим `Product=Allplay` на экране или предке, «Allplay» в имени файла, страницы или секции | `Allplay` | `Yango` | `'Yango'` | своих нет — спросить |
+
+  По шрифтам Allplay не отличить от Yango Play: у обоих Yango Text и Yango Group Headline. Нет ни одного признака
+  Allplay, а файл может быть Allplay, — спросить один раз на файл. У компонентов Library (кнопка `accent`, `Tabbar`,
+  `Top Navigation`, чипсы, бейджи) вариантов Allplay нет: брать ли для Allplay варианты Yango Play — один вопрос
+  пользователю на файл, до замен.
 - Стили Text / Title Library берут семейство из переменных: `Typography` (Yango / Graphik / YS Text) и `Product`
   (Yango Play / YaPS / Allplay). **До привязки стилей** ЯПС-экранам ставится `Product=YaPS` и `Typography=YS Text`
   (`scripts/recipes/set-brand-modes.js`, или на фрейм страницы в `08-layout-page.js`), иначе YS Text превратится в
   Yango Text. Режим меняет и шрифты внутри компонентов Library на экране — это ожидаемо: они становятся шрифтом бренда.
-- `BRAND` в 06: `'YaPS'` — YaPS Headline + Text; `'Yango'` — Headline En / Ar + Text.
+- `BRAND` в 06: `'YaPS'` — YaPS Headline + Text; `'Yango'` — Headline En / Ar + Text, для Yango Play и Allplay.
+- Режимы ставить всем экранам не своего режима по умолчанию: ЯПС — `Product=YaPS`, `Typography=YS Text`; Allplay —
+  `Product=Allplay`, `Typography=Yango`. Yango Play — режим по умолчанию.
 - Явный режим `Theme=Light` внутри экранов (например подложка под шторкой) — намеренный, не трогать.
 
 ## Переменные

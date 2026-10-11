@@ -4,7 +4,7 @@
 // мастеров (инстансы мастера подтянутся сами). Сверка подписи; старый удаляется при успехе.
 const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"');
 const FROM = 'd36e1806'; const KEY = '3ee666c709ef3cbd1f7d527bc952e226205d8a4b';
-const BRAND = 'YaPS';   // 'YaPS' | 'Yango Play' — активный чипс бренда
+const BRAND = 'YaPS';   // 'YaPS' | 'Yango Play' — активный чипс бренда; для Allplay — что скажет пользователь
 const ACTIVE = { default: 'off', active: 'on ' + BRAND };
 figma.skipInvisibleInstanceChildren = false;
 const esc = s => String(s).replace(/[^\x20-\x7e]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));

@@ -5,7 +5,7 @@
 // не плейсхолдеры; иначе обратный свап. Смешанные бренды в файле — запускать отдельно с FROM нужных инстансов.
 // После — fix-tabbar-overrides.js и tabbar-tint-audit.js.
 const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"');
-const APP = 'YaPS';           // 'YaPS' | 'Yango Play' | 'Yango Music'
+const APP = 'YaPS';           // 'YaPS' | 'Yango Play' | 'Yango Music'; варианта Allplay нет — спросить пользователя
 const FROM = new Set(['93ac8e5d', 'f9c1d940', 'f748202c', 'c190b3d4']);
 const KEY = 'd20586bac5ca08a97154b26f9b767420034b166d';
 const DEFAULT_TAB = { 'YaPS': 'Home', 'Yango Play': 'Watch', 'Yango Music': 'Discover' };

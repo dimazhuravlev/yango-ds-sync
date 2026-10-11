@@ -4,7 +4,7 @@
 // `❌ Buttons` (8728d5ec: контейнер 40×40 с круглыми кнопками-иконками, одна видимая) → Library `button`
 // Size=M • 40px, Icon=only, тип по карте кнопок, глиф свапом; позиция = контейнер + смещение кнопки.
 const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"');
-const BRAND = 'YaPS';   // 'YaPS' | 'Yango Play'
+const BRAND = 'YaPS';   // 'YaPS' | 'Yango Play'; для Allplay — что скажет пользователь
 const TABS = new Set(['7d2c36a6', 'e58a0307']); const XBTN = '8728d5ec';
 const CHIPS_KEY = '552e8650d0026a2e71e4e59a022bc4f020df7595'; const BTN_KEY = '2781fb17aa9a7986b89626d2e769efad4c8ade7c';
 const TYPE = { primary: 'secondary', secondary: 'secondary', 'extra-2': 'secondary', inverted: 'white', 'extra-1': 'dark', plain: 'plain', 'accent Yango Play': 'accent ' + BRAND, 'accent YaPS': 'accent ' + BRAND, accent: 'accent ' + BRAND };

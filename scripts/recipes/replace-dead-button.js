@@ -4,7 +4,8 @@
 // свапом в слот. Сверка подписи и глифа; старый удаляется только при успехе. Внешние инстансы на экранах и в локальных
 // мастерах; вложенные в чужие инстансы — хвост мастера, не трогать.
 // BRAND_ACCENT: 'auto' — по шрифтам экрана (больше YS → accent YaPS, больше Yango → accent Yango Play) |
-//               'accent YaPS' | 'accent Yango Play'.
+//               'accent YaPS' | 'accent Yango Play'. Allplay: своего акцента нет, 'auto' его не узнает (шрифты как у
+//               Yango Play) — для Allplay-экранов значение задаёт пользователь, иначе такие экраны в SKIP.
 const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"');
 const SKIP = new Set([]);     // id секций/экранов, которые не трогать
 const BRAND_ACCENT = 'auto';

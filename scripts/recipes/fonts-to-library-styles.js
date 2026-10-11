@@ -9,7 +9,7 @@
 // Не трогает: оформление страниц (Органайзер/старое Ядро: design-system, link / editable-pic, ORG-ключи), шрифты
 // экспериментальные/логотипные (ML 2, Var), дробные кегли (масштабированные копии), тексты > 250 символов (спеки, книга
 // в читалке), SKIP_ROOT (зоны, где работает другой исполнитель).
-const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"'); const BRAND = 'YaPS';
+const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"'); const BRAND = 'YaPS'; // 'YaPS' | 'Yango' (Yango Play и Allplay)
 const SKIP_ROOT = new Set([]); const DRY = false;
 const KEYS = { 'H56': '3c819bca3fb60205e987a9ad3bf22428ca59e6ec', 'H48': 'a760de85f3a04f59bd36740fa5f839a02544debe', 'H40': '5b110814b1df019ddcc6fda5a2fc0bb5f39f646d', 'H32': '31550c134c915f642a1cf5bf2500b0ba7e06bad2', 'H28': '7ebd290e18e3c18a273ed690602bbcb03bc5ea2a', 'H24': '2b1c498082973181cd332b18de394ab66dcef0d8',
   'T24S': 'b3000203712127da50baa30718ca77f5eb868302', 'T24M': '9577f02f058325f4bf0b9e2468ab619b887a4293', 'T18S': 'da62bf16068807437567a53e6b1d8bb4dd5de4e1', 'T18M': 'f364855df83ba280950aa89d0af2f174c045e53f', 'T15S': '976a35888de6837077969051ac5cb0a505f9e561', 'T15M': '387a510812fba6c11f69c0ddb44124de09d69fa7', 'T13S': '5d0b9abd3f247b934ae8c6710385d5418e84575f', 'T13M': '31e64f8e521c013fb5661b40c15ff5e4dff4fb71', 'T11S': '66fcf5cfc1936bc1e9d9958fa6053b97d378f628', 'T11M': 'b9eb84b1eb9779cb19a3342441b7bde46448402f' };
