@@ -1,6 +1,6 @@
 # yango-ds-sync
 
-Скилл для Claude Code и Codex. Переводит мобильные макеты Yango на актуальную дизайн-систему (🧩 Mobile · Library,
+Скилл для Claude Code и Codex. Переводит мобильные макеты Yango, Allplay и суперапп Яндекс Плюс на актуальную дизайн-систему (🧩 Mobile · Library,
 🦄 Графика, 🦄 Органайзер, 🌈 Стили) через Figma MCP, ничего не ломая. Перед работой сам проверяет, что всё готово,
 и просит недостающее.
 
@@ -13,7 +13,7 @@
     `/plugin` → Installed → figma → Allow access.
   - Codex: `codex mcp add figma --url https://mcp.figma.com/mcp`; в приложении Codex — плагин Figma.
 - Full seat в Figma и право редактировать файл, который переводим.
-- Для файлов Yango Play — шрифты Yango Text и Yango Group Headline, загруженные в Figma: Settings → Your uploaded fonts.
+- Для файлов Yango и Allplay — шрифты Yango Text и Yango Group Headline, загруженные в Figma: Settings → Your uploaded fonts.
 - python3 (на macOS ставится вместе с Xcode Command Line Tools).
 
 ## Установка
