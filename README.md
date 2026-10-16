@@ -22,7 +22,8 @@
   - Codex: `codex mcp add figma --url https://mcp.figma.com/mcp`; в приложении Codex — плагин Figma.
 - Full seat в Figma и право редактировать файл, который переводим.
 - Шрифты бренда, доступные в Figma: Yango Play и Allplay — Yango Text и Yango Group Headline; ЯПС — YS Text и YS Display.
-  Если Figma их не видит, загрузить: Settings → Your uploaded fonts. Скилл сам проверит и подскажет.
+  Шрифты нужно загрузить в аккаунт Figma — установленных на Mac Figma MCP не видит: главный экран Figma со списком файлов (не внутри проекта) → аватар в левом верхнем углу → Settings → Account → Your uploaded fonts → Upload fonts → выбрать файлы шрифта (.ttf или .otf) → подтвердить права.
+  Скилл сам проверит и скажет, каких начертаний не хватает.
 - python3 (на macOS ставится вместе с Xcode Command Line Tools).
 
 ## Установка
