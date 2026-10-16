@@ -5,6 +5,15 @@
 В макетах — только 28 стилей 🫟 Library (`keys/library-text-styles.txt`): YaPS Headline 56…24, Yango Play & Allplay
 Headline En / Ar 56…24, Yango Text 24 / 18 / 15 / 13 / 11 Semibold и Medium.
 
+Файлы шрифтов за стилями (их и загружать в Figma, и называть человеку): начертание **Semibold** в стилях — это файл
+**Bold**; Medium — Medium.
+
+| Стиль | Yango Play и Allplay | ЯПС |
+|---|---|---|
+| Text …/Medium | Yango Text Medium | YS Text Medium |
+| Text …/Semibold, Title …/Semibold | Yango Text Bold | YS Text Bold |
+| Headline | Yango Group Headline ExtraBold (Ar — Yango Group Headline AR) | YS Display Bold |
+
 Основа — страница Library «Base / Typography» (`b8maDlvYFFs2vagJxwxc4A`, node `7529:2161`): у Yango Text / YS Text пять
 кеглей — 11, 13, 15, 18, 24 (крупнее 24 — Headline). Semibold — 18 и 24, текст кнопок и заголовок навбара (15); Medium —
 11, 13, 15. **Regular и Bold не используются нигде**: Regular в макете — баг, даже внутри чужого кита или устаревшего

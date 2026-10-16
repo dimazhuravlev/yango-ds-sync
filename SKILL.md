@@ -55,7 +55,8 @@ description: Перевод мобильных макетов Yango, Allplay и 
 сам; спрашивает, только если неоднозначно. В конце — вопросы пакетом и то, что MCP не умеет (публикация).
 
 Окружение пользователя: Figma MCP с правом редактирования файла; шрифты бренда доступны в Figma: Yango Play и Allplay —
-Yango Text и Yango Group Headline, ЯПС — YS Text и YS Display. Недоступные загружаются в аккаунт Figma (путь
+Yango Text Medium / Bold и Yango Group Headline ExtraBold, ЯПС — YS Text Medium / Bold и YS Display Bold (Semibold в
+стилях макета — это файл Bold). Недоступные загружаются в аккаунт Figma (путь
 целиком — шаблон `upload-fonts` в `gates.md`) — иначе тексты на них MCP не трогает; `00a` проверяет это сам.
 
 ## Процесс
