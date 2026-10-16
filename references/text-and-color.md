@@ -2,7 +2,7 @@
 
 ## Текстовые стили
 
-В макетах — только 28 стилей 🧩 Library (`keys/library-text-styles.txt`): YaPS Headline 56…24, Yango Play & Allplay
+В макетах — только 28 стилей 🫟 Library (`keys/library-text-styles.txt`): YaPS Headline 56…24, Yango Play & Allplay
 Headline En / Ar 56…24, Yango Text 24 / 18 / 15 / 13 / 11 Semibold и Medium.
 
 Основа — страница Library «Base / Typography» (`b8maDlvYFFs2vagJxwxc4A`, node `7529:2161`): у Yango Text / YS Text пять

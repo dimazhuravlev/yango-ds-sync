@@ -4,7 +4,7 @@
     python3 scripts/build.py scripts/pipeline/03-census.js [CONFIG overrides as NAME=JSON ...]
 
 Tokens replaced in the script:
-    /*@LC*/     -> Set of 🧩 Library set keys (8 chars)
+    /*@LC*/     -> Set of 🫟 Library set keys (8 chars)
     /*@GR*/     -> Set of 🦄 Графика set keys (10 chars)
     /*@ORG*/    -> Set of 🦄 Органайзер set keys (8 chars)
     /*@LKEYS*/  -> array of Library text styles {k, f, z, w}

@@ -1,4 +1,4 @@
-# 🧩 Mobile · Library b8maDlvYFFs2vagJxwxc4A — set/component key, first 8 chars. Refresh: scripts/pipeline/00-refresh-keys.js — сверено 2026-10-06
+# 🫟 Mobile · Library b8maDlvYFFs2vagJxwxc4A — set/component key, first 8 chars. Refresh: scripts/pipeline/00-refresh-keys.js — сверено 2026-10-06
 79c6f520
 35accda9
 2a57026e
