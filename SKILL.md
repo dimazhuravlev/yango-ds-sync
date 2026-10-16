@@ -56,7 +56,7 @@ description: Перевод мобильных макетов Yango, Allplay и 
 
 Окружение пользователя: Figma MCP с правом редактирования файла; в аккаунт Figma загружены шрифты бренда — шесть файлов:
 Yango Play и Allplay — Yango Text Medium, Yango Text Bold, Yango Group Headline ExtraBold; ЯПС — YS Text Medium,
-YS Text Bold, YS Display Bold. Semibold в стилях макета — это файл Bold. Недоступные загружаются в аккаунт Figma (путь
+YS Text Bold, YS Display Bold. Semibold в стилях макета — это файл Bold. Файлы для загрузки: https://disk.yandex.ru/d/5_gU0xuYfbysOg. Недоступные загружаются в аккаунт Figma (путь
 целиком — шаблон `upload-fonts` в `gates.md`) — иначе тексты на них MCP не трогает; `00a` проверяет это сам.
 
 ## Процесс

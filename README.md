@@ -34,6 +34,7 @@
 
   Начертание Semibold в стилях макета — это файл Bold: «Yango Text Semibold» не существует. Шрифты, установленные на Mac
   или через Adobe Fonts, Figma MCP не видит — их нужно загрузить в аккаунт:
+  0. Скачать все шесть файлов: https://disk.yandex.ru/d/5_gU0xuYfbysOg
   1. Главный экран Figma со списком файлов (не внутри проекта).
   2. Аватар в левом верхнем углу → Settings.
   3. Account → Your uploaded fonts → Upload fonts.
