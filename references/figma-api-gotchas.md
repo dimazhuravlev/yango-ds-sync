@@ -48,7 +48,8 @@
 ## Шрифты
 
 - MCP не видит шрифты macOS и Adobe Fonts — только загруженные в аккаунт Figma: главный экран Figma со списком файлов (не внутри проекта) → аватар в левом верхнем углу → Settings → Account → Your uploaded fonts → Upload fonts → выбрать файлы шрифта (.ttf или .otf) → подтвердить права. Проверять
-  `listAvailableFontsAsync` — набор бывает неполным (только Bold/Medium).
+  `listAvailableFontsAsync` по семейству и начертанию — набор бывает неполным (только Bold/Medium). Semibold в стилях
+  Library — файл Bold: нет «Yango Text Bold» — не работают все стили …/Semibold.
 - Шрифт, недоступный MCP: `characters` не меняется, `setProperties` с текстом падает, `resetOverrides` и
   `swapComponent` безвозвратно теряют оверрайд шрифта, скриншоты недостоверны. Такие тексты не трогать, просить
   руками. `setTextStyleIdAsync` требует только шрифт стиля — привязка к стилю работает.

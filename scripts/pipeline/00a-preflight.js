@@ -4,7 +4,8 @@
 //   write    — права на редактирование файла;
 //   library  — доступ к 🫟 Mobile · Library (импорт `button` по ключу). Подключены ли к файлу все четыре ДС, Plugin API
 //              не видит — это инструмент Figma MCP `get_libraries` (gates.md, Ш2);
-//   fonts    — шрифты брендов, которые есть на страницах файла, доступны MCP (иначе тексты на них не трогаются);
+//   fonts    — шрифты брендов на страницах файла доступны MCP по точному файлу (семейство + начертание): missingFiles
+//              называет файлы как Figma («Yango Text Bold» — в стилях макета это Semibold) (иначе тексты на них не трогаются);
 //   snapshot — есть ли уже слепок «до» этого скилла в файле, его дата и формат;
 //   lost     — заглушки мастера на видимых местах внутри инстансов (Title, Description, Label…): слетевшие раньше или
 //              стоявшие в макете изначально. Не шлагбаум — повод для вопроса дизайнеру, заполнять ли (SKILL.md, 4b).
@@ -33,7 +34,13 @@ const pages = keys.filter(k => /^sb_page_/.test(k)).map(k => { let m = {}; try {
 let format = '-'; const anyUnit = keys.find(k => /^sb_.*_0$/.test(k)); if (anyUnit) { try { const u = JSON.parse(figma.root.getSharedPluginData(NS, anyUnit)); format = Array.isArray(u.f) ? 'new' : 'old'; } catch (e) { format = 'unreadable'; } }
 gates.push({ id: 'snapshot', ok: true, units, pages, format }); // units = 0 — слепка нет; format 'old' — без проверки обрезки
 // fonts: какие семейства бренда реально стоят в файле и какие из них MCP не видит
-const avail = new Set((await figma.listAvailableFontsAsync()).map(f => f.fontName.family));
+const availList = (await figma.listAvailableFontsAsync()).map(f => f.fontName); const avail = new Set(availList.map(f => f.family));
+const availFile = new Set(availList.map(f => f.family + ' ' + f.style)); const files = {}; // нужные файлы: семейство + начертание
+// В стилях Library «Semibold» — это файл Bold (Yango Text Bold, YS Text Bold); человеку называть оба имени
+const asStyle = file => /^(Yango Text|YS Text) Bold$/.test(file) ? file + ' (в стилях макета — Semibold)' : file;
+// файлы за стилями Library: без них стили не работают — только их просить загрузить; прочие начертания (Yango Group
+// Headline Bold и т.п.) не из ДС — тексты на них уходят на стили Library (06), привязка стиля файла не требует
+const LIB_FILE = /^(Yango Text (Medium|Bold)|Yango Group Headline ExtraBold|Yango Group Headline AR .+|YS Text (Medium|Bold)|YS Display Bold)$/;
 const used = {}; let lost = null;
 if (PAGE_ID) { const pg = figma.root.children.find(p => p.id === PAGE_ID); await pg.loadAsync();
   const inSkip = n => { let a = n.parent; while (a && a.type !== 'PAGE') { if (SKIP.includes(a.id)) return true; a = a.parent; } return false; };
@@ -41,12 +48,15 @@ if (PAGE_ID) { const pg = figma.root.children.find(p => p.id === PAGE_ID); await
   const inInst = n => { let a = n.parent; while (a && a.type !== 'PAGE') { if (a.type === 'INSTANCE') return a; a = a.parent; } return null; };
   const hits = []; let texts = 0;
   for (const t of pg.findAllWithCriteria({ types: ['TEXT'] })) { if (inSkip(t) || !effVis(t)) continue; texts++;
-    const fam = t.fontName === figma.mixed ? (t.getStyledTextSegments(['fontName'])[0] || { fontName: { family: '' } }).fontName.family : t.fontName.family; if (BRAND_FONTS.includes(fam)) used[fam] = (used[fam] || 0) + 1;
+    const fam = t.fontName === figma.mixed ? (t.getStyledTextSegments(['fontName'])[0] || { fontName: { family: '' } }).fontName.family : t.fontName.family; if (BRAND_FONTS.includes(fam)) { used[fam] = (used[fam] || 0) + 1; const segs = t.fontName === figma.mixed ? t.getStyledTextSegments(['fontName']).map(g => g.fontName) : [t.fontName]; for (const f of segs) if (BRAND_FONTS.includes(f.family)) files[f.family + ' ' + f.style] = (files[f.family + ' ' + f.style] || 0) + 1; }
     const ch = t.characters.trim(); if (!PLACEHOLDER.test(ch)) continue; const host = inInst(t); if (!host) continue;
     let scr = t; while (scr.parent && !/^(SECTION|PAGE)$/.test(scr.parent.type)) scr = scr.parent; hits.push([t.id, esc(ch).slice(0, 16), scr.id]); }
   const byScreen = {}; for (const h of hits) byScreen[h[2]] = (byScreen[h[2]] || 0) + 1;
   lost = { placeholders: hits.length, texts, screens: Object.entries(byScreen).sort((a, b) => b[1] - a[1]).slice(0, 12), sample: hits.slice(0, 8).map(h => h[0] + ' ' + h[1]) }; }
+const absent = Object.keys(files).filter(f => !availFile.has(f)); // точные файлы, которых нет у MCP
+const missingFiles = absent.filter(f => LIB_FILE.test(f)).map(asStyle);   // нужны стилям Library — просить загрузить
+const notLibFiles = absent.filter(f => !LIB_FILE.test(f));                // не из ДС — в отчёт, загружать не нужно
 const missing = Object.keys(used).filter(f => !avail.has(f));
-gates.push({ id: 'fonts', ok: !missing.length, ask: missing.length ? 'upload-fonts' : '', used, missing, available: BRAND_FONTS.filter(f => avail.has(f)) });
+gates.push({ id: 'fonts', ok: !missingFiles.length, ask: missingFiles.length ? 'upload-fonts' : '', used, missing, missingFiles, notLibFiles, available: BRAND_FONTS.filter(f => avail.has(f)) });
 if (lost) gates.push({ id: 'lost', ok: true, ask: lost.placeholders ? 'placeholders-found' : '', ...lost }); // не шлагбаум: вопрос дизайнеру, заполнять ли (SKILL.md, 4b)
 return { page: PAGE_ID, gates, blocked: gates.filter(g => g.ok === false).map(g => g.id) };
