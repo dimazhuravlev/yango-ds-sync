@@ -47,8 +47,8 @@
 
 ## Шрифты
 
-- MCP не видит шрифты macOS. Yango Text и Yango Group Headline должны быть загружены в Figma как личные шрифты
-  (Settings → Your uploaded fonts); проверять `listAvailableFontsAsync` — набор бывает неполным (только Bold/Medium).
+- MCP не видит шрифты macOS и Adobe Fonts — только загруженные в аккаунт Figma: главный экран Figma со списком файлов (не внутри проекта) → аватар в левом верхнем углу → Settings → Account → Your uploaded fonts → Upload fonts → выбрать файлы шрифта (.ttf или .otf) → подтвердить права. Проверять
+  `listAvailableFontsAsync` — набор бывает неполным (только Bold/Medium).
 - Шрифт, недоступный MCP: `characters` не меняется, `setProperties` с текстом падает, `resetOverrides` и
   `swapComponent` безвозвратно теряют оверрайд шрифта, скриншоты недостоверны. Такие тексты не трогать, просить
   руками. `setTextStyleIdAsync` требует только шрифт стиля — привязка к стилю работает.
