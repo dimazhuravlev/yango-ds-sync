@@ -1,4 +1,4 @@
-// 06 — тексты на странице → текстовые стили 🧩 Library (28 шт., keys/library-text-styles.txt). Собирать через build.py.
+// 06 — тексты на странице → текстовые стили 🫟 Library (28 шт., keys/library-text-styles.txt). Собирать через build.py.
 // Три класса текстов: стиль Library — ок; чужой стиль — ближайший стиль Library; без стиля — баг,
 // точный двойник (семейство, целый кегль, начертание). Ближайший: семейство → кегль (ничья → меньший) → начертание
 // (Bold/Semi/Heavy/Black/Extra → Semibold, иначе Medium); Yango Text ≥ 28 → Title S 24; прочие ≥ 28 → Headline En.

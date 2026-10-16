@@ -1,4 +1,4 @@
-# 🧩 Library text styles: full key, family (YaPS | HEn | HAr | YT), size, weight (S = Semibold/Bold font, M = Medium) — сверено 2026-10-06
+# 🫟 Library text styles: full key, family (YaPS | HEn | HAr | YT), size, weight (S = Semibold/Bold font, M = Medium) — сверено 2026-10-06
 3c819bca3fb60205e987a9ad3bf22428ca59e6ec,YaPS,56,S
 a760de85f3a04f59bd36740fa5f839a02544debe,YaPS,48,S
 5b110814b1df019ddcc6fda5a2fc0bb5f39f646d,YaPS,40,S
