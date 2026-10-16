@@ -21,11 +21,25 @@
     `/plugin` → Installed → figma → Allow access.
   - Codex: `codex mcp add figma --url https://mcp.figma.com/mcp`; в приложении Codex — плагин Figma.
 - Full seat в Figma и право редактировать файл, который переводим.
-- Шрифты бренда, доступные в Figma (имена файлов; начертание Semibold в стилях макета — это файл Bold):
-  Yango Play и Allplay — Yango Text Medium, Yango Text Bold, Yango Group Headline ExtraBold; ЯПС — YS Text Medium,
-  YS Text Bold, YS Display Bold.
-  Шрифты нужно загрузить в аккаунт Figma — установленных на Mac Figma MCP не видит: главный экран Figma со списком файлов (не внутри проекта) → аватар в левом верхнем углу → Settings → Account → Your uploaded fonts → Upload fonts → выбрать файлы шрифта (.ttf или .otf) → подтвердить права.
-  Скилл сам проверит и скажет, каких начертаний не хватает.
+- Шрифты, загруженные в аккаунт Figma — шесть файлов (для файлов только одного бренда хватит его трёх):
+
+  | Шрифт | Начертание | Для каких файлов |
+  |---|---|---|
+  | Yango Text | Medium | Yango Play, Allplay |
+  | Yango Text | Bold (в стилях макета — Semibold) | Yango Play, Allplay |
+  | Yango Group Headline | ExtraBold | Yango Play, Allplay |
+  | YS Text | Medium | ЯПС |
+  | YS Text | Bold (в стилях макета — Semibold) | ЯПС |
+  | YS Display | Bold | ЯПС |
+
+  Начертание Semibold в стилях макета — это файл Bold: «Yango Text Semibold» не существует. Шрифты, установленные на Mac
+  или через Adobe Fonts, Figma MCP не видит — их нужно загрузить в аккаунт:
+  1. Главный экран Figma со списком файлов (не внутри проекта).
+  2. Аватар в левом верхнем углу → Settings.
+  3. Account → Your uploaded fonts → Upload fonts.
+  4. Выбрать файлы шрифтов (.ttf или .otf), по файлу на начертание, и подтвердить права.
+
+  Скилл сам проверит и скажет, каких файлов не хватает.
 - python3 (на macOS ставится вместе с Xcode Command Line Tools).
 
 ## Установка
