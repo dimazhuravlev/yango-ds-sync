@@ -63,6 +63,8 @@
   2. Нажми на свой аватар в левом верхнем углу → Settings.
   3. Account → Your uploaded fonts → Upload fonts.
   4. Выбери файлы шрифта (.ttf или .otf) — по файлу на каждое начертание — и подтверди права на шрифт.
+  Полный набор — шесть файлов: Yango Text Medium, Yango Text Bold, Yango Group Headline ExtraBold (Yango Play и
+  Allplay); YS Text Medium, YS Text Bold, YS Display Bold (ЯПС).
   Шрифты, установленные на Mac или через Adobe Fonts, мне не видны — нужна именно загрузка в аккаунт. Файлы шрифтов —
   у команды дизайн-системы. Напиши «загрузил».»
 - **placeholders-found** — «На экранах видно N заглушек вроде «Title», «Description» — например <ссылки>. Вписать вместо
