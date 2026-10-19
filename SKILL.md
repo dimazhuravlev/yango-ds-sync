@@ -10,9 +10,9 @@ description: Перевод мобильных макетов Yango, Allplay и 
 минимум ручной работы.
 
 Продукты: Yango (Yango Play), Allplay и суперапп Яндекс Плюс (ЯПС) — у них общая ДС. Бренд определяется по каждому
-экрану и задаёт режимы `Product` / `Typography`, стили заголовков и варианты компонентов (`App`, `product`, акцент кнопок).
-У Allplay шрифты как у Yango Play и своих вариантов в компонентах нет — правила в `references/text-and-color.md` →
-«Бренд и режимы».
+экрану и задаёт режим `Product` (YaPS & Allplay | Yango Play EN | Yango Play AR) и варианты компонентов (`App`, `product`,
+акцент кнопок); текстовые стили общие для всех брендов. У Allplay шрифты и цвета как у ЯПС, своих вариантов в компонентах
+нет — правила в `references/text-and-color.md` → «Бренд и режимы».
 
 Только **мобильные** экраны. ТВ и Веб не трогать (у них свои ДС).
 
@@ -32,7 +32,8 @@ description: Перевод мобильных макетов Yango, Allplay и 
   чипсы, ячейки, шапки, карусели и карточки, шторки, тосты, виджеты, иконки. Подписи, картинки, видимость и геометрия
   переносятся, при расхождении замена откатывается сама.
 - **Отвязанные копии** → инстансы Library (именной повтор или по ролям; карусели — целиком).
-- **Тексты и цвета**: 28 стилей Library с учётом бренда экрана, режимы бренда, чужие переменные → `Theme`, сырые цвета →
+- **Тексты и цвета**: 16 стилей Library, режимы бренда на актуальной коллекции `Product` (старые версии и удалённые
+  коллекции Typography сняты, тексты на них перепривязаны), чужие переменные → `Theme`, сырые цвета →
   переменные при точном совпадении (всегда).
 - **Слои** (всегда): пустые обёртки сняты, `bottom bar` собран, мусорные имена — по роли и по-английски; геометрия
   сверяется, при сдвиге вызов откатывается.
@@ -55,7 +56,7 @@ description: Перевод мобильных макетов Yango, Allplay и 
 сам; спрашивает, только если неоднозначно. В конце — вопросы пакетом и то, что MCP не умеет (публикация).
 
 Окружение пользователя: Figma MCP с правом редактирования файла; в аккаунт Figma загружены шрифты бренда — шесть файлов:
-Yango Play и Allplay — Yango Text Medium, Yango Text Bold, Yango Group Headline ExtraBold; ЯПС — YS Text Medium,
+Yango Play — Yango Text Medium, Yango Text Bold, Yango Group Headline ExtraBold; ЯПС и Allplay — YS Text Medium,
 YS Text Bold, YS Display Bold. Semibold в стилях макета — это файл Bold. Файлы для загрузки: https://disk.yandex.ru/d/5_gU0xuYfbysOg. Недоступные загружаются в аккаунт Figma (путь
 целиком — шаблон `upload-fonts` в `start-checklist.md`) — иначе тексты на них MCP не трогает; `00a` проверяет это сам.
 
@@ -95,8 +96,15 @@ YS Text Bold, YS Display Bold. Semibold в стилях макета — это 
    отчёте; неопознанная обложка и заглушка без картинки — не выдумывать, в отчёт со ссылками.
 5. **Формат и каркас** (если нужен единый вид страниц): `09-normalize-screen.js`, затем `08-layout-page.js`
    (`references/layout.md`).
-6. **Режимы бренда, затем стили**: `recipes/set-brand-modes.js` (если нет фрейма страницы из 08) → `06-text-styles.js`
-   (`BRAND`, `ONLY` пачками). Правила — `references/text-and-color.md`.
+6. **Режимы бренда и типографика, затем стили** — по порядку:
+   - **`06a-modes-and-typography.js` — обязательно в каждом проекте.** 'report' (можно всем файлом), затем 'fix' по
+     странице с `BRAND`: старые версии `Product` → актуальный режим, режимы удалённых Typography* сняты, страница без
+     режима `Product` получает режим бренда, свои тексты на старой копии стиля — на свежую. Без этого в переключателе
+     режимов висят опции с (!), а тексты не меняются при смене `Product`. Найденное внутри инстансов (`libTails`) —
+     хвосты ДС: чинятся в файле ДС (`recipes/ds-typography-audit.js` → 06a 'fix' / `rebind-typography-vars.js`), владелец
+     публикует, в проекте — принять обновления и повторить 'report' (`text-and-color.md` → «Старая типографика»).
+   - `recipes/set-brand-modes.js` — экраны другого бренда, если нет фрейма страницы из 08.
+   - `06-text-styles.js` (`BRAND`, `ONLY` пачками). Правила — `references/text-and-color.md`.
 7. **Переменные и цвета** — всегда: `07-variables.js` (чужие коллекции), затем `07b-colors-to-variables.js` (сырой цвет
    с точной переменной → переменная). DRY, потом пачками по 6–8 экранов (`ONLY`). Хвосты мастеров Library — в отчёт.
 8. **Гигиена слоёв** — всегда, после замен и стилей: `recipes/unwrap-wrappers.js` (навигационные и пустые обёртки) →
@@ -120,6 +128,7 @@ YS Text Bold, YS Display Bold. Semibold в стилях макета — это 
 | `pipeline/04-swap-namepath.js` | замена с повтором по именному пути; приватные через `via:` |
 | `pipeline/04b-replace-detached.js`, `04c-replace-detached-group.js` | отвязанные копии: простая и составная |
 | `pipeline/05-refresh-card.js` | устаревшие постеры |
+| `pipeline/06a-modes-and-typography.js` | режимы `Product` и типографика на актуальных коллекциях: старые режимы, страницы без режима, тексты на старых коллекциях (шаг по умолчанию) |
 | `pipeline/06-text-styles.js`, `07-variables.js` | текстовые стили, чужие переменные |
 | `pipeline/07b-colors-to-variables.js` | сырые цвета → переменные при точном совпадении (шаг по умолчанию) |
 | `pipeline/10-layer-cleanup.js` | пустые обёртки и имена слоёв по роли, с откатом при сдвиге (шаг по умолчанию) |
@@ -131,6 +140,7 @@ YS Text Bold, YS Display Bold. Semibold в стилях макета — это 
 | `recipes/unwrap-wrappers.js`, `bottom-bar.js` | гигиена слоёв: навигационные и пустые обёртки, нижний блок |
 | `recipes/icon-size-audit.js`, `fix-tabbar-overrides.js`, `tabbar-tint-audit.js` | проверки после замен |
 | `recipes/usage-before-delete.js`, `relink-ghost-slots.js`, `library-colors-to-variables.js` | работа в самой ДС |
+| `recipes/ds-typography-audit.js`, `rebind-typography-vars.js` | старая типографика в файлах ДС: проверка по сетам, перепривязка к `Product` / `Typography constants` |
 
 Рецепты начинаются с `CONFIG`; `PAGES` обязателен (`"PAGES=/Настройки/"`), иначе скрипт остановится.
 

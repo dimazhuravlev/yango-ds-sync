@@ -2,17 +2,19 @@
 
 ## Текстовые стили
 
-В макетах — только 28 стилей 🫟 Library (`keys/library-text-styles.txt`): YaPS Headline 56…24, Yango Play & Allplay
-Headline En / Ar 56…24, Yango Text 24 / 18 / 15 / 13 / 11 Semibold и Medium.
+В макетах — только 16 стилей 🫟 Library (`keys/library-text-styles.txt`): Headline XXXL…S (56…24) и Title / Text
+24 / 18 / 15 / 13 / 11 Semibold и Medium. Стили общие для всех брендов: семейство, начертание и межстрочный берутся из
+коллекции `Product` 🌈 Стилей, бренд задаёт режим `Product` на странице или экране. Прежние Headline En / Ar / YaPS и
+стили «Yango Play & Allplay/…» — чужие.
 
 Файлы шрифтов за стилями (их и загружать в Figma, и называть человеку): начертание **Semibold** в стилях — это файл
 **Bold**; Medium — Medium.
 
-| Стиль | Yango Play и Allplay | ЯПС |
+| Стиль | Yango Play (EN и AR) | ЯПС и Allplay |
 |---|---|---|
 | Text …/Medium | Yango Text Medium | YS Text Medium |
 | Text …/Semibold, Title …/Semibold | Yango Text Bold | YS Text Bold |
-| Headline | Yango Group Headline ExtraBold (Ar — Yango Group Headline AR) | YS Display Bold |
+| Headline | Yango Group Headline ExtraBold | YS Display Bold |
 
 Основа — страница Library «Base / Typography» (`b8maDlvYFFs2vagJxwxc4A`, node `7529:2161`): у Yango Text / YS Text пять
 кеглей — 11, 13, 15, 18, 24 (крупнее 24 — Headline). Semibold — 18 и 24, текст кнопок и заголовок навбара (15); Medium —
@@ -22,13 +24,13 @@ Headline En / Ar 56…24, Yango Text 24 / 18 / 15 / 13 / 11 Semibold и Medium.
 
 | Класс текста | Что делать |
 |---|---|
-| стиль Library своего бренда | ничего |
-| чужой стиль (Платформа, Regular, Loose, Caps, 10 px, Lead, Кинопоиск…), стиль Library другого бренда | ближайший стиль Library |
+| один из 16 стилей Library | ничего |
+| чужой стиль (Платформа, Regular, Loose, Caps, 10 px, Lead, Кинопоиск, прежние Headline En / Ar / YaPS…) | ближайший стиль Library |
 | без стиля (в том числе часть текста) | точный двойник по семейству, целому кеглю и начертанию; нет двойника — в отчёт |
 
 Ближайший: семейство → кегль (ничья → меньший) → начертание (Bold / Semi / Heavy / Black / Extra → Semibold, иначе
-Medium). Заголовочные шрифты (Yango Group Headline, YS Display, Yango Headline) и любой кегль ≥ 28 → Headline своего
-бренда ближайшего кегля; для Yango Play Yango Text ≥ 28 → `Title S・24`. Видимые последствия, которые считаются нормой:
+Medium). Заголовочные шрифты (Yango Group Headline, YS Display, Yango Headline) и любой кегль ≥ 28 → Headline
+ближайшего кегля; для Yango Play Yango Text ≥ 28 → `Title S・24`. Видимые последствия, которые считаются нормой:
 Loose → обычный межстрочный (бейджи на 2 px ниже), бейдж таббара 10 → 11, Graphik → Yango Text, длинная лента может
 стать на несколько десятков px длиннее из-за межстрочных.
 
@@ -41,26 +43,54 @@ Library чужой стиль меняется переопределением 
 
 ## Бренд и режимы
 
+Актуальные коллекции 🌈 Стилей: `Theme` (Dark | Light), `Product` (**YaPS & Allplay** — по умолчанию | **Yango Play EN** |
+**Yango Play AR**), `Typography constants` (один режим). Отдельной коллекции Typography больше нет: прежние `Typography`,
+`.Typography`, `Typography Theme`, `Typography Headline`, `Constants` и старые версии `Product` (режимы Yango Play / YaPS /
+Allplay) удалены — в переключателе режимов Figma они видны с (!), а привязанные к ним тексты не меняются при смене
+режима. Их чистит обязательный шаг 6a (`06a-modes-and-typography.js`).
+
+| Режим `Product` | Шрифты | Semibold-стили | Акцент |
+|---|---|---|---|
+| YaPS & Allplay | YS Text, YS Display | файл Bold | Orchid |
+| Yango Play EN | Yango Text, Yango Group Headline | файл Bold (Yango Text Semibold не существует) | Sugar Grape |
+| Yango Play AR | как EN, межстрочные Headline выше (63 / 54 / 45 / 36 / 31 / 27) | как EN | Sugar Grape |
+
 - Бренд определяется по каждому экрану, в одном файле бывают разные:
 
-  | Бренд | Как узнать | `Product` | `Typography` | `BRAND` в 06 | Варианты компонентов |
-  |---|---|---|---|---|---|
-  | ЯПС | YS Text / YS Display, `App=YaPS`, `product=YaPS` | `YaPS` | `YS Text` | `'YaPS'` | `YaPS` |
-  | Yango Play | Yango Text / Yango Group Headline, `App=Yango Play` | `Yango Play` | `Yango` | `'Yango'` | `Yango Play` / `Yango` |
-  | Allplay | явный режим `Product=Allplay` на экране или предке, «Allplay» в имени файла, страницы или секции | `Allplay` | `Yango` | `'Yango'` | своих нет — спросить |
+  | Бренд | Как узнать | `Product` | `BRAND` в 06 | Варианты компонентов |
+  |---|---|---|---|---|
+  | ЯПС | YS Text / YS Display, `App=YaPS`, `product=YaPS` | `YaPS & Allplay` | `'YaPS'` | `YaPS` |
+  | Allplay | «Allplay» в имени файла, страницы или секции | `YaPS & Allplay` | `'YaPS'` | своих нет — спросить |
+  | Yango Play | Yango Text / Yango Group Headline, `App=Yango Play` | `Yango Play EN` (RTL-экраны — `Yango Play AR`) | `'Yango'` | `Yango Play` / `Yango` |
 
-  По шрифтам Allplay не отличить от Yango Play: у обоих Yango Text и Yango Group Headline. Нет ни одного признака
-  Allplay, а файл может быть Allplay, — спросить один раз на файл. У компонентов Library (кнопка `accent`, `Tabbar`,
-  `Top Navigation`, чипсы, бейджи) вариантов Allplay нет: брать ли для Allplay варианты Yango Play — один вопрос
-  пользователю на файл, до замен.
-- Стили Text / Title Library берут семейство из переменных: `Typography` (Yango / Graphik / YS Text) и `Product`
-  (Yango Play / YaPS / Allplay). **До привязки стилей** ЯПС-экранам ставится `Product=YaPS` и `Typography=YS Text`
-  (`scripts/recipes/set-brand-modes.js`, или на фрейм страницы в `08-layout-page.js`), иначе YS Text превратится в
-  Yango Text. Режим меняет и шрифты внутри компонентов Library на экране — это ожидаемо: они становятся шрифтом бренда.
-- `BRAND` в 06: `'YaPS'` — YaPS Headline + Text; `'Yango'` — Headline En / Ar + Text, для Yango Play и Allplay.
-- Режимы ставить всем экранам не своего режима по умолчанию: ЯПС — `Product=YaPS`, `Typography=YS Text`; Allplay —
-  `Product=Allplay`, `Typography=Yango`. Yango Play — режим по умолчанию.
+  Шрифты и цвета у Allplay и ЯПС общие (режим `YaPS & Allplay`) — для типографики их различать не нужно. У компонентов
+  Library (кнопка `accent`, `Tabbar`, `Top Navigation`, чипсы, бейджи) вариантов Allplay нет: брать ли для Allplay
+  варианты ЯПС — один вопрос пользователю на файл, до замен.
+- Режим `Product` ставится на **каждую страницу** (страница без режима показывает режим по умолчанию — шрифт ЯПС, в файле
+  Yango Play это брак) и при необходимости на экраны другого бренда. **До привязки стилей**: `06a` (страницы, `BRAND`),
+  `scripts/recipes/set-brand-modes.js` (экраны) или фрейм страницы в `08-layout-page.js`. Режим меняет и шрифты внутри
+  компонентов Library на экране — это ожидаемо: они становятся шрифтом бренда.
+- Старый режим → актуальный: Yango Play → Yango Play EN и YaPS → YaPS & Allplay — это те же режимы (id сохранены),
+  менять нечего; Allplay → YaPS & Allplay; режимы удалённых коллекций Typography* — снять. Опции с (!) в переключателе
+  уходят, когда на старую версию `Product` ничего не ссылается: свои слои чистит 06a, копии стилей и инстансы старых
+  мастеров — принятие обновлений после публикации ДС.
+- `BRAND` в 06: `'Yango'` (Yango Play) | `'YaPS'` (ЯПС и Allplay) — влияет только на «Yango Text ≥ 28 → Title S 24».
 - Явный режим `Theme=Light` внутри экранов (например подложка под шторкой) — намеренный, не трогать.
+
+## Старая типографика: проект и файлы ДС (шаг 6a)
+
+- **Проект.** `06a-modes-and-typography.js`: 'report' всем файлом → 'fix' по странице с `BRAND`. Чинит только свои
+  слои: режимы страниц и фреймов, режим бренда на страницах без него, свои тексты на старой копии актуального стиля.
+  Тексты не из 16 и без стиля — дальше 06. Всё внутри инстансов — `libTails` (имя сета-владельца): это мастер ДС.
+- **Хвосты ДС.** В файле, откуда компонент (Library, Органайзер, Графика): `recipes/ds-typography-audit.js` — по сетам,
+  что не так; режимы — 06a 'fix' в этом файле; тексты без стиля на удалённых Typography* / Constants / старом Product —
+  `recipes/rebind-typography-vars.js` (по имени: Typography «Font Family» → Product «Font Family/Text», «Font Weight/X»
+  → Product «Font Weight/X», «Font/…» → Typography constants «Font/…»; зашитые шрифты остаются зашитыми). Старые стили
+  в мастерах — 06 в файле ДС. Системные киты (iOS: Body, Callout, Title3…) — не наши, не трогать. Затем владелец ДС
+  публикует файл, в проекте — принять обновления и повторить 06a 'report'.
+- В самом файле ДС страницы без режима `Product` после перепривязки показывают шрифт ЯПС (режим по умолчанию) — это
+  не поломка: в проектах шрифт задаёт режим страницы.
+- Правка в файле ДС — только с согласия владельца ДС; в отчёте — что поправлено и что опубликовать.
 
 ## Переменные
 

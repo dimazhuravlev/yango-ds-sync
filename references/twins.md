@@ -70,7 +70,7 @@
 | `accent` (без продукта), `accent Yango Play`, `accent YaPS` | акцент бренда экрана | `accent` бренда экрана |
 
 Акцента Allplay у `button` нет: на Allplay-экране акцентную кнопку не автозаменять — один вопрос на файл, брать ли
-`accent Yango Play`.
+`accent YaPS` (у Allplay и ЯПС общий режим `Product` и акцент Orchid).
 
 Размеры: `sm • 32px` → `S`, `md • 40px` → `M`, `lg • 44px` → `M`, `xl • 48px` → `L`, `2xl • 52px` → `XL`. `Icon` и
 `State` — как были. Рецепт: `recipes/replace-dead-button.js` (вариант из имени мастера, подпись, глиф, геометрия;
