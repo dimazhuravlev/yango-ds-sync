@@ -1,16 +1,17 @@
-// 06 — тексты на странице → текстовые стили 🫟 Library (28 шт., keys/library-text-styles.txt). Собирать через build.py.
+// 06 — тексты на странице → текстовые стили 🫟 Library (16 шт., keys/library-text-styles.txt). Собирать через build.py.
 // Три класса текстов: стиль Library — ок; чужой стиль — ближайший стиль Library; без стиля — баг,
 // точный двойник (семейство, целый кегль, начертание). Ближайший: семейство → кегль (ничья → меньший) → начертание
-// (Bold/Semi/Heavy/Black/Extra → Semibold, иначе Medium); Yango Text ≥ 28 → Title S 24; прочие ≥ 28 → Headline En.
+// (Bold/Semi/Heavy/Black/Extra → Semibold, иначе Medium); Yango Text ≥ 28 → Title S 24; прочие ≥ 28 → Headline.
 // Не трогает: системные (SF Pro, Roboto, iOS-киты), экспериментальные шрифты, тексты внутри
 // компонентов не из Library (Графика, удалённые детали), дробные кегли (масштабированные копии), подписи на холсте.
 // Чужой стиль внутри инстанса Library меняется только там, где это переопределение (иначе — в мастере Library).
-// BRAND — бренд файла: 'Yango' (допустимы Headline En/Ar + Yango Text) или 'YaPS' (YaPS Headline + Yango Text). Стили
-// Library другого бренда считаются чужими: заголовочные шрифты и кегль ≥ 28 → Headline своего бренда.
+// Стили Library общие для всех брендов: шрифт задаёт режим Product на странице (06a, 08). Прежние Headline En/Ar/YaPS
+// и прочие стили не из 16 — чужие: заголовочные шрифты и кегль ≥ 28 → Headline того же кегля.
+// BRAND — бренд файла: 'Yango' (Yango Play) | 'YaPS' (ЯПС и Allplay); влияет только на «Yango Text ≥ 28 → Title S 24».
 // Сначала DRY = true: ответ maps/skipU (Loose → обычный межстрочный делает бейджи на 2 px ниже — норма).
 // ONLY: id экранов — тексты берутся только из них (быстро; страницу целиком гонять пачками по ~10 экранов, иначе обрыв).
 // Режимы бренда на ЯПС-экранах ставить ДО этого скрипта (recipes/set-brand-modes.js или 08), иначе YS Text станет Yango Text.
-const PAGE = 'Mobile'; const DRY = true; const ONLY = null; const BRAND = 'Yango'; // ONLY: [id фрейма, …]; BRAND: 'Yango' (Yango Play и Allplay) | 'YaPS'
+const PAGE = 'Mobile'; const DRY = true; const ONLY = null; const BRAND = 'Yango'; // ONLY: [id фрейма, …]; BRAND: 'Yango' (Yango Play) | 'YaPS' (ЯПС и Allplay)
 figma.skipInvisibleInstanceChildren = false;
 const esc = s => String(s).replace(/[^\x20-\x7e]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
 const LC = /*@LC*/;
@@ -32,7 +33,7 @@ async function ctxOf(n, kind) { const I = nearestInst(n); if (!I) return inMaste
   return 'in-' + src + ':' + (g(mn) === g(n) ? 'follows' : 'override'); }
 
 const LKEYS = /*@LKEYS*/;
-const ALLOWED = BRAND === 'YaPS' ? ['YaPS', 'YT'] : ['HEn', 'HAr', 'YT']; // styles of the other brand are foreign
+const ALLOWED = ['H', 'YT']; // Headline общий для всех брендов: шрифт задаёт режим Product; прежние Headline En/Ar/YaPS — чужие
 const LT = new Set(LKEYS.filter(x => ALLOWED.includes(x.f)).map(x => x.k.slice(0, 8)));
 
 // Text styles on one page → Library styles. Foreign style → nearest Library style; no style → exact twin only.
@@ -42,7 +43,7 @@ const LST = new Map(); async function lstyle(e) { if (!LST.has(e.k)) LST.set(e.k
 function nearest(list, size) { let best = null; for (const v of list) { const d = Math.abs(v - size); if (best === null || d < best.d || (d === best.d && v < best.v)) best = { v, d }; } return best.v; }
 function nearestFor(s) { const fam = s.fontName.family, size = s.fontSize, heavy = /Bold|Semi|Heavy|Black|Extra/i.test(s.fontName.style);
   const pick = (f, sz, w) => LKEYS.find(x => x.f === f && x.z === sz && (f !== 'YT' || x.w === w));
-  const H = BRAND === 'YaPS' ? 'YaPS' : (/\bAr\b/.test(s.name) ? 'HAr' : 'HEn'); // headline family of the file's brand
+  const H = 'H'; // one headline family for all brands
   if (/^Yango Group Headline|^YS Display|^Yango Headline$/.test(fam)) return pick(H, nearest([56, 48, 40, 32, 28, 24], size));
   if (BRAND !== 'YaPS' && /^Yango Text/.test(fam) && size >= 28) return pick('YT', 24, heavy ? 'S' : 'M'); // owner: Yango Text >= 28 → Title S 24
   if (size >= 28) return pick(H, nearest([56, 48, 40, 32, 28], size));
@@ -50,8 +51,7 @@ function nearestFor(s) { const fam = s.fontName.family, size = s.fontSize, heavy
 const REG = /^(Regular|Light|Book|Thin)$/i, TEXTFAM = /^(Yango Text|YS Text)/; // Regular нигде не используется (Library · Base / Typography)
 function scaleFor(z) { const v = nearest([24, 18, 15, 13, 11], z); return LKEYS.find(x => x.f === 'YT' && x.z === v && x.w === (v >= 18 ? 'S' : 'M')); } // 18/24 Semibold, 11/13/15 Medium
 function exactFor(fn, size) { const z = Math.round(size); if (Math.abs(size - z) > 0.02) return null; const f = fn.family, st = fn.style; const heavy = /Bold|Semi|Heavy|Black|Extra/i.test(st); let fam;
-  if (/^Yango Group Headline AR/.test(f)) fam = 'HAr'; else if (/^Yango Group Headline/.test(f)) fam = /ExtraBold|Black|Heavy/.test(st) ? 'HEn' : 'HAr'; else if (/^YS Display|^Yango Headline$/.test(f)) fam = 'YaPS'; else if (/^(Yango Text|Yango Text Display|YS Text|Inter|Graphik)/.test(f)) fam = 'YT'; else return null;
-  if (fam !== 'YT') fam = BRAND === 'YaPS' ? 'YaPS' : (fam === 'YaPS' ? 'HEn' : fam); // headline of the wrong brand → own brand, same size
+  if (/^Yango Group Headline|^YS Display|^Yango Headline$/.test(f)) fam = 'H'; else if (/^(Yango Text|Yango Text Display|YS Text|Inter|Graphik)/.test(f)) fam = 'YT'; else return null;
   return LKEYS.find(x => x.f === fam && x.z === z && (fam !== 'YT' || x.w === (heavy ? 'S' : 'M'))) || null; }
 const res = {}, maps = {}, skipU = {}, fails = []; const inc = (o, k) => { o[k] = (o[k] || 0) + 1; };
 const p = figma.root.children.find(x => x.name.includes(PAGE)); await p.loadAsync();

@@ -8,7 +8,8 @@
 
 - Находит устаревшие компоненты библиотек, ❌-компоненты, отвязанные копии и заменяет их на компоненты актуальных
   дизайн-систем, учитывая бренды Yango Play, Allplay или ЯПС.
-- Привязывает тексты к стилям типографики, а цвета — к переменным.
+- Привязывает тексты к стилям типографики, а цвета — к переменным. Переводит режимы бренда на актуальные: в
+  переключателе режимов не остаётся опций с (!), тексты меняются при смене режима `Product`.
 - Наводит порядок в слоях: убирает пустые обёртки и даёт слоям понятные семантические имена.
 - По желанию приводит экраны к размеру 375 × 812 и оформляет разделы по Органайзеру.
 
@@ -25,12 +26,12 @@
 
   | Шрифт | Начертание | Для каких файлов |
   |---|---|---|
-  | Yango Text | Medium | Yango Play, Allplay |
-  | Yango Text | Bold (в стилях макета — Semibold) | Yango Play, Allplay |
-  | Yango Group Headline | ExtraBold | Yango Play, Allplay |
-  | YS Text | Medium | ЯПС |
-  | YS Text | Bold (в стилях макета — Semibold) | ЯПС |
-  | YS Display | Bold | ЯПС |
+  | Yango Text | Medium | Yango Play |
+  | Yango Text | Bold (в стилях макета — Semibold) | Yango Play |
+  | Yango Group Headline | ExtraBold | Yango Play |
+  | YS Text | Medium | ЯПС, Allplay |
+  | YS Text | Bold (в стилях макета — Semibold) | ЯПС, Allplay |
+  | YS Display | Bold | ЯПС, Allplay |
 
   Начертание Semibold в стилях макета — это файл Bold: «Yango Text Semibold» не существует. Шрифты, установленные на Mac
   или через Adobe Fonts, Figma MCP не видит — их нужно загрузить в аккаунт:

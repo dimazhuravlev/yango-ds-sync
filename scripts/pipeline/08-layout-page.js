@@ -3,11 +3,11 @@
 // paragraph p3 и ряд экранов. Экраны переносятся ОРИГИНАЛАМИ (не клонами), размеры не меняются. Компоненты —
 // 🦄 Органайзер по ключам. Режимы бренда ставятся на фрейм страницы (BRAND). Старые обёртки не удаляются сами:
 // после сборки пустые старые фреймы перечислены в ответе (удалять отдельно, глазами).
-// SPEC: { page: id, name: 'Настройки', crumb: '<Проект>', brand: 'YAPS_DARK' | 'YANGO_DARK' | null,
+// SPEC: { page: id, name: 'Настройки', crumb: '<Проект>', brand: 'YAPS_DARK' (ЯПС и Allplay) | 'YANGO_DARK' | 'YANGO_AR_DARK' | null,
 //         groups: [{ title: 'Форсапдейт', sections: [{ name: null|'Contact Support', captions: ['..'|null], screens: ['id', …] }] }] }
 // Одна группа без заголовка (title: null) — подзаголовок не ставится. captions[i] = подпись над screens[i] (null — пусто).
 const SPEC = { page: '', name: '', crumb: '', brand: null, groups: [] };
-const BRAND = { YAPS_DARK: [['7d07641e1f', 'Dark'], ['17df014a0d', 'YaPS'], ['51357d01b2', 'YS Text']], YANGO_DARK: [['7d07641e1f', 'Dark'], ['17df014a0d', 'Yango Play'], ['51357d01b2', 'Yango']], ALLPLAY_DARK: [['7d07641e1f', 'Dark'], ['17df014a0d', 'Allplay'], ['51357d01b2', 'Yango']] }; // [ключ коллекции (10), имя режима]
+const BRAND = { YAPS_DARK: [['7d07641e1f', 'Dark'], ['17df014a0d', 'YaPS & Allplay']], ALLPLAY_DARK: [['7d07641e1f', 'Dark'], ['17df014a0d', 'YaPS & Allplay']], YANGO_DARK: [['7d07641e1f', 'Dark'], ['17df014a0d', 'Yango Play EN']], YANGO_AR_DARK: [['7d07641e1f', 'Dark'], ['17df014a0d', 'Yango Play AR']] }; // [ключ коллекции (10), имя режима]
 const K = { ds: '48dc15885e3de930d86ef4ed4f7fde505d84f16f', h5: '0677f3d961bd58028982ce615b1c28367b98c28c', p3: '38278503f49f54ffda3c12b3b32b559017fc2790' };
 const esc = s => String(s).replace(/[^\x20-\x7e]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
 const page = await figma.getNodeByIdAsync(SPEC.page); await figma.setCurrentPageAsync(page);

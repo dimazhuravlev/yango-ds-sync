@@ -1,15 +1,15 @@
-// Шрифты чужого бренда → стили Library бренда экрана (правило: в макете ЯПС не может быть Yango и Graphik, в Yango Play —
-// YS Text / Display). BRAND='YaPS': Yango Text / Yango Group Headline / Graphik → YaPS Headline + Text; BRAND='Yango':
-// YS Text / YS Display / Graphik → Headline En + Text. Работает по ВСЕМ текстам, включая вложенные в инстансы (чужие киты — как
-// переопределение стиля, Library — тоже переопределение, если мастер на чужом/бренд-Yango стиле). Почему так:
-// стили Text/Title Library переключают семейство переменными (.Typography = YS Text, Product = YaPS на фрейме страницы),
-// а Headline En/Ar держат Yango Group Headline жёстко → только замена на YaPS/Headline.
-// Цель: заголовочное семейство (Headline/Display) при кегле ≥ 20 или любой кегль ≥ 28 → YaPS/Headline ближайшего
+// Шрифты чужого бренда → стили Library (правило: в макете ЯПС и Allplay не может быть Yango и Graphik, в Yango Play —
+// YS Text / Display). BRAND='YaPS' (ЯПС и Allplay): Yango Text / Yango Group Headline / Graphik → Headline + Text;
+// BRAND='Yango': YS Text / YS Display / Graphik → Headline + Text. Работает по ВСЕМ текстам, включая вложенные в инстансы
+// (чужие киты — как переопределение стиля, Library — тоже переопределение, если мастер на чужом стиле). Почему так:
+// все 16 стилей Library берут семейство из Product (режим на странице: YaPS & Allplay | Yango Play EN | Yango Play AR),
+// а текст, зашитый шрифтом, режим не переключает → только замена на стиль.
+// Цель: заголовочное семейство (Headline/Display) при кегле ≥ 20 или любой кегль ≥ 28 → Headline ближайшего
 // кегля (56/48/40/32/28/24); иначе Text ближайшего кегля (24/18/15/13/11), Bold/Semi/Heavy/Black/Extra → Semibold.
 // Не трогает: оформление страниц (Органайзер/старое Ядро: design-system, link / editable-pic, ORG-ключи), шрифты
 // экспериментальные/логотипные (ML 2, Var), дробные кегли (масштабированные копии), тексты > 250 символов (спеки, книга
 // в читалке), SKIP_ROOT (зоны, где работает другой исполнитель).
-const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"'); const BRAND = 'YaPS'; // 'YaPS' | 'Yango' (Yango Play и Allplay)
+const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"'); const BRAND = 'YaPS'; // 'YaPS' (ЯПС и Allplay) | 'Yango' (Yango Play)
 const SKIP_ROOT = new Set([]); const DRY = false;
 const KEYS = { 'H56': '3c819bca3fb60205e987a9ad3bf22428ca59e6ec', 'H48': 'a760de85f3a04f59bd36740fa5f839a02544debe', 'H40': '5b110814b1df019ddcc6fda5a2fc0bb5f39f646d', 'H32': '31550c134c915f642a1cf5bf2500b0ba7e06bad2', 'H28': '7ebd290e18e3c18a273ed690602bbcb03bc5ea2a', 'H24': '2b1c498082973181cd332b18de394ab66dcef0d8',
   'T24S': 'b3000203712127da50baa30718ca77f5eb868302', 'T24M': '9577f02f058325f4bf0b9e2468ab619b887a4293', 'T18S': 'da62bf16068807437567a53e6b1d8bb4dd5de4e1', 'T18M': 'f364855df83ba280950aa89d0af2f174c045e53f', 'T15S': '976a35888de6837077969051ac5cb0a505f9e561', 'T15M': '387a510812fba6c11f69c0ddb44124de09d69fa7', 'T13S': '5d0b9abd3f247b934ae8c6710385d5418e84575f', 'T13M': '31e64f8e521c013fb5661b40c15ff5e4dff4fb71', 'T11S': '66fcf5cfc1936bc1e9d9958fa6053b97d378f628', 'T11M': 'b9eb84b1eb9779cb19a3342441b7bde46448402f' };
@@ -22,7 +22,7 @@ const nearest = (arr, v) => arr.reduce((b, x) => Math.abs(x - v) < Math.abs(b - 
 const heavy = st => /Bold|Semi|Heavy|Black|Extra/i.test(st);
 const targetKey = (fam, style, size) => { if ((/Headline|Display/.test(fam) && size >= 20) || size >= 28) return 'H' + nearest(H, Math.max(24, size)); return 'T' + nearest(T, size) + (heavy(style) ? 'S' : 'M'); };
 const BAD = BRAND === 'YaPS' ? /^(Yango Text|Yango Group Headline|Yango Headline|Graphik)/ : /^(YS Text|YS Display|Graphik)/;
-if (BRAND !== 'YaPS') Object.assign(KEYS, { H56: '5cab1c529e647bd864acea75293cb0173d8ba5ea', H48: 'a8e19ea286cdd25dcaea4add3e109af27c8307a5', H40: '6bbcf05d3ba26ce9eb4283faf97a209c95ce0d83', H32: '48a2b64e58bc0d8c25e05ea3081d77e2a3a6a829', H28: 'd7aaddb6d051d5341757ca131028ea86762e4bad', H24: 'b6e93ea339b7223957868a302f6a5ff03c9f3c6d' }); const EXP = /ML 2|Var/;
+const EXP = /ML 2|Var/;
 const styles = {}; for (const [k, key] of Object.entries(KEYS)) styles[k] = await figma.importStyleByKeyAsync(key);
 for (const s of Object.values(styles)) { try { await figma.loadFontAsync(s.fontName); } catch (e) {} }
 for (const f of [{ family: 'YS Text', style: 'Medium' }, { family: 'YS Text', style: 'Bold' }, { family: 'YS Display', style: 'Bold' }]) { try { await figma.loadFontAsync(f); } catch (e) {} }
