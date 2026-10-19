@@ -4,7 +4,7 @@
 // Rectangle…) → по роли (stack, image, icon, divider, background, shape…); hStack / vStack / контейнеры → `stack`;
 // тексты с автоименем или кириллицей → title / description / value / text; всё по-английски. Экран с мусорным именем →
 // `screen` (SCREEN_NAMES='all' — все экраны). Не трогает: имена компонентов ДС и всё внутри инстансов, локальных мастеров и
-// отвязанных копий с именем компонента ДС (keys/component-names.txt; по их именам работает замена на Library),
+// отвязанных копий с именем компонента ДС (keys/component-names.txt; по их именам работает замена на ДС Платформа),
 // осмысленные латинские имена, подписи на холсте (тексты прямо в секции/на странице), SKIP. Кириллица без перевода в
 // TR остаётся и попадает в отчёт cyrLeft.
 // Экран: фрейм 300–1400 × ≥ 600 в ряду `*stack*` фрейма страницы, или прямой ребёнок страницы / секции.
@@ -21,7 +21,7 @@ const DICT = { 'frame for fade': 'fade', 'ellipse light': 'glow', 'descrption': 
 const GARBW = /^(frame|group|rectangle|ellipse|vector|line|polygon|star|union|subtract|intersect|exclude|image|img|slice|auto layout|text|section|object|layer|слой|component|instance|untitled|screenshot.*|\d+|)$/;
 const STKW = /^(h|v)?stack$|^(container|wrapper|content container|auto layout horizontal|auto layout vertical)$/;
 const CYR = /[Ѐ-ӿ]/; const SKIP = ['INSTANCE', 'COMPONENT', 'COMPONENT_SET'];
-const DSN = new Set(/*@NAMES*/.map(x => x.toLowerCase())); // отвязанная копия компонента ДС: имя и всё внутри не трогать — по ним работает замена на Library
+const DSN = new Set(/*@NAMES*/.map(x => x.toLowerCase())); // отвязанная копия компонента ДС: имя и всё внутри не трогать — по ним работает замена на ДС Платформа
 const isDS = n => /^\.\s*\//.test(n.name) || /\S \/ \S/.test(n.name) || DSN.has(n.name.replace(/❌/g, '').replace(/\s*\/\s*/g, ' / ').trim().toLowerCase()); // + приватные части `. / …` и имена-пути `a / b`
 const esc = s => String(s).replace(/[^\x20-\x7e]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
 const vis = p => p.visible !== false;

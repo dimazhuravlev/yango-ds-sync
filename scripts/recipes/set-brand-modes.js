@@ -1,18 +1,18 @@
-// Режим бренда на экраны: Product (и при желании Theme). Ставить ДО привязки текстовых стилей (06): все стили Library
+// Режим бренда на экраны: Product (и при желании Theme). Ставить ДО привязки текстовых стилей (06): все стили ДС Платформа
 // берут семейство и начертание из Product — без режима экран покажет режим по умолчанию (YaPS & Allplay, шрифт ЯПС).
-// Режим меняет и шрифты внутри компонентов Library на экране — ожидаемо. Если экраны лежат во фрейме страницы из
+// Режим меняет и шрифты внутри компонентов ДС Платформа на экране — ожидаемо. Если экраны лежат во фрейме страницы из
 // 08-layout-page.js или режим стоит на самой странице (06a), этот рецепт не нужен.
-// Коллекция Product находится через стиль Library (fontFamily → Product «Font Family/Text») — это всегда актуальная
+// Коллекция Product находится через стиль ДС Платформа (fontFamily → Product «Font Family/Text») — это всегда актуальная
 // версия. Режимы удалённых коллекций (Typography / Typography Theme / Typography Headline) и старых версий Product на
 // этих экранах снимаются: сначала снять старое, потом ставить актуальное (у версий один ключ — clear снимает обе).
 // SCREENS — id экранов; SECTIONS — все фреймы ≥ 300 × 300 внутри секций.
 // BRAND: 'YaPS & Allplay' (ЯПС и Allplay) | 'Yango Play EN' | 'Yango Play AR'; THEME: 'Dark' | null (не трогать).
 const SCREENS = []; const SECTIONS = []; const BRAND = 'YaPS & Allplay'; const THEME = null;
-const STYLE_KEY = '387a510812fba6c11f69c0ddb44124de09d69fa7';     // Library Text M・15/Medium
+const STYLE_KEY = '387a510812fba6c11f69c0ddb44124de09d69fa7';     // ДС Платформа Text M・15/Medium
 const THEME_VAR = 'a3049cdb8248b8d0608a4ea23d3d09d2fe7ca4c1';     // Theme Fill/One
 const st = await figma.importStyleByKeyAsync(STYLE_KEY); const bv = st.boundVariables || {};
 const ref = Array.isArray(bv.fontFamily) ? bv.fontFamily[0] : bv.fontFamily;
-if (!ref) throw new Error('стиль ' + st.name + ' без привязки fontFamily — проверить Library');
+if (!ref) throw new Error('стиль ' + st.name + ' без привязки fontFamily — проверить ДС Платформа');
 const prod = await figma.variables.getVariableCollectionByIdAsync((await figma.variables.getVariableByIdAsync(ref.id)).variableCollectionId);
 const want = [[prod, BRAND]];
 if (THEME) { const v = await figma.variables.importVariableByKeyAsync(THEME_VAR); want.push([await figma.variables.getVariableCollectionByIdAsync(v.variableCollectionId), THEME]); }

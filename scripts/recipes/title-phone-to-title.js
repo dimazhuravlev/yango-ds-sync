@@ -1,10 +1,10 @@
-// Рецепт: удалённый `title / phone` (6a55e9f3) → Library `title` (8f6df4d2) movie/mobile.
+// Рецепт: удалённый `title / phone` (6a55e9f3) → ДС Платформа `title` (8f6df4d2) movie/mobile.
 // Заменить '__ID__' на id старого инстанса; запускать по одному, после каждого — скриншот. Проверка в вызове: тексты,
 // картинки, иконки (кроме скрытых под обложкой и в заглушке навбара), иначе откат.
 // Уроки: подписи/иконки внутри подкомпонентов сопоставлять по пути из инстансов (рамки пропускать); глифы иконок
 // переносить свапом с сохранением тинта; видимость рамок внутри подкомпонента (строка Top 10) — отдельным проходом;
-// описание в Library режется до 3 строк — это дизайн компонента, сказать в отчёте.
-// Deleted 'title / phone' (6a55e9f3) → Library 'title' (8f6df4d2) movie/mobile. Roles: trailer & cover images, partner,
+// описание в ДС Платформа режется до 3 строк — это дизайн компонента, сказать в отчёте.
+// Deleted 'title / phone' (6a55e9f3) → ДС Платформа 'title' (8f6df4d2) movie/mobile. Roles: trailer & cover images, partner,
 // sub-components by key (logo, meta, disclaimer, buttons-stack, actions, description, divider) — state copied by
 // instance-path (frames ignored), incl. icon glyph swaps; inner 'Watch trailer' row hidden (screen has its own).
 const OLD = '__ID__';

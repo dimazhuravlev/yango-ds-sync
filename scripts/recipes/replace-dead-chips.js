@@ -1,5 +1,5 @@
 // Мёртвые чипсы чужого кита (`chips` d36e1806: State=default|active, внутри `. / chips / master` с label/counter/иконкой) →
-// Library `chips` 3ee666c7 `Type=default, RTL=off, Cross=off, Icon=false`, `Active` по карте (default → off, active →
+// ДС Платформа `chips` 3ee666c7 `Type=default, RTL=off, Cross=off, Icon=false`, `Active` по карте (default → off, active →
 // on <BRAND>); подпись — текст label; геометрия (позиция, FILL, видимость). Внешние инстансы на экранах и внутри локальных
 // мастеров (инстансы мастера подтянутся сами). Сверка подписи; старый удаляется при успехе.
 const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"');
