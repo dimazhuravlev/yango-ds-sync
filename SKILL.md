@@ -103,6 +103,8 @@ YS Text Bold, YS Display Bold. Semibold в стилях макета — это 
      режимов висят опции с (!), а тексты не меняются при смене `Product`. Найденное внутри инстансов (`libTails`) —
      хвосты ДС: чинятся в файле ДС (`recipes/ds-typography-audit.js` → 06a 'fix' / `rebind-typography-vars.js`), владелец
      публикует, в проекте — принять обновления и повторить 'report' (`text-and-color.md` → «Старая типографика»).
+     Остались опции с (i) / (!) после «Update all» — старые версии коллекций в мастерах ДС: `ds-refresh-variables.js`
+     по цепочке файлов ДС и публикация по порядку (`text-and-color.md` → «Старые версии коллекций»).
    - `recipes/set-brand-modes.js` — экраны другого бренда, если нет фрейма страницы из 08.
    - `06-text-styles.js` (`BRAND`, `ONLY` пачками). Правила — `references/text-and-color.md`.
 7. **Переменные и цвета** — всегда: `07-variables.js` (чужие коллекции), затем `07b-colors-to-variables.js` (сырой цвет
@@ -141,6 +143,7 @@ YS Text Bold, YS Display Bold. Semibold в стилях макета — это 
 | `recipes/icon-size-audit.js`, `fix-tabbar-overrides.js`, `tabbar-tint-audit.js` | проверки после замен |
 | `recipes/usage-before-delete.js`, `relink-ghost-slots.js`, `library-colors-to-variables.js` | работа в самой ДС |
 | `recipes/ds-typography-audit.js`, `rebind-typography-vars.js` | старая типографика в файлах ДС: проверка по сетам, перепривязка к `Product` / `Typography constants` |
+| `recipes/ds-refresh-variables.js` | привязки к старым версиям коллекций Стилей (удалённые и пересозданные переменные) → актуальные; в файлах ДС по цепочке Стили → Графика / Органайзер → ДС Платформа |
 
 Рецепты начинаются с `CONFIG`; `PAGES` обязателен (`"PAGES=/Настройки/"`), иначе скрипт остановится.
 
