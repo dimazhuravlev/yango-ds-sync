@@ -2,7 +2,7 @@
 // Макет не меняет: пишет и сразу стирает один служебный ключ sharedPluginData (проверка прав на запись).
 // Проверяет то, что видно через API:
 //   write    — права на редактирование файла;
-//   library  — доступ к 🫟 Mobile · Library (импорт `button` по ключу). Подключены ли к файлу все четыре ДС, Plugin API
+//   library  — доступ к 🫟 Платформа / Мобайл (импорт `button` по ключу). Подключены ли к файлу все четыре ДС, Plugin API
 //              не видит — это инструмент Figma MCP `get_libraries` (start-checklist.md, П2);
 //   fonts    — шрифты брендов на страницах файла доступны MCP по точному файлу (семейство + начертание): missingFiles
 //              называет файлы как Figma («Yango Text Bold» — в стилях макета это Semibold) (иначе тексты на них не трогаются);
@@ -15,7 +15,7 @@
 // Запуск: PAGE_ID = id мобильной страницы — одна страница на вызов (страницы параллельно); null — только общие проверки.
 const PAGE_ID = null;
 const SKIP = [];            // id секций/экранов вне задачи
-const LIB_KEY = '2781fb17aa9a7986b89626d2e769efad4c8ade7c'; // Library `button`
+const LIB_KEY = '2781fb17aa9a7986b89626d2e769efad4c8ade7c'; // ДС Платформа `button`
 const BRAND_FONTS = ['Yango Text', 'Yango Group Headline', 'YS Text', 'YS Display', 'Graphik'];
 const PLACEHOLDER = /^(title|subtitle|description|label|text|button|caption|header|name|value|название|описание|заголовок|подзаголовок|текст|кнопка|подпись|lorem ipsum.*)$/i;
 figma.skipInvisibleInstanceChildren = false; // true в MCP прячет ВСЕ тексты внутри инстансов, а не только скрытые
@@ -27,7 +27,7 @@ let write = false; try { figma.root.setSharedPluginData(NS, 'preflight', '1'); w
 gates.push({ id: 'write', ok: write, ask: write ? '' : 'edit-access' });
 // library
 let lib = false; try { const s = await figma.importComponentSetByKeyAsync(LIB_KEY); lib = !!s; } catch (e) {}
-gates.push({ id: 'library', ok: lib, ask: lib ? '' : 'libraries-add' }); // доступ к Library; что все четыре ДС подключены к файлу — get_libraries (start-checklist.md, П2)
+gates.push({ id: 'library', ok: lib, ask: lib ? '' : 'libraries-add' }); // доступ к ДС Платформа; что все четыре ДС подключены к файлу — get_libraries (start-checklist.md, П2)
 // snapshot
 const keys = figma.root.getSharedPluginDataKeys(NS); const units = keys.filter(k => /^sb_.*_n$/.test(k) && !/^sb_page_/.test(k)).length;
 const pages = keys.filter(k => /^sb_page_/.test(k)).map(k => { let m = {}; try { m = JSON.parse(figma.root.getSharedPluginData(NS, k)); } catch (e) {} return { page: k.slice(8), date: m.date || '?', units: (m.units || []).length }; });
@@ -36,10 +36,10 @@ gates.push({ id: 'snapshot', ok: true, units, pages, format }); // units = 0 —
 // fonts: какие семейства бренда реально стоят в файле и какие из них MCP не видит
 const availList = (await figma.listAvailableFontsAsync()).map(f => f.fontName); const avail = new Set(availList.map(f => f.family));
 const availFile = new Set(availList.map(f => f.family + ' ' + f.style)); const files = {}; // нужные файлы: семейство + начертание
-// В стилях Library «Semibold» — это файл Bold (Yango Text Bold, YS Text Bold); человеку называть оба имени
+// В стилях ДС Платформа «Semibold» — это файл Bold (Yango Text Bold, YS Text Bold); человеку называть оба имени
 const asStyle = file => /^(Yango Text|YS Text) Bold$/.test(file) ? file + ' (в стилях макета — Semibold)' : file;
-// файлы за стилями Library: без них стили не работают — только их просить загрузить; прочие начертания (Yango Group
-// Headline Bold и т.п.) не из ДС — тексты на них уходят на стили Library (06), привязка стиля файла не требует
+// файлы за стилями ДС Платформа: без них стили не работают — только их просить загрузить; прочие начертания (Yango Group
+// Headline Bold и т.п.) не из ДС — тексты на них уходят на стили ДС Платформа (06), привязка стиля файла не требует
 const LIB_FILE = /^(Yango Text (Medium|Bold)|Yango Group Headline ExtraBold|Yango Group Headline AR .+|YS Text (Medium|Bold)|YS Display Bold)$/;
 const used = {}; let lost = null;
 if (PAGE_ID) { const pg = figma.root.children.find(p => p.id === PAGE_ID); await pg.loadAsync();
@@ -54,7 +54,7 @@ if (PAGE_ID) { const pg = figma.root.children.find(p => p.id === PAGE_ID); await
   const byScreen = {}; for (const h of hits) byScreen[h[2]] = (byScreen[h[2]] || 0) + 1;
   lost = { placeholders: hits.length, texts, screens: Object.entries(byScreen).sort((a, b) => b[1] - a[1]).slice(0, 12), sample: hits.slice(0, 8).map(h => h[0] + ' ' + h[1]) }; }
 const absent = Object.keys(files).filter(f => !availFile.has(f)); // точные файлы, которых нет у MCP
-const missingFiles = absent.filter(f => LIB_FILE.test(f)).map(asStyle);   // нужны стилям Library — просить загрузить
+const missingFiles = absent.filter(f => LIB_FILE.test(f)).map(asStyle);   // нужны стилям ДС Платформа — просить загрузить
 const notLibFiles = absent.filter(f => !LIB_FILE.test(f));                // не из ДС — в отчёт, загружать не нужно
 const missing = Object.keys(used).filter(f => !avail.has(f));
 gates.push({ id: 'fonts', ok: !missingFiles.length, ask: missingFiles.length ? 'upload-fonts' : '', used, missing, missingFiles, notLibFiles, available: BRAND_FONTS.filter(f => avail.has(f)) });

@@ -1,4 +1,4 @@
-# 🫟 Library text styles: full key, family (H = Headline, общий для всех брендов | YT = Title/Text), size, weight (S = Semibold/Bold font, M = Medium) — сверено 2026-10-19
+# 🫟 ДС Платформа text styles: full key, family (H = Headline, общий для всех брендов | YT = Title/Text), size, weight (S = Semibold/Bold font, M = Medium) — сверено 2026-10-19
 3c819bca3fb60205e987a9ad3bf22428ca59e6ec,H,56,S
 a760de85f3a04f59bd36740fa5f839a02544debe,H,48,S
 5b110814b1df019ddcc6fda5a2fc0bb5f39f646d,H,40,S

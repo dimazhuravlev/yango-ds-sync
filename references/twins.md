@@ -1,10 +1,10 @@
 # Двойники: чем заменять неактуальное и каким рецептом
 
-Двойник — актуальный компонент 🫟 Mobile · Library, 🦄 Графики или 🦄 Органайзера того же назначения, что и легаси-,
+Двойник — актуальный компонент 🫟 Платформа / Мобайл, 🦄 Графики или 🦄 Органайзера того же назначения, что и легаси-,
 ❌-, удалённый или чужой компонент в макете. Он не обязан совпадать по слоям: подписи, картинки и геометрия переносятся
 рецептом, при расхождении замена откатывается.
 
-Ключи ниже — первые 8 символов (для переписи достаточно); полный ключ любого компонента Library —
+Ключи ниже — первые 8 символов (для переписи достаточно); полный ключ любого компонента ДС Платформа —
 `keys/library-components.txt`. Скрипты: `scripts/pipeline/` (основной путь) и `scripts/recipes/` (частные случаи).
 
 ## Как выбрать рецепт
@@ -13,19 +13,19 @@
 |---|---|
 | Двойник — копия старого (та же схема слоёв), один ключ → один ключ | `04d-swap-by-key.js` (пачкой по странице, откат поштучно) |
 | То же, но слои переименованы (сняли `❌`, в т.ч. в середине имени) | `04-swap-namepath.js` |
-| Приватный `. /` Library стоит на экране и устарел (перепись: `stalePrivate`) | `04-swap-namepath.js` с `via:<публичный родитель>:<приватный>` |
+| Приватный `. /` ДС Платформа стоит на экране и устарел (перепись: `stalePrivate`) | `04-swap-namepath.js` с `via:<публичный родитель>:<приватный>` |
 | Постер `. / card / poster` с картинкой и бейджами | `05-refresh-card.js` |
 | Структура разная (пресет → мастер, ряд кнопок → ряд чипсов, форк-таббар) | `recipes/swap-with-geometry.js` или частный рецепт ниже |
 | Мастер удалён (мёртвый), двойник есть | создать инстанс двойника на месте по ролям (`recipes/replace-dead-button.js` — образец) |
 | Мастер удалён, двойника нет | не менять, в отчёт |
 | Призрак (локальный мастер удалён) с двойником того же имени | `recipes/swap-ghosts-by-name.js` |
 | Отвязанная копия (фрейм с именем компонента) | `recipes/replace-detached-generic.js` (именной повтор), `recipes/replace-detached-roles.js` (по ролям), `04c-replace-detached-group.js` / `recipes/detached-carousel-to-library.js` (карусели) |
-| Неактуальное внутри инстанса Library | хвост мастера ДС: в проекте не чинить, в отчёт |
+| Неактуальное внутри инстанса ДС Платформа | хвост мастера ДС: в проекте не чинить, в отчёт |
 
 Перед любой заменой: подписи, картинки, видимость и размеры снять **до** свапа — после него старые узлы мертвы.
 Проверка в том же вызове (`throw` откатывает весь вызов), затем скриншоты до/после 1–2 штук, потом остальные.
 
-## Системные элементы (старая Платформа и копии → Library)
+## Системные элементы (старая Платформа и копии → ДС Платформа)
 
 | Было | Стало | Особенности |
 |---|---|---|
@@ -35,7 +35,7 @@
 | navigation-bar / android, Android Statusbar + Quick Settings / Cellular / Wifi / Battery | `604bdb58`, `35accda9`, `21c0e1ef`, `0c96025f`, `b2ff67af`, `7f1d75ca` | |
 | action-sheet / iOS, alerts / iOS (+ master) | `ce882661`, `baa580e6`, `a645cd4d`, `5fca4981`, `6e86ee45` | SF Pro у MCP может не быть |
 | input `832169f9` | `37574dac` | |
-| `❌ navbar` `fcd19e7c` | `navbar` `c90308b6` | 04: простой свап теряет заголовок и поиск; `Type=large` в Library нет |
+| `❌ navbar` `fcd19e7c` | `navbar` `c90308b6` | 04: простой свап теряет заголовок и поиск; `Type=large` в ДС Платформа нет |
 | topnavbar `b49cf330`, `. / navbar / searchbar` `e4b2b1d0` | `topnavbar` `e7da8559`, `. / navbar / searchbar` `a74e185f` (приватный, изнутри `navbar`) | |
 | spinner `bd4deb2e` / `3eec4ec6`, `. / spinner` | `spinner` `bbe582b4` (`orange` → `brand`, прочие → `default`) | |
 | divider `d5c94411`, toggle `c4ba5913`, pager `0f5986c2` | `divider` `755af8e8`, `toggle` `416a58a9`, `pager` `5ad158cc` | pager: `Overflow=true` → `Page Count=8+`, `Step` тот же |
@@ -49,7 +49,7 @@
 | avatars `173c5995` (+ aura / progress / no-ava), avatar `23d69bcc` | `avatars` `84b7cfbd` (+ `89221aa3`, `ef5ba360`, `6cb2cf43`) | `100px → 112`, `Plus → Subscription`, картинку перенести; размеры старых S/M могут не совпасть — спросить |
 | error `23ae2de0` | `error` `6ac1cb2e` | |
 | Communication / Fullscreen `e9b21036`, / Tour Update `317ecefc` | `8195d6fe`, `98c8ae93` | те же оси |
-| My Yango Subscription Widget, Family Widget старых версий | `My Yango Subscription Widget` `5e410880`, `Family Widget` `9fae06ee` | тот же вариант; если тексты варианта в Library другие — вернуть свои по порядку видимых текстов |
+| My Yango Subscription Widget, Family Widget старых версий | `My Yango Subscription Widget` `5e410880`, `Family Widget` `9fae06ee` | тот же вариант; если тексты варианта в ДС Платформа другие — вернуть свои по порядку видимых текстов |
 | `cell / description` `7377c6db` отдельно, подписью под полем (не в ячейке) | `text-label / note` `99653826` (ошибка — `Type=alert`, красный) или `text-label / description` `a4e53cd2` | текст через свойство `Text`, ширина FILL, выравнивание текста вернуть (шрифт грузить после вставки: в ЯПС он YS Text) |
 | toast (+ text / action / helper), dialogue, informer, segmented-controls | `toast` `d582cd43` для фрейма «иконка + текст»; остальным двойника нет | |
 
@@ -140,9 +140,9 @@ YaPS: `Watch`, `Music`, `Books`, `Header`, `Profile`, `Second level`, `Multishow
 
 ## Ячейки → `cell / master` `2fe06e4e`, `cell / action` `b80f60a4`
 
-Легаси: `cell / master` Платформы `4d1e64cf` и форков (`0b6f6c34`), вложенные `cell / title` / `cell / description`,
+Легаси: `cell / master` старой Платформы `4d1e64cf` и форков (`0b6f6c34`), вложенные `cell / title` / `cell / description`,
 `cell / action` `f9650030` / `fe2a44df`, `cell / counter`, таблицы `grouped-simple` `5d529a96` / `-island` `ce505682`.
-В Library заголовок и описание встроены (фрейм `title`, текст `description`), `cell / action` без `value weak`
+В ДС Платформа заголовок и описание встроены (фрейм `title`, текст `description`), `cell / action` без `value weak`
 (`value`/`text`/`value weak` → `value strong`, станет тусклее), счётчик встроен в `Type=counter`. Таблицы →
 `grouped-simple` `236fb2bb` / `grouped-island` `219c9c7d` по слотам `01…10`. Рецепт: `recipes/swap-cell-master.js`
 (роли: булевы, тексты, тип и глиф helper/action, текст значения, шеврон, разделители). Слоты таблиц переименованы
@@ -154,7 +154,7 @@ YaPS: `Watch`, `Music`, `Books`, `Header`, `Profile`, `Second level`, `Multishow
   (картинка, заголовок, булевы, бейджи; второй подписи нет — включить слот description). «Замок» в слоте рейтинга →
   `Show upsale`.
 - `card / poster / originals` `56cdd039`: ось называется `State`, не `Type`.
-- Отвязанная карусель «Library `header` + ряд `card / poster / *`» → `carousel / Movies` `4d1844b6` целиком:
+- Отвязанная карусель «ДС Платформа `header` + ряд `card / poster / *`» → `carousel / Movies` `4d1844b6` целиком:
   `recipes/detached-carousel-to-library.js` (слоты 01…06 свапаются на мастер старой карточки, лишние скрыты). `Type=top
   10` есть только в `Size=medium` — карусель топ-10 на small-карточках не менять.
 - Карусели и карточки Music (легаси MiniApp Mob) → `carousel / Music / small|medium|large` (`d7a3396c` / `ad174d02` /

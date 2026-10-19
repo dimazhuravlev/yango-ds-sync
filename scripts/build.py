@@ -4,10 +4,10 @@
     python3 scripts/build.py scripts/pipeline/03-census.js [CONFIG overrides as NAME=JSON ...]
 
 Tokens replaced in the script:
-    /*@LC*/     -> Set of 🫟 Library set keys (8 chars)
+    /*@LC*/     -> Set of 🫟 ДС Платформа set keys (8 chars)
     /*@GR*/     -> Set of 🦄 Графика set keys (10 chars)
     /*@ORG*/    -> Set of 🦄 Органайзер set keys (8 chars)
-    /*@LKEYS*/  -> array of Library text styles {k, f, z, w}
+    /*@LKEYS*/  -> array of ДС Платформа text styles {k, f, z, w}
     /*@NAMES*/  -> array of DS component names (keys/component-names.txt) for detached-copy search
     /*@GUARD*/  -> scripts/lib/geo-guard.js: parent-geometry guard for scripts that insert or unwrap nodes
     /*@SNAP*/   -> scripts/lib/snap-unit.js: what the in-file snapshot stores per screen (shared by 00c and 01b)

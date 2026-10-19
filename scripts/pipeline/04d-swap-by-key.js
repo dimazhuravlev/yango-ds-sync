@@ -1,15 +1,15 @@
 // 04d — массовая замена одинаковых по структуре компонентов по ключу сета (❌ status-bar, home-indicator, navbar,
 // modal-sheet / header, Fade, text-label / note…). Скан страниц (loadAsync, без переключения) → каждый ВНЕШНИЙ инстанс
-// (не внутри другого инстанса; внутри локального мастера — да) из MAP свапается на вариант Library с тем же именем
+// (не внутри другого инстанса; внутри локального мастера — да) из MAP свапается на вариант ДС Платформа с тем же именем
 // (или VARIANT(имя старого) → имя нового / null = пропустить); оверрайды переносятся по именному пути (как 04);
 // сверка видимых текстов (кроме lax — статус-бары с другим временем), иконок, размера и позиции; при расхождении —
 // обратный свап и повтор оверрайдов: откат поштучно, вызов не падает. Ответ: по страницам и ключам ok / fail / skip.
 const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"');                                   // подстрока(и) имён страниц
 const MAP = {
-  '50094d41': { key: '79c6f5207c4819f4eea0c630063e6ba83475c847', lax: true },                                   // ❌ status-bar / ios (Платформа) → status-bar / ios
+  '50094d41': { key: '79c6f5207c4819f4eea0c630063e6ba83475c847', lax: true },                                   // ❌ status-bar / ios (старая Платформа) → status-bar / ios
   '029cbe14': { key: '79c6f5207c4819f4eea0c630063e6ba83475c847', lax: true, variant: v => { const m = /Device=([\w-]+)/.exec(v); return m ? 'RTL=off, device=' + m[1] : null; } }, // status bar ios (кит Bookmate)
   'fb1859a6': { key: 'e471214d2dffa82acf8217b0a1e935e62b5207b3' },                                              // ❌ home-indicator / ios
-  'fcd19e7c': { key: 'c90308b61da1ab53bb2c55f2717667466d41e3fd', variant: v => /Type=large/.test(v) ? null : v }, // ❌ navbar (Type=large в Library нет)
+  'fcd19e7c': { key: 'c90308b61da1ab53bb2c55f2717667466d41e3fd', variant: v => /Type=large/.test(v) ? null : v }, // ❌ navbar (Type=large в ДС Платформа нет)
   '18319d19': { key: '933411c8151af902bad8c2f323a3b0002b521210' },                                              // ❌ modal-sheet / header
   'f1b6b517': { key: 'f494f9f93b67cd9462ff9cfe4f0939c93aeecbfd' },                                              // Fade (форк) → Fade
   '7dfd1cca': { key: 'f494f9f93b67cd9462ff9cfe4f0939c93aeecbfd' },                                              // ❌ Fade → Fade

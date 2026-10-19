@@ -1,8 +1,8 @@
-// Шрифты чужого бренда → стили Library (правило: в макете ЯПС и Allplay не может быть Yango и Graphik, в Yango Play —
+// Шрифты чужого бренда → стили ДС Платформа (правило: в макете ЯПС и Allplay не может быть Yango и Graphik, в Yango Play —
 // YS Text / Display). BRAND='YaPS' (ЯПС и Allplay): Yango Text / Yango Group Headline / Graphik → Headline + Text;
 // BRAND='Yango': YS Text / YS Display / Graphik → Headline + Text. Работает по ВСЕМ текстам, включая вложенные в инстансы
-// (чужие киты — как переопределение стиля, Library — тоже переопределение, если мастер на чужом стиле). Почему так:
-// все 16 стилей Library берут семейство из Product (режим на странице: YaPS & Allplay | Yango Play EN | Yango Play AR),
+// (чужие киты — как переопределение стиля, ДС Платформа — тоже переопределение, если мастер на чужом стиле). Почему так:
+// все 16 стилей ДС Платформа берут семейство из Product (режим на странице: YaPS & Allplay | Yango Play EN | Yango Play AR),
 // а текст, зашитый шрифтом, режим не переключает → только замена на стиль.
 // Цель: заголовочное семейство (Headline/Display) при кегле ≥ 20 или любой кегль ≥ 28 → Headline ближайшего
 // кегля (56/48/40/32/28/24); иначе Text ближайшего кегля (24/18/15/13/11), Bold/Semi/Heavy/Black/Extra → Semibold.

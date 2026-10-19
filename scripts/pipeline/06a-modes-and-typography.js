@@ -1,19 +1,19 @@
 // 06a — режимы бренда и типографика на актуальных коллекциях. ОБЯЗАТЕЛЬНЫЙ этап в каждом проекте, перед 06.
 // Почему: в файлах живут старые версии коллекции Product («Yango Play | YaPS | Allplay») и удалённые коллекции
 // Typography / Typography Theme / Typography Headline / .Typography / Constants. Пока на старую версию хоть что-то
-// ссылается (старая копия стиля Library, инстанс старой версии мастера, явный режим Allplay), в переключателе режимов
+// ссылается (старая копия стиля ДС Платформа, инстанс старой версии мастера, явный режим Allplay), в переключателе режимов
 // видны её опции с (!), а тексты на старых стилях и старых переменных не меняются при смене режима Product.
 // Id режимов сохранены между версиями: Yango Play 2078:1 = Yango Play EN, YaPS 2078:0 = YaPS & Allplay — такие узлы уже
 // на актуальном режиме (sameIdOldVersion, не чинить). Режим Allplay 2078:2 удалён → YaPS & Allplay. Старая версия уходит
 // из файла, когда на неё не ссылается ничего: свои слои — этот скрипт, инстансы и копии стилей — принятие обновлений.
 // Актуально (🌈 Стили): Product = «YaPS & Allplay» | «Yango Play EN» | «Yango Play AR» + Typography constants;
-// 16 стилей 🫟 Library (keys/library-text-styles.txt), все бренды — одни стили, бренд задаёт режим Product.
+// 16 стилей 🫟 ДС Платформа (keys/library-text-styles.txt), все бренды — одни стили, бренд задаёт режим Product.
 // MODE 'report' — только чтение. Режимы: старые версии Product и удалённые Typography* на странице, своих слоях и внутри
 //   инстансов. Тексты: на актуальном стиле (16 ключей) / на актуальном стиле, но его копия в файле ещё на старых
-//   коллекциях (не приняты обновления Library) / на стиле не из 16 / без стиля с прямой привязкой к старым коллекциям.
+//   коллекциях (не приняты обновления ДС Платформа) / на стиле не из 16 / без стиля с прямой привязкой к старым коллекциям.
 // MODE 'fix' — страницы и свои слои: старый режим Product → актуальный (Yango Play → Yango Play EN, YaPS и Allplay →
 //   YaPS & Allplay; если актуальный режим уже задан — оставить его), режимы удалённых коллекций снять. Внутри
-//   инстансов не трогает: это мастер — для Library в отчёт (libTails), правится в Library и приходит обновлением.
+//   инстансов не трогает: это мастер — для ДС Платформа в отчёт (libTails), правится в ДС Платформа и приходит обновлением.
 //   Свои тексты на старой копии актуального стиля — на свежую (importStyleByKeyAsync). Тексты не из 16 и без стиля
 //   переводит 06 (следующий шаг); старые копии внутри инстансов уходят с принятием обновлений.
 // Страница без режима Product показывает режим по умолчанию (YaPS & Allplay, шрифт ЯПС) — в файле Yango Play это брак.
@@ -24,7 +24,7 @@
 const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"');
 const MODE = 'report';
 const BRAND = null; // режим Product бренда файла: 'Yango Play EN' | 'Yango Play AR' | 'YaPS & Allplay' (ЯПС и Allplay)
-const STYLE_KEY = '387a510812fba6c11f69c0ddb44124de09d69fa7'; // Library Text M・15/Medium — через него находится актуальный Product
+const STYLE_KEY = '387a510812fba6c11f69c0ddb44124de09d69fa7'; // ДС Платформа Text M・15/Medium — через него находится актуальный Product
 const MAPMODE = { 'Yango Play': 'Yango Play EN', 'YaPS': 'YaPS & Allplay', 'Allplay': 'YaPS & Allplay', 'Yango Play EN': 'Yango Play EN', 'Yango Play AR': 'Yango Play AR', 'YaPS & Allplay': 'YaPS & Allplay' };
 const LKEYS = /*@LKEYS*/;
 figma.skipInvisibleInstanceChildren = false;
@@ -32,7 +32,7 @@ const esc = s => String(s).replace(/[^\x20-\x7e]/g, c => '\\u' + c.charCodeAt(0)
 const setOf = m => m && m.parent && m.parent.type === 'COMPONENT_SET' ? m.parent : m;
 const CUR = new Set(LKEYS.map(x => x.k.slice(0, 8)));
 const st = await figma.importStyleByKeyAsync(STYLE_KEY);
-const famRef0 = st.boundVariables && st.boundVariables.fontFamily; const famRef = Array.isArray(famRef0) ? famRef0[0] : famRef0; if (!famRef) throw new Error('стиль Library без привязки fontFamily — проверить Library');
+const famRef0 = st.boundVariables && st.boundVariables.fontFamily; const famRef = Array.isArray(famRef0) ? famRef0[0] : famRef0; if (!famRef) throw new Error('стиль ДС Платформа без привязки fontFamily — проверить ДС Платформа');
 const curProd = await figma.variables.getVariableCollectionByIdAsync((await figma.variables.getVariableByIdAsync(famRef.id)).variableCollectionId);
 const cc = new Map(); const col = async id => { if (cc.has(id)) return cc.get(id); let c = null; try { c = await figma.variables.getVariableCollectionByIdAsync(id); } catch (e) {} cc.set(id, c); return c; };
 const vcache = new Map(); const varCol = async id => { if (vcache.has(id)) return vcache.get(id); let c = null; try { const v = await figma.variables.getVariableByIdAsync(id); c = v ? await col(v.variableCollectionId) : null; } catch (e) {} vcache.set(id, c); return c; };

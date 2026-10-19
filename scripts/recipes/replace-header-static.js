@@ -1,7 +1,7 @@
 // Шапки секций чужих ДС (`header` a0ad828e: title + `. / header / right` + description; `❌ header / static` dda77164
-// Платформы) → Library `header / static-old` (77b566d2). Создание на месте по ролям: вариант RTL × Type (medium → Medium,
+// старой Платформы) → ДС Платформа `header / static-old` (77b566d2). Создание на месте по ролям: вариант RTL × Type (medium → Medium,
 // xSmall → XSmall…), булевы Description / Action / Counter, тексты title / description / action; геометрия старого
-// (ширина, позиция, FILL), высота — Library; сверка видимых текстов; старый удаляется при успехе.
+// (ширина, позиция, FILL), высота — ДС Платформа; сверка видимых текстов; старый удаляется при успехе.
 const PAGES = null; if (!PAGES) throw new Error('PAGES: задать подстроку имени страницы, например "PAGES=/Настройки/"');
 const FROM = new Set(['a0ad828e', 'dda77164']); const KEY = '77b566d20c18c850b2d7a89f544cbbf63f423c45';
 const TYPE = { large: 'Large', xlarge: 'Large', medium: 'Medium', small: 'Small', xsmall: 'XSmall' };

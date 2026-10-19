@@ -1,10 +1,10 @@
 // 03 — перепись неактуальных компонентов на странице. Read-only. Собирать через build.py (подставит ключи).
-// Актуально: 🫟 Library, 🦄 Графика, 🦄 Органайзер (keys/*.txt). Всё остальное — кандидат на замену, в том числе
-// системные компоненты из неактуальных ДС (❌ status-bar / ios Платформы → Library status-bar / ios): помечены [sys].
+// Актуально: 🫟 ДС Платформа, 🦄 Графика, 🦄 Органайзер (keys/*.txt). Всё остальное — кандидат на замену, в том числе
+// системные компоненты из неактуальных ДС (❌ status-bar / ios старой Платформы → ДС Платформа status-bar / ios): помечены [sys].
 // Считается внешний неактуальный инстанс (вложенные в него не считаются). Контекст:
 //   screen  — стоит на экране;  master — внутри локального мастера;  inLocal — внутри инстанса локального компонента;
-//   inLib   — внутри инстанса Library (хвост мастера ДС — чинится в Library, не в проекте).
-// Отдельно: stalePrivate — приватные `. /` компоненты Library, стоящие на экране сами по себе: при «принять
+//   inLib   — внутри инстанса ДС Платформа (хвост мастера ДС — чинится в ДС Платформа, не в проекте).
+// Отдельно: stalePrivate — приватные `. /` компоненты ДС Платформа, стоящие на экране сами по себе: при «принять
 // обновления» не обновляются, их освежают через публичного родителя (04-swap-namepath, ключ `via:`).
 // dead — ключ не импортируется (мастер удалён): заменить можно только с согласия пользователя.
 // detached — фреймы с именем компонента ДС (отвязанные копии: «header / static», «Badge», «carousel / Movies»,
@@ -16,11 +16,11 @@ const LC = /*@LC*/, GR = /*@GR*/, ORG = /*@ORG*/;
 const NAMES = new Set(/*@NAMES*/); const GR_NAME = /^(icon|nameplates|graphics|movies|logo|partner|channel|userpics|yango play icon) ?\//;
 const setOf = m => m.parent && m.parent.type === 'COMPONENT_SET' ? m.parent : m;
 const isSysName = name => /iOS|ios|android|Android|keyboard|status-bar|home-indicator|alerts|action-sheet|pip \/|Dynamic Island|Status Bar/.test(name || '');
-// ❌ в имени = легаси, даже если компонент лежит в Library.
+// ❌ в имени = легаси, даже если компонент лежит в ДС Платформа.
 const actual = S => { const k = S.key || ''; if (/❌/.test(S.name)) return false; return LC.has(k.slice(0, 8)) || GR.has(k.slice(0, 10)) || ORG.has(k.slice(0, 8)); };
 const ALL = {}; for (const PAGE of PAGES) { ALL[PAGE] = await (async () => {
 const p = figma.root.children.find(x => x.name.includes(PAGE)); await p.loadAsync();
-const src = {}, stale = {}, nestedMains = {}; // nestedMains: свежие версии приватных мастеров (внутри инстансов Library)
+const src = {}, stale = {}, nestedMains = {}; // nestedMains: свежие версии приватных мастеров (внутри инстансов ДС Платформа)
 for (const i of p.findAllWithCriteria({ types: ['INSTANCE'] })) {
   const M = i.mainComponent; if (!M || !M.remote) continue; const S = setOf(M);
   let a = i.parent, host = 'screen', skip = false, inInst = false;
@@ -43,7 +43,7 @@ for (const [k, r] of Object.entries(src).sort((a, b) => b[1].n - a[1].n)) {
   let alive = 'dead'; try { await figma.importComponentSetByKeyAsync(r.key); alive = 'alive'; } catch (e) { try { await figma.importComponentByKeyAsync(r.key); alive = 'alive'; } catch (e2) {} }
   rows.push(k + ' x' + r.n + ' ' + alive + ' ' + JSON.stringify(r.w) + ' ' + r.ids.join(','));
 }
-// приватный на экране: stale — его мастер не совпадает со свежим (из инстансов Library на странице); unknown — сравнить не с чем
+// приватный на экране: stale — его мастер не совпадает со свежим (из инстансов ДС Платформа на странице); unknown — сравнить не с чем
 const stalePrivate = Object.entries(stale).map(([k, r]) => { const fresh = nestedMains[k]; const st = fresh ? r.list.filter(([, m]) => !fresh.has(m)) : null;
   return k.slice(0, 8) + ' ' + r.name + ' x' + r.list.length + (st ? ' stale=' + st.length + ' ' + st.slice(0, 4).map(x => x[0]).join(',') : ' unknown ' + r.list.slice(0, 4).map(x => x[0]).join(',')); });
 return { foreign: rows, stalePrivate, detached: Object.entries(det).sort((a, b) => b[1].n - a[1].n).map(([k, r]) => esc(k) + ' x' + r.n + (r.inCopy ? ' (inCopy ' + r.inCopy + ')' : '') + ' ' + r.ids.join(',')) };
