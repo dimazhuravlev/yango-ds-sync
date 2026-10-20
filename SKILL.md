@@ -106,7 +106,11 @@ YS Text Bold, YS Display Bold. Semibold в стилях макета — это 
      Остались опции с (i) / (!) после «Update all» — старые версии коллекций в мастерах ДС: `ds-refresh-variables.js`
      по цепочке файлов ДС и публикация по порядку (`text-and-color.md` → «Старые версии коллекций»).
    - `recipes/set-brand-modes.js` — экраны другого бренда, если нет фрейма страницы из 08.
-   - `06-text-styles.js` (`BRAND`, `ONLY` пачками). Правила — `references/text-and-color.md`.
+   - `06-text-styles.js` (`BRAND`, `ONLY` пачками), два прохода. Правила — `references/text-and-color.md`.
+   - Чистка после 06 (обязательно): `06a` 'report' всем файлом после «Update all»; опции с (i) / (!) остались —
+     `refresh-stale-nested.js` (вложенные варианты старых версий), `foreign-overrides-to-ds.js` (чужие коллекции
+     в переопределениях), в файлах ДС — `ds-refresh-variables.js` и публикация по цепочке. Тексты вне шкалы и без
+     стиля, если владелец просит «всё на переменные», — `texts-to-ds-nearest.js` (сдвиги значений — в отчёт).
 7. **Переменные и цвета** — всегда: `07-variables.js` (чужие коллекции), затем `07b-colors-to-variables.js` (сырой цвет
    с точной переменной → переменная). DRY, потом пачками по 6–8 экранов (`ONLY`). Хвосты мастеров ДС Платформа — в отчёт.
 8. **Гигиена слоёв** — всегда, после замен и стилей: `recipes/unwrap-wrappers.js` (навигационные и пустые обёртки) →
@@ -143,6 +147,9 @@ YS Text Bold, YS Display Bold. Semibold в стилях макета — это 
 | `recipes/icon-size-audit.js`, `fix-tabbar-overrides.js`, `tabbar-tint-audit.js` | проверки после замен |
 | `recipes/usage-before-delete.js`, `relink-ghost-slots.js`, `library-colors-to-variables.js` | работа в самой ДС |
 | `recipes/ds-typography-audit.js`, `rebind-typography-vars.js` | старая типографика в файлах ДС: проверка по сетам, перепривязка к `Product` / `Typography constants` |
+| `recipes/refresh-stale-nested.js` | вложенные варианты на старых версиях компонентов ДС (выбраны вручную, «Update all» их не обновляет) → тот же вариант свежей версии, с откатом |
+| `recipes/foreign-overrides-to-ds.js` | чужие коллекции (песочницы, старые Theme / Typography) в переопределениях цвета внутри инстансов → переменная мастера или ближайшая ДС |
+| `recipes/texts-to-ds-nearest.js` | «все тексты раздела на наши переменные»: точное совпадение → стиль, иначе ближайшие переменные Product / Typography constants; цвета → Theme / Product |
 | `recipes/ds-refresh-variables.js` | привязки к старым версиям коллекций Стилей (удалённые и пересозданные переменные) → актуальные; в файлах ДС по цепочке Стили → Графика / Органайзер → ДС Платформа |
 
 Рецепты начинаются с `CONFIG`; `PAGES` обязателен (`"PAGES=/Настройки/"`), иначе скрипт остановится.

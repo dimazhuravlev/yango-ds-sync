@@ -28,6 +28,10 @@ read-only вызовами: `01b-compare-with-snapshot.js` со слепком �
 3. Скриншоты экранов, где менялось заметное. Слепок не хранит цвета, стили, скрытые слои и варианты — визуальное
    ловится только скриншотом.
 4. `07-variables.js` без REBIND: чужих переменных на своих узлах 0 (или в отчёте).
+4b. Меню режимов `Product` в проекте: только YaPS & Allplay / Yango Play EN / Yango Play AR, без (i) и чужих библиотек
+   (песочниц). Остались — найти, что держит старую версию: свои слои → 06a / 07, вложенные варианты →
+   `refresh-stale-nested.js`, переопределения → `foreign-overrides-to-ds.js`, мастера ДС → `ds-refresh-variables.js`
+   в файле ДС + публикация (неопубликованные: `getPublishStatusAsync() === 'CHANGED'`).
 4a. `06a-modes-and-typography.js` 'report' всем файлом (после принятия обновлений): `pagesNoMode` пусто, старых режимов
    (`modes`) 0, `staleStyles` пусто; `libTails` — только то, что ждёт публикации ДС (в отчёт: что опубликовать).
 5. `recipes/icon-size-audit.js`: расхождения `override` исправлены; `inherited` — хвосты мастеров, не трогать.
