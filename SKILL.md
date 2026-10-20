@@ -107,6 +107,8 @@ YS Text Bold, YS Display Bold. Semibold в стилях макета — это 
      по цепочке файлов ДС и публикация по порядку (`text-and-color.md` → «Старые версии коллекций»).
    - `recipes/set-brand-modes.js` — экраны другого бренда, если нет фрейма страницы из 08.
    - `06-text-styles.js` (`BRAND`, `ONLY` пачками), два прохода. Правила — `references/text-and-color.md`.
+   - `recipes/text-weights.js` (обязательно): Regular / Bold у Yango Text / YS Text в переменных и без стиля → Medium /
+     Semibold (кегль не трогает).
    - Чистка после 06 (обязательно): `06a` 'report' всем файлом после «Update all»; опции с (i) / (!) остались —
      `refresh-stale-nested.js` (вложенные варианты старых версий), `foreign-overrides-to-ds.js` (чужие коллекции
      в переопределениях), в файлах ДС — `ds-refresh-variables.js` и публикация по цепочке. Тексты вне шкалы и без
@@ -150,6 +152,7 @@ YS Text Bold, YS Display Bold. Semibold в стилях макета — это 
 | `recipes/ds-typography-audit.js`, `rebind-typography-vars.js` | старая типографика в файлах ДС: проверка по сетам, перепривязка к `Product` / `Typography constants` |
 | `recipes/refresh-stale-nested.js` | вложенные варианты на старых версиях компонентов ДС (выбраны вручную, «Update all» их не обновляет) → тот же вариант свежей версии, с откатом |
 | `recipes/foreign-overrides-to-ds.js` | чужие коллекции (песочницы, старые Theme / Typography) в переопределениях цвета внутри инстансов → переменная мастера или ближайшая ДС |
+| `recipes/text-weights.js` | Regular и Bold у Yango Text / YS Text → Medium и Semibold: переменные «Font Weight/Regular / Bold» и тексты без стиля (то, что не берёт 06) |
 | `recipes/texts-to-ds-nearest.js` | «все тексты раздела на наши переменные»: только совпадения один к одному (стиль / переменная / цвет); сдвиг значений — предложения, применяются после «да» |
 | `recipes/ds-refresh-variables.js` | привязки к старым версиям коллекций Стилей (удалённые и пересозданные переменные) → актуальные; в файлах ДС по цепочке Стили → Графика / Органайзер → ДС Платформа |
 
