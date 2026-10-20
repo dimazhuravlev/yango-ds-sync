@@ -21,7 +21,9 @@ for (const n of pg.findAll(x => x.id.includes(';') && (Array.isArray(x.fills) ||
   const fields = (ovCache.get(top.id).find(o => o.id === n.id) || {}).overriddenFields || [];
   for (const prop of ['fills', 'strokes']) { if (!Array.isArray(n[prop])) continue; let ch = false; const arr = [];
     for (let i = 0; i < n[prop].length; i++) { const p = n[prop][i]; const b = p.boundVariables && p.boundVariables.color; const info = b ? await colOf(b.id) : null;
-      if (!b || !foreign(info)) { arr.push(p); continue; } R.found++;
+      if (!b || !foreign(info)) { arr.push(p); continue; }
+      if (info && /^\.?Accents$/.test(info.c.name)) { arr.push(p); continue; } // продуктовые акценты — old-accents-to-product.js
+      R.found++;
       if (!fields.includes(prop)) { R.notOverride++; arr.push(p); continue; } // приходит из мастера — чинить в мастере
       const M = await top.getMainComponentAsync(); const path = []; let c = n; while (c.id !== top.id) { const par = c.parent; path.unshift(par.children.findIndex(x => x.id === c.id)); c = par; }
       let tw = M; for (const k of path) tw = tw && 'children' in tw ? tw.children[k] : null;

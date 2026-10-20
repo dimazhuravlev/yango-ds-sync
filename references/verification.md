@@ -32,6 +32,8 @@ read-only вызовами: `01b-compare-with-snapshot.js` со слепком �
    (песочниц). Остались — найти, что держит старую версию: свои слои → 06a / 07, вложенные варианты →
    `refresh-stale-nested.js`, переопределения → `foreign-overrides-to-ds.js`, мастера ДС → `ds-refresh-variables.js`
    в файле ДС + публикация (неопубликованные: `getPublishStatusAsync() === 'CHANGED'`).
+4c. `recipes/old-accents-to-product.js` 'report' всем файлом: `same` + `brandShift` = 0; `fromMaster` — только то, что
+   ждёт публикации ДС Платформа; `differs` — в отчёт ссылками (предложения).
 4a. `06a-modes-and-typography.js` 'report' всем файлом (после принятия обновлений): `pagesNoMode` пусто, старых режимов
    (`modes`) 0, `staleStyles` пусто; `libTails` — только то, что ждёт публикации ДС (в отчёт: что опубликовать).
 5. `recipes/icon-size-audit.js`: расхождения `override` исправлены; `inherited` — хвосты мастеров, не трогать.
