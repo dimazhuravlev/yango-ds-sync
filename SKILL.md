@@ -146,7 +146,7 @@ YS Text Bold, YS Display Bold. Semibold в стилях макета — это 
 | `pipeline/07b-colors-to-variables.js` | сырые цвета → переменные при точном совпадении (шаг по умолчанию) |
 | `pipeline/10-layer-cleanup.js` | пустые обёртки и имена слоёв по роли, с откатом при сдвиге (шаг по умолчанию) |
 | `pipeline/08-layout-page.js`, `09-normalize-screen.js` | каркас страницы, формат экранов |
-| `recipes/replace-dead-button.js`, `swap-tabbar.js`, `swap-cell-master.js`, `replace-header-static.js`, `replace-tabs-with-chips.js`, `replace-dead-chips.js`, `title-phone-to-title.js`, `swap-with-geometry.js` | частные замены (см. `twins.md`) |
+| `recipes/replace-dead-button.js`, `swap-tabbar.js`, `swap-cell-master.js`, `replace-header-static.js`, `replace-tabs-with-chips.js`, `replace-dead-chips.js`, `loose-chips-to-chips-row.js`, `title-phone-to-title.js`, `swap-with-geometry.js` | частные замены (см. `twins.md`) |
 | `recipes/swap-ghosts-by-name.js`, `replace-detached-generic.js`, `replace-detached-roles.js`, `replace-detached-keyboard.js`, `detached-carousel-to-library.js` | призраки и отвязанные копии |
 | `recipes/restore-titles-by-cover.js` | заглушки в карточках → настоящие тексты по обложкам, по смыслу слота, с проверкой вёрстки (с разрешения дизайнера) |
 | `recipes/set-brand-modes.js`, `fonts-to-library-styles.js` | режимы бренда, шрифты бренда на вставленных инстансах |
