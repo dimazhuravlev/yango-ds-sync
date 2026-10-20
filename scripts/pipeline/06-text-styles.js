@@ -77,7 +77,7 @@ for (const t of texts) { try {
     if (isSystemStyle(s)) { inc(res, 'F skip system'); continue; }
     if (EXPERIMENTAL.test(s.fontName.family)) { inc(res, 'F skip experimental'); continue; }
     const isReg = REG.test(s.fontName.style) && TEXTFAM.test(s.fontName.family); // Regular — и внутри чужих китов: переопределением
-    const ours = /^(Yango Play & Allplay\/|Headline|Title |Text |\u{1F4F1} iOS\/)/u.test(s.name); // наши старые стили — и внутри чужих блоков (content в Bottom Sheet и т. п.)
+    const ours = /^(Yango Play & Allplay\/|Headline [A-Z]|(Title|Text) [A-Za-zХ]+\u30fb)/.test(s.name); // наши старые стили ДС (с «・») — и внутри чужих блоков; старую ДС ЯПС («Text M/16 Medium») и iOS-киты не трогать: другая шкала, кегли съедут
     if (!(isReg && c === 'in-other') && !(ours && c === 'in-other') && !/^(top|master)$|:override$|^in-L:follows$/.test(c)) { inc(res, 'F skip ' + c.replace(/:.*/, '')); continue; }
     const e = isReg ? scaleFor(s.fontSize) : nearestFor(s); if (!e) { fails.push('notarget ' + t.id + ' ' + esc(s.name)); continue; }
     if (/\bAr\b/.test(s.name) && !(await hasAr(t))) { const scr = screenOf(t); if (scr && !arSet.includes(scr.id)) { arSet.push(scr.id); if (!DRY) { try { scr.setExplicitVariableModeForCollection(await prodCol(), (await prodCol()).modes.find(m => m.name === 'Yango Play AR').modeId); } catch (err) { fails.push('AR ' + scr.id); } } } } // Headline … Ar: межстрочный AR — режим экрана

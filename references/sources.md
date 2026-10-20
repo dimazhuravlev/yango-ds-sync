@@ -12,6 +12,11 @@
 | 🦄 Органайзер | `LwCkvPL0UrSDoCQRcgy8Kf` | оформление страниц (`design-system`, `header`, `paragraph`) | `keys/organizer-sets.txt` (8 симв.) |
 | 🌈 Стили | `lsTLftjJkiuftLZkNqlO7k` | переменные `Theme`, `Product`, `Typography constants` | коллекции ниже |
 
+Ссылки (сверено 2026-10-20): ДС Платформа — https://www.figma.com/design/b8maDlvYFFs2vagJxwxc4A/?node-id=253-31381 ·
+🌈 Стили — https://www.figma.com/design/lsTLftjJkiuftLZkNqlO7k/?node-id=29-5565 · 🦄 Графика —
+https://www.figma.com/design/xuoAmPzk6ks12Gj3jN2N1a/?node-id=37-10027 · 🦄 Органайзер —
+https://www.figma.com/design/LwCkvPL0UrSDoCQRcgy8Kf/?node-id=0-1
+
 Все четыре должны быть подключены к файлу проекта (Assets → Libraries). Проверка — инструмент Figma MCP
 `get_libraries(fileKey)` → `libraries_added_to_file`, сверять по ключу библиотеки (имена бывают с двойным пробелом):
 
