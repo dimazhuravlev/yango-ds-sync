@@ -1,12 +1,15 @@
-// Все тексты в разделе — на наши стили и переменные (просьба владельца: «везде наши переменные, ближайшие к текущим»).
-// Типографика: кегль и начертание точно совпадают со стилем ДС Платформа → стиль; иначе (кегль вне шкалы, старые
-// стили iOS / Android-ячеек, чужие ДС) — переменные: семейство и начертание из Product, кегль и межстрочный — ближайшие
-// из Typography constants. Цвет текста: точное совпадение с Theme / Product, иначе ближайшая переменная (в режиме
-// Theme экрана). Не трогает: системные (SF Pro, статус-бар), оформление Органайзера, мастера ДС Платформа (Top Navigation
+// Все тексты в разделе — на наши стили и переменные.
+// ПРАВИЛО ВЛАДЕЛЬЦА (2026-10-20): меняем только то, что совпадает один к одному; остальное — только предложением.
+// По умолчанию (APPLY_NEAREST = false): стиль — если кегль, начертание и межстрочный совпадают со стилем ДС точно;
+// переменные — только если значение есть в Typography constants / Product точно (кегль 16 → «Font Size/16», семейство и
+// начертание бренда); цвет — только точное совпадение hex + альфа в режиме Theme экрана. Всё, где нужно сдвинуть
+// значение (13.5 → 13, 8 → 10, Heavy → Bold, 90% → 80%), — в proposals, НЕ применяется. Показать человеку картинкой
+// и списком; APPLY_NEAREST = true — только после его «да» (и только на согласованный раздел). Не трогает: системные (SF Pro, статус-бар), оформление Органайзера, мастера ДС Платформа (Top Navigation
 // и т. п. — правятся в ДС). ROOTS — id разделов (секция / стек / экран), MODE 'report' → 'fix'. Сдвиги значений —
 // в отчёт (sizeMap, nearColors) и на скриншот до/после. Проверено 2026-10-20 на ЯПС «Моя волна».
 const ROOTS = []; if (!ROOTS.length) throw new Error('ROOTS: id разделов');
 const MODE = 'report';
+const APPLY_NEAREST = false; // только после согласия владельца на proposals
 const MAP_16_TO_18 = false; // владелец ЯПС 2026-10-20: «меняй все 16 на 18 med» — 16 → стиль Text L・18/Medium
 figma.skipInvisibleInstanceChildren = false;
 const esc = s => String(s).replace(/[^\x20-\x7e]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
@@ -25,7 +28,8 @@ const near = (arr, v) => arr.reduce((b, x) => Math.abs(x - v) < Math.abs(b - v) 
 const curCols = new Set(); for (const c of COL.slice(0, 2)) curCols.add((await V(c[1])).variableCollectionId);
 const themeCol = await figma.variables.getVariableCollectionByIdAsync((await V(COL[1][1])).variableCollectionId); const LIGHT = themeCol.modes.find(m => m.name === 'Light').modeId;
 const modeOf = n => { let a = n; while (a && a.type !== 'PAGE') { let e = null; try { e = a.explicitVariableModes; } catch (er) {} if (e) for (const [cid, mid] of Object.entries(e)) if (cid.startsWith('VariableCollectionId:7d07641e1f')) return mid === LIGHT ? 3 : 2; a = a.parent; } return 2; };
-const R = { toStyle: {}, toVars: 0, sizeMap: {}, colorsExact: 0, nearColors: {}, heightChanged: 0, skipped: {}, failed: [] }; const sk = k => R.skipped[k] = (R.skipped[k] || 0) + 1;
+const R = { toStyle: {}, toVars: 0, sizeMap: {}, colorsExact: 0, nearColors: {}, proposals: [], heightChanged: 0, skipped: {}, failed: [] };
+const propose = (t, what) => { if (R.proposals.length < 40) R.proposals.push(t.id + ' ' + what); }; const sk = k => R.skipped[k] = (R.skipped[k] || 0) + 1;
 let fontsLoaded = false;
 for (const id of ROOTS) { const root = await figma.getNodeByIdAsync(id); if (!root) { sk('no root ' + id); continue; } let pg = root; while (pg.type !== 'PAGE') pg = pg.parent;
   if (MODE === 'fix') await figma.setCurrentPageAsync(pg); else await pg.loadAsync();
@@ -41,21 +45,25 @@ for (const id of ROOTS) { const root = await figma.getNodeByIdAsync(id); if (!ro
       const sid = typeof t.textStyleId === 'string' ? t.textStyleId : null; let st0 = null; if (sid) st0 = await figma.getStyleByIdAsync(sid);
       if (!(st0 && CUR.has(st0.key.slice(0, 8)))) {
         const head = /Display|Headline/.test(fam), heavy = /Bold|Semi|Heavy|Black|Extra/i.test(sty); let z = t.fontSize; const zi = Math.abs(z - Math.round(z)) < 0.01 ? Math.round(z) : null;
-        let key = null; if (zi) { if (head && /^(Bold|ExtraBold)$/.test(sty) && [56, 48, 40, 32, 28, 24].includes(zi)) key = 'H' + zi; else if (!head && /^(Medium|Bold|Semibold)$/.test(sty) && [24, 18, 15, 13, 11].includes(zi)) key = 'T' + zi + (heavy ? 'S' : 'M'); else if (!head && MAP_16_TO_18 && zi === 16 && /Medium/.test(sty)) key = 'T18M'; }
+        let key = null; const lhPx = t.lineHeight && t.lineHeight.unit === 'PIXELS' ? t.lineHeight.value : null;
+        if (zi) { if (head && /^(Bold|ExtraBold)$/.test(sty) && [56, 48, 40, 32, 28, 24].includes(zi)) key = 'H' + zi; else if (!head && /^(Medium|Bold|Semibold)$/.test(sty) && [24, 18, 15, 13, 11].includes(zi)) key = 'T' + zi + (heavy ? 'S' : 'M'); else if (!head && MAP_16_TO_18 && zi === 16 && /Medium/.test(sty)) key = 'T18M'; }
+        if (key) { const st = await S(key); const stLh = st.lineHeight && st.lineHeight.unit === 'PIXELS' ? st.lineHeight.value : null; if (!APPLY_NEAREST && (key === 'T18M' && zi === 16 || (lhPx !== null && stLh !== null && Math.abs(lhPx - stLh) > 0.01))) { propose(t, 'style ' + key + (lhPx !== stLh ? ' (межстрочный ' + lhPx + '→' + stLh + ')' : ' (16→18)')); key = null; } }
         if (key) { if (MODE === 'fix') await t.setTextStyleIdAsync((await S(key)).id); R.toStyle[key] = (R.toStyle[key] || 0) + 1; }
-        else { const zn = near(sizes, z); if (Math.abs(zn - z) > 0.01) { const k = Math.round(z * 10) / 10 + '->' + zn; R.sizeMap[k] = (R.sizeMap[k] || 0) + 1; }
-          if (MODE === 'fix') { const lh0 = t.lineHeight; if (sid) await t.setTextStyleIdAsync('');
+        else { const zn = near(sizes, z); const lhn = lhPx !== null ? near(lhs, lhPx) : null; const heavyHead = head && !/^(Bold|ExtraBold)$/.test(sty);
+          const exact = Math.abs(zn - z) < 0.01 && (lhPx === null || Math.abs(lhn - lhPx) < 0.01) && !heavyHead;
+          if (!exact) { const k = Math.round(z * 10) / 10 + '->' + zn; R.sizeMap[k] = (R.sizeMap[k] || 0) + 1; propose(t, 'vars ' + fam + ' ' + sty + ' ' + Math.round(z * 10) / 10 + (lhPx !== null ? '/' + lhPx : '') + ' → ' + zn + (lhn !== null ? '/' + lhn : '') + (heavyHead ? ' Heavy→Bold' : '')); }
+          if (MODE === 'fix' && (exact || APPLY_NEAREST)) { const lh0 = t.lineHeight; if (sid) await t.setTextStyleIdAsync('');
             const w = head ? 'Font Weight/Bold' : (/^(Regular|Light|Book)$/i.test(sty) ? 'Font Weight/Regular' : /Medium/i.test(sty) ? 'Font Weight/Medium' : 'Font Weight/Semibold');
             t.setBoundVariable('fontFamily', await V(K[head ? 'Font Family/Headline' : 'Font Family/Text'])); t.setBoundVariable('fontStyle', await V(K[w])); t.setBoundVariable('fontSize', await V(K['Font/Font Size/' + zn]));
             if (lh0 && lh0.unit === 'PIXELS') t.setBoundVariable('lineHeight', await V(K['Font/Line Height/' + near(lhs, lh0.value)])); }
-          R.toVars++; } }
+          if (exact || APPLY_NEAREST) R.toVars++; } }
       // цвет
       if (Array.isArray(t.fills)) { const m = modeOf(t); let ch = false; const nf = [];
         for (const p of t.fills) { const b = p.boundVariables && p.boundVariables.color; if (p.type !== 'SOLID') { nf.push(p); continue; }
           if (b) { const v = await figma.variables.getVariableByIdAsync(b.id); if (v && (curCols.has(v.variableCollectionId))) { nf.push(p); continue; } }
           const rgba = [p.color.r, p.color.g, p.color.b, p.opacity === undefined ? 1 : p.opacity]; let best = null, bd = 9;
           for (const c of COL) { const d = Math.hypot(...c[m].map((v, i) => (v - rgba[i]) * (i === 3 ? 1.5 : 1))); if (d < bd) { bd = d; best = c; } }
-          if (bd < 0.01) R.colorsExact++; else { const k = rgba.map(x => Math.round(x * 255)).join(',') + ' -> ' + best[0]; R.nearColors[k] = (R.nearColors[k] || 0) + 1; }
+          if (bd < 0.01) R.colorsExact++; else { const k = rgba.map(x => Math.round(x * 255)).join(',') + ' -> ' + best[0]; R.nearColors[k] = (R.nearColors[k] || 0) + 1; if (!APPLY_NEAREST) { nf.push(p); continue; } }
           nf.push(MODE === 'fix' ? figma.variables.setBoundVariableForPaint({ ...p, opacity: 1 }, 'color', await V(best[1])) : p); ch = true; }
         if (ch && MODE === 'fix') t.fills = nf; }
       if (MODE === 'fix' && Math.abs(t.height - h0) > 0.5) R.heightChanged++;
