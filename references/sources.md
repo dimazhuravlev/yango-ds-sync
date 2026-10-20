@@ -51,7 +51,7 @@ Core (кроме логотипов); форки ДС Платформа; кит
 Актуальные коллекции — только в 🌈 Стилях (первые 10 символов ключа): `.Color constants` `498cff0363`, `Theme`
 `7d07641e1f` (Dark | Light), `Typography constants` `e8bd5f0ef3`, `Product` `17df014a0d` (YaPS & Allplay | Yango Play EN |
 Yango Play AR). У ДС Платформа своих коллекций нет. Удалены и считаются неактуальными: `Typography`, `.Typography`
-`51357d01b2`, `Typography Theme`, `Typography Headline` `b935c76824`, `Constants` `87084f…`, `.Accents` и `Typography
+`51357d01b2`, `Typography Theme`, `Typography Headline` `b935c76824`, `Constants` `87084f…`, `.Accents` (и её старая копия `Accents` в проектах) и `Typography
 constants` `6924cc6910` из ДС Платформа, старые версии `Product` (режимы Yango Play / YaPS / Allplay; тот же ключ, другой id —
 актуальная версия та, к которой привязан стиль ДС Платформа `387a5108`). Коллекции с точкой не публикуются: их переменные
 по ключу не импортируются — двойник берётся из `Theme` с тем же значением в рабочем режиме.
