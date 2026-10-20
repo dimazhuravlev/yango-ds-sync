@@ -53,7 +53,7 @@ for (const id of ROOTS) { const root = await figma.getNodeByIdAsync(id); if (!ro
           const exact = Math.abs(zn - z) < 0.01 && (lhPx === null || Math.abs(lhn - lhPx) < 0.01) && !heavyHead;
           if (!exact) { const k = Math.round(z * 10) / 10 + '->' + zn; R.sizeMap[k] = (R.sizeMap[k] || 0) + 1; propose(t, 'vars ' + fam + ' ' + sty + ' ' + Math.round(z * 10) / 10 + (lhPx !== null ? '/' + lhPx : '') + ' → ' + zn + (lhn !== null ? '/' + lhn : '') + (heavyHead ? ' Heavy→Bold' : '')); }
           if (MODE === 'fix' && (exact || APPLY_NEAREST)) { const lh0 = t.lineHeight; if (sid) await t.setTextStyleIdAsync('');
-            const w = head ? 'Font Weight/Bold' : (/^(Regular|Light|Book)$/i.test(sty) ? 'Font Weight/Regular' : /Medium/i.test(sty) ? 'Font Weight/Medium' : 'Font Weight/Semibold');
+            const w = head ? 'Font Weight/Bold' : (/^(Regular|Light|Book|Medium)$/i.test(sty) ? 'Font Weight/Medium' : 'Font Weight/Semibold'); // Regular и Bold в ДС не используются
             t.setBoundVariable('fontFamily', await V(K[head ? 'Font Family/Headline' : 'Font Family/Text'])); t.setBoundVariable('fontStyle', await V(K[w])); t.setBoundVariable('fontSize', await V(K['Font/Font Size/' + zn]));
             if (lh0 && lh0.unit === 'PIXELS') t.setBoundVariable('lineHeight', await V(K['Font/Line Height/' + near(lhs, lh0.value)])); }
           if (exact || APPLY_NEAREST) R.toVars++; } }
