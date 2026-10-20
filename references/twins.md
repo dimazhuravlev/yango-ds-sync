@@ -126,6 +126,10 @@ YaPS: `Watch`, `Music`, `Books`, `Header`, `Profile`, `Second level`, `Multishow
   `7d2c36a6`, `Navigation Tabs` `e58a0307`, ряд табов `header-menu`): подписи видимых кнопок → `chip N` по порядку,
   лишние скрыть, первый `Active=on <бренд>` (`recipes/replace-tabs-with-chips.js`). Больше 5 — оставить рядом
   отдельных `chips-rounded`.
+- Отвязанный ряд отдельных `chips` (фрейм `filters` из 2–5 инстансов `chips`, без других слоёв) → `chips-row`
+  (владелец, 2026-10-20): тексты, активный (`on …` → `on <бренд>`), видимость, прототип; RTL — если чипсы RTL=on или
+  подписи арабские (у RTL-варианта свои подписи по умолчанию: вариант выбирать до заполнения, не `setProperties` после)
+  — `recipes/loose-chips-to-chips-row.js`. Ряды с маской / кнопкой поиска и ряды внутри компонентов ДС — вопросом.
 - `chips-rounded` / `chips` `3ee666c7`: `Type=default|navigation`, `Active=off|on Yango Play|on YaPS`. Мёртвые
   чипсы чужих китов (`d36e1806`) — `recipes/replace-dead-chips.js`.
 
