@@ -58,6 +58,15 @@ Codex:
 git clone https://github.com/dimazhuravlev/yango-ds-sync.git ~/.agents/skills/yango-ds-sync
 ```
 
+Второй скилл из этого же репозитория — `yango-figma-work` (проектные задачи: собрать экран, флоу, состояние, компонент на
+ДС Платформа). Подключить один раз ссылкой:
+
+```bash
+ln -s ~/.claude/skills/yango-ds-sync/yango-figma-work ~/.claude/skills/yango-figma-work
+```
+
+Codex: `ln -s ~/.agents/skills/yango-ds-sync/yango-figma-work ~/.agents/skills/yango-figma-work`.
+
 Обновить до свежей версии (для Codex путь `~/.agents/skills/yango-ds-sync`):
 
 ```bash
