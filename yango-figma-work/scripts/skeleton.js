@@ -42,7 +42,7 @@ const bars = t => { const w = t.width, h = t.height, fs = t.fontSize === figma.m
   const lines = Math.max(1, Math.round(h / lhv)); const bh = lhv >= 24 ? 16 : lhv >= 18 ? 12 : 10; const right = t.textAlignHorizontal === 'RIGHT';
   const est = t.textAutoResize === 'WIDTH_AND_HEIGHT' ? w : Math.min(w, Math.max(24, t.characters.length * fs * 0.55));
   const f = figma.createFrame(); f.name = 'skeleton text'; f.fills = []; f.clipsContent = false; const name = t.name;
-  replaceWith(t, f); f.name = 'skeleton ' + name;
+  const align = t.textAlignHorizontal; replaceWith(t, f); f.name = 'skeleton ' + name; f.setPluginData('align', align);
   for (let i = 0; i < lines; i++) { const bw = Math.round(lines === 1 ? est : i === lines - 1 ? w * 0.6 : w); const r = figma.createRectangle(); r.name = 'line'; f.appendChild(r);
     r.resize(Math.max(bw, 8), bh); r.x = right ? f.width - r.width : 0; r.y = Math.round(i * lhv + (lhv - bh) / 2); r.fills = [paint()]; r.cornerRadius = BAR_R; }
   R.texts++; };
@@ -66,7 +66,10 @@ const s0 = snap(clone);
 for (const c of [...clone.children]) { try { await walk(c); } catch (e) { R.errors.push(String(e.message || e).slice(0, 90)); } }
 // единообразие: заголовки секций — HEAD_W; в каждой карточке первый текст — TITLE_K слота, остальные — DESC_K, одна полоса
 const tx = clone.findAll(n => n.type === 'FRAME' && /^skeleton /.test(n.name) && n.children.length && n.children.every(c => c.name === 'line'));
-const one = (f, w) => { for (const l of f.children.slice(1)) l.remove(); f.children[0].resize(Math.max(8, Math.round(w)), f.children[0].height); };
+// выравнивание полосы — как у текста: по центру (подписи под круглыми карточками) — точно по центру слота, справа — к краю
+const one = (f, w) => { for (const l of f.children.slice(1)) l.remove(); const l = f.children[0]; const al = f.getPluginData('align');
+  let bw = Math.max(8, Math.round(w)); if (al === 'CENTER' && (Math.round(f.width) - bw) % 2) bw -= 1; l.resize(bw, l.height);
+  l.x = al === 'CENTER' ? (f.width - bw) / 2 : al === 'RIGHT' ? f.width - bw : 0; };
 const headerOf = n => { for (let a = n.parent; a && a.id !== clone.id; a = a.parent) if (a.name === 'header') return a; return null; };
 const cardOf = n => { for (let a = n; a && a.parent && a.id !== clone.id; a = a.parent) if (/^(carousel|track stack|stack|list|grid)$/.test(a.parent.name) && a.parent.layoutMode !== 'NONE' && a.parent.children.length > 1) return a; return null; };
 const slotOf = (f, c) => { for (let a = f.parent; a && a.id !== c.id; a = a.parent) if (a.layoutSizingHorizontal === 'FILL') return a.width; return c.width; };
