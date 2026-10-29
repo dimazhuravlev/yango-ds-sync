@@ -12,6 +12,8 @@ const KEEP = /^(status-bar|Top Navigation|navbar|Tabbar|mini-player|Fade|chips-r
 const DECOR = /^(icon \/|icon$|divider|shader|badge|nameplate|logo|progress|age-rate|explicit)/i;
 const PLATE_SET = /^(button|\. \/ card \/ image|image$|cover)/i;
 const BAR_R = 0; // скругление полосок текста (в образце Music — 0)
+const HEAD_W = 126, HEAD_DESC_W = 180; // заголовки каруселей — одной длины (владелец, 2026-10-29)
+const TITLE_K = 0.8, DESC_K = 0.5;    // тексты карточек: одна полоса, ширина от слота текста — одинаково у карточек одного типа
 if (!SCREEN) throw new Error('SCREEN: id экрана');
 figma.skipInvisibleInstanceChildren = false;
 const FILL = await figma.variables.importVariableByKeyAsync('ee4a4e445e813ce7fead17c351a0dcde68da0849'); // Theme · Fill/Nine
@@ -62,6 +64,16 @@ clone.name = NAME;
 const snap = c => { const m = {}; const rec = (n, path, d) => { m[path] = Math.round(n.height) + 'x' + Math.round(n.width); if (d < 4 && 'children' in n && n.type !== 'INSTANCE') n.children.filter(k => k.visible).forEach((k, i) => rec(k, path + '/' + i, d + 1)); }; rec(c, '', 0); return m; };
 const s0 = snap(clone);
 for (const c of [...clone.children]) { try { await walk(c); } catch (e) { R.errors.push(String(e.message || e).slice(0, 90)); } }
+// единообразие: заголовки секций — HEAD_W; в каждой карточке первый текст — TITLE_K слота, остальные — DESC_K, одна полоса
+const tx = clone.findAll(n => n.type === 'FRAME' && /^skeleton /.test(n.name) && n.children.length && n.children.every(c => c.name === 'line'));
+const one = (f, w) => { for (const l of f.children.slice(1)) l.remove(); f.children[0].resize(Math.max(8, Math.round(w)), f.children[0].height); };
+const headerOf = n => { for (let a = n.parent; a && a.id !== clone.id; a = a.parent) if (a.name === 'header') return a; return null; };
+const cardOf = n => { for (let a = n; a && a.parent && a.id !== clone.id; a = a.parent) if (/^(carousel|track stack|stack|list|grid)$/.test(a.parent.name) && a.parent.layoutMode !== 'NONE' && a.parent.children.length > 1) return a; return null; };
+const slotOf = (f, c) => { for (let a = f.parent; a && a.id !== c.id; a = a.parent) if (a.layoutSizingHorizontal === 'FILL') return a.width; return c.width; };
+const byCard = new Map();
+for (const f of tx) { const h = headerOf(f); if (h) { const i = h.findAll(x => tx.includes(x)).indexOf(f); one(f, i === 0 ? HEAD_W : HEAD_DESC_W); continue; }
+  const c = cardOf(f); if (!c) continue; if (!byCard.has(c.id)) byCard.set(c.id, { c, t: [] }); byCard.get(c.id).t.push(f); }
+for (const { c, t } of byCard.values()) t.forEach((f, i) => one(f, slotOf(f, c) * (i === 0 ? TITLE_K : DESC_K)));
 const s1 = snap(clone); R.shifted = Object.keys(s0).filter(k => k.split('/').length <= 3 && s1[k] && s1[k] !== s0[k]).map(k => k + ' ' + s0[k] + '->' + s1[k]).slice(0, 12);
 R.screen = clone.id; R.size = s0[''] + ' -> ' + s1[''];
 R.badFill = clone.findAll(x => /^(skeleton|line)$/.test(x.name) && Array.isArray(x.fills) && x.fills[0] && x.fills[0].opacity >= 0.99).map(x => x.id).slice(0, 10); // должно быть пусто
