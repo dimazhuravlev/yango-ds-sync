@@ -175,6 +175,9 @@ YaPS: `Watch`, `Music`, `Books`, `Header`, `Profile`, `Second level`, `Multishow
   192)» → `carousel / Books` `37d89331` Size=large; «`header` + `slider` `2c85f218`» (обложки 144) и `slider` со своим
   `heading` → Size=medium — `recipes/books-carousels-to-platform.js`. Карточки в мастере карусели фиксированной ширины:
   на инстансе HUG, иначе обложка новой пропорции обрезается. Значок вместо процента («прочитано») не переносится.
+  У слотов 02, 05, 06 в мастере картинка обложки выключена (fill `visible: false`): новую обложку ставить с
+  `visible: true`, иначе карточка чёрная. Старая карусель постеров «`header` + фрейм с `container` `d2146131`» (кадры,
+  не книги) → тот же `carousel / Books`, обложки подобрать из книг файла (хэши картинок общие на весь файл).
 - `snippet textbook` `dfa53f09` → `list-item / media` `9ad7e8ec` Content=book — `recipes/books-snippets-to-platform.js`:
   плашка «Книга» → описание «Книга · автор» (вторая подпись и точка — видимостью слоёв), 18+ → `18+ Icon` у заголовка,
   своя линия под строкой → `Divider Bottom`. Номера в серии в ДС нет. `title` (шапка экрана книги) и большие
