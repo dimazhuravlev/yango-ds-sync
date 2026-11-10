@@ -171,6 +171,14 @@ YaPS: `Watch`, `Music`, `Books`, `Header`, `Profile`, `Second level`, `Multishow
 - `title / phone` `6a55e9f3` (удалён) → `title` `8f6df4d2` `type=movie, platform=mobile` — `recipes/title-phone-to-title.js`;
   описание режется до 3 строк — дизайн компонента.
 - `image` чужой `044d8118` → Графика `image` `72de5ae1` по имени варианта (`type` = 1:1 … 9:16).
+- ДС Книг (чужая библиотека) → ДС Платформа. Пара «`header` ДС + `section` `4097e564` (обложки `cover textbook`
+  192)» → `carousel / Books` `37d89331` Size=large; «`header` + `slider` `2c85f218`» (обложки 144) и `slider` со своим
+  `heading` → Size=medium — `recipes/books-carousels-to-platform.js`. Карточки в мастере карусели фиксированной ширины:
+  на инстансе HUG, иначе обложка новой пропорции обрезается. Значок вместо процента («прочитано») не переносится.
+- `snippet textbook` `dfa53f09` → `list-item / media` `9ad7e8ec` Content=book — `recipes/books-snippets-to-platform.js`:
+  плашка «Книга» → описание «Книга · автор» (вторая подпись и точка — видимостью слоёв), 18+ → `18+ Icon` у заголовка,
+  своя линия под строкой → `Divider Bottom`. Номера в серии в ДС нет. `title` (шапка экрана книги) и большие
+  `cover textbook` витрины — двойника нет.
 - `. / card / collections` не удалять: картинки карточек держатся оверрайдом по полному пути узлов.
 
 ## Иконки → 🦄 Графика
